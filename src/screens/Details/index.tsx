@@ -1,70 +1,41 @@
 import { useFocusEffect, useRoute } from "@react-navigation/native";
-import React, { useCallback, useRef, useState } from "react";
-import {
-  Animated,
-  Image,
-  ScrollView,
-  useWindowDimensions,
-  View,
-  StyleSheet,
-  Text,
-} from "react-native";
+import React, { useCallback, useState } from "react";
+import { Animated, ScrollView, useWindowDimensions, View } from "react-native";
 import { TabView, SceneMap, TabBar } from "react-native-tab-view";
-
-import { useNavigation } from "@react-navigation/native";
-import { Header } from "../../components/Header";
-import Icon from "react-native-vector-icons/AntDesign";
 import api from "../../../services/api";
-import { hoursToMinutes, minutesToHours } from "date-fns";
 import {
-  BoxCard,
-  BoxProvider,
-  BoxRow,
-  Container,
-  ImageProvider,
-  Label,
-  NotFound,
-  ProductionCompany,
-  Section,
-  TextSmall,
-  SubTitle,
-  SubTitleProvider,
-  Title,
+  Container,Box
 } from "./styles";
-import { Tag } from "../../components/Tag";
-import { IImage, IMovieDetails, IProductionCompany, IProvider, RouteParams } from "./types";
-import LottieView from "lottie-react-native";
+import {
+  IImage,
+  IMovieDetails,
+  IProductionCompany,
+  RouteParams,
+} from "./types";
 import { MoreInformation } from "./MoreInformation";
+import { ConexionApi } from "../../../services/ConectionApi";
+import { Loading } from "../../components/Loading";
+import { theme } from "../../theme/styles";
+import { HeaderAnimation } from "../../components/HeaderAnimation";
+import { BasicInformation } from "./BasicInformation";
+import { Trailer } from "./Trailer";
 
 export function Details() {
   const routeNavigation = useRoute();
   const { id } = routeNavigation.params as RouteParams;
-  const navigation = useNavigation();
-  const animation = useRef(null);
   const layout = useWindowDimensions();
+
   const [movie, setMovie] = useState<IMovieDetails>({} as IMovieDetails);
   const [provider, setProvider] = useState(null);
-  const [productionCompany, setProductionCompany] = useState({} as IProductionCompany);
-
-  const [image, SetImage] = useState<IImage>({} as IImage);
-  const [loading, setLoading] = useState(false);
-  const hour = minutesToHours(Number(movie.runtime));
+  const [productionCompany, setProductionCompany] = useState(
+    {} as IProductionCompany
+  );
+  const [image, setImage] = useState<IImage>({} as IImage);
+  const [loading, setLoading] = useState(true);
   const [scrollY, setScrollY] = useState(new Animated.Value(0));
   const [index, setIndex] = React.useState(0);
 
-  async function movieDetail(item: string) {
-    setLoading(true);
-    await api
-      .get(`/${item}?api_key=856d12c0c4ce7988a3a8486fc485fad4&language=pt-BR`)
-      .then((response) => {
-        setMovie(response.data);
-        setProductionCompany(response.data.production_companies[0]);
-      })
-      .catch((err) => {
-        console.error("ops! ocorreu um erro" + err);
-      });
-  }
-
+  // STREAM DE ONDE PODE SER ASSISTIDO
   async function providerDetail(item: string) {
     setLoading(true);
     await api
@@ -74,17 +45,15 @@ export function Details() {
       })
       .catch((err) => {
         setProvider(null);
-        // console.error("ops! ocorreu um erro" + err);
       });
   }
 
   async function imageDetail(item: string) {
     setLoading(true);
-
     await api
       .get(`/${item}/images?api_key=856d12c0c4ce7988a3a8486fc485fad4`)
       .then((response) => {
-        SetImage(response.data.backdrops[0]);
+        setImage(response.data.backdrops[0]);
       })
       .catch((err) => {
         console.error("ops! ocorreu um erro" + err);
@@ -94,9 +63,17 @@ export function Details() {
 
   useFocusEffect(
     useCallback(() => {
-      movieDetail(id);
-      imageDetail(id);
+      ConexionApi(
+        id,
+        (response) => {
+          setMovie(response.data);
+          setProductionCompany(response.data.production_companies[0]);
+        },
+        setLoading
+      );
       providerDetail(id);
+      imageDetail(id);
+      setScrollY(new Animated.Value(0));
 
       return () => {
         setMovie({} as IMovieDetails);
@@ -104,80 +81,30 @@ export function Details() {
     }, [id])
   );
 
-  const SecondRoute = () => (
-    <View style={{ flex: 1, backgroundColor: "#673ab7" }} />
-  );
-
   const renderScene = SceneMap({
     first: MoreInformation,
-    second: SecondRoute,
+    second: () => <Trailer movie_id={id}/>,
   });
 
   const renderTabBar = (props) => (
     <TabBar
       {...props}
-      indicatorStyle={{ backgroundColor: "#FF4451" }}
-      style={{ backgroundColor: "#1F222A" }}
-      activeColor="#FF4451"
-      inactiveColor="#fff"
+      indicatorStyle={{ backgroundColor: theme.colors.primary }}
+      style={{ backgroundColor: theme.colors.background }}
+      activeColor={theme.colors.primary}
+      inactiveColor={theme.colors.white}
       getLabelText={({ route }) => route.title}
       labelStyle={{ textTransform: "none" }}
     />
   );
 
   if (loading) {
-    return (
-      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-        <LottieView
-          autoPlay
-          ref={animation}
-          style={{
-            width: 200,
-            height: 200,
-            backgroundColor: "#eee",
-          }}
-          source={require("../../assets/movie_lottie.json")}
-        />
-      </View>
-    );
+    return <Loading />;
   }
-  console.log('FILMS', productionCompany)
+
   return (
-    <View style={{ flex: 1 }}>
-      <Animated.View
-        style={[
-          {
-            backgroundColor: scrollY.interpolate({
-              inputRange: [0, 130, 250],
-              outputRange: ["transparent", "#1f222a61", "#1f222a"],
-              extrapolate: "clamp",
-            }),
-          },
-          style.containerHeader,
-        ]}
-      >
-        <Icon
-          name="arrowleft"
-          size={24}
-          color="white"
-          onPress={navigation.goBack}
-        />
-        <Title>Detalhes</Title>
-        <Icon name="search1" size={24} color="white" />
-      </Animated.View>
-      <Animated.Image
-        style={{
-          height: scrollY.interpolate({
-            inputRange: [0, 130, 250],
-            outputRange: [250, 130, 60],
-            extrapolate: "clamp",
-          }),
-          width: "100%",
-        }}
-        source={{
-          uri: `https://image.tmdb.org/t/p/w500/${image.file_path}`,
-        }}
-      />
+    <Box>
+      <HeaderAnimation image={image?.file_path} scrollY={scrollY} />
       <ScrollView
         scrollEventThrottle={16}
         contentContainerStyle={{ flexGrow: 1 }}
@@ -193,60 +120,24 @@ export function Details() {
         )}
         style={{ flex: 1 }}
       >
-        <Container style={{ flex: 1 }}>
-          <BoxRow>
-            <Title>{movie.title}</Title>
-            <BoxRow>
-              <Icon name="star" color="red" weight="fill" size={15} />
-              <SubTitle>{Number(movie.vote_average).toFixed(1)}</SubTitle>
-            </BoxRow>
-          </BoxRow>
-          <Section>
-            <SubTitle>{String(movie.release_date).slice(0, 4)} ●</SubTitle>
-            <SubTitle>{`${hour}h${hoursToMinutes(
-              Number(movie.runtime) / 60 - hour
-            )}m`}</SubTitle>
-          </Section>
-          <BoxCard>
-            {movie?.genres?.map((item) => (
-              <View key={item.id}>
-                <Tag label={item.name} />
-              </View>
-            ))}
-          </BoxCard>
-          <View style={{ width: "100%", height: 900 }}>
-            <SubTitleProvider>Stream</SubTitleProvider>
-            {provider !== null ? (
-              <>
-                <BoxProvider>
-                  {provider?.map((item) => (
-                    <ImageProvider
-                      key={item.provider_id}
-                      source={{
-                        uri: `https://image.tmdb.org/t/p/w500/${item.logo_path}`,
-                      }}
-                    />
-                  ))}
-                </BoxProvider>
-              </>
-            ) : (
-              <NotFound>Não disponível</NotFound>
-            )}
-            <TextSmall numberOfLines={5}>{movie.overview}</TextSmall>
-           <Label>Distribuido por:</Label>
-            <ProductionCompany>
-           <ImageProvider
-                      source={{
-                        uri: `https://image.tmdb.org/t/p/w500/${productionCompany.logo_path}`,
-                      }}
-                    />
-            <TextSmall>{productionCompany.name}</TextSmall>
-            </ProductionCompany>
+        <Container>
+          <BasicInformation
+            title={movie?.title}
+            runtime={movie?.runtime}
+            vote_average={movie?.vote_average}
+            release_date={movie?.release_date}
+            genres={movie?.genres}
+            overview={movie.overview}
+            provider={provider}
+            logo_path={productionCompany?.logo_path}
+          />
+
+          <View style={{ width: "100%", height: layout.height - 150 }}>
             <TabView
               navigationState={{
                 index: 0,
                 routes: [
-                  { key: "first", title: "More details" },
+                  { key: "first", title: "Mais Informações" },
                   { key: "second", title: "Trailers" },
                 ],
               }}
@@ -259,26 +150,12 @@ export function Details() {
                 height: "100%",
                 position: "absolute",
                 top: 0,
-                paddingTop: 300,
+                paddingTop: 20
               }}
             />
           </View>
         </Container>
       </ScrollView>
-    </View>
+    </Box>
   );
 }
-
-const style = StyleSheet.create({
-  containerHeader: {
-    zIndex: 99,
-    justifyContent: "space-between",
-    alignItems: "baseline",
-    flexDirection: "row",
-    position: "absolute",
-    left: 0,
-    right: 0,
-    paddingHorizontal: 16,
-    height: 60,
-  },
-});

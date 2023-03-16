@@ -1,17 +1,9 @@
 import React from "react";
 import { BoxRelease, Container, Note, Poster } from "./styles";
-
-interface ICardPerson {
-  id: string;
-  name: string;
-  profile_path: string;
-  character: string;
-  onPress?: () => void;
-}
+import { ICardPerson } from "./types";
 
 export function CardPerson({
   character,
-  id,
   name,
   profile_path,
   onPress,

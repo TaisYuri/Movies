@@ -1,24 +1,16 @@
 import React from "react";
 import { ImageBackground, Text } from "react-native";
-import { Genres } from "../../datas/Genres";
 import {
   Note,
   ColorBackground,
   Buttons,
   Information,
   Title,
-  BoxNote,
   ButtonPlay,
   ButtonTitle,
   ButtonList,
 } from "./styles";
-
-interface IBanner {
-  data?: any;
-  uri?: string;
-  vote?: string;
-  genre_ids?: string[];
-}
+import { IBanner } from "./types";
 
 export function Banner({ data }: IBanner) {
   return (

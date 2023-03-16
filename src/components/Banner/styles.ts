@@ -16,19 +16,19 @@ export const Information = styled.View`
 
 export const Title = styled.Text`
  font-size: 22px;
- color: #fff;
+ color: ${({theme}) => theme.colors.white};
  font-weight: bold;
 `;
 
 export const Note = styled.Text`
  font-size: 13px;
  padding: 5px;
- color: #fff;
+ color: ${({theme}) => theme.colors.white};
 `;
 
 
 export const BoxNote = styled.View`
- background-color: #FF4451;
+ background-color: ${({theme}) => theme.colors.primary};
  padding: 3px 10px;
  border-radius: 8px;
  align-items: center;
@@ -58,11 +58,11 @@ export const ButtonList = styled.TouchableOpacity`
  border-radius: 14px;
  align-items: center;
  justify-content: center;
- border: 2px solid #fff;
+ border: 2px solid ${({theme}) => theme.colors.white};
 `;
 
 export const ButtonTitle = styled.Text`
 font-size: 15px;
 font-weight: 500;
-color: #fff;
+color: ${({theme}) => theme.colors.white};
 `;

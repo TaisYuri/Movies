@@ -3,7 +3,6 @@ import styled from 'styled-components/native';
 
 export const Container = styled(LinearGradient)`
  width: 100%;
- /* background-color: transparent; */
  flex-direction: row;
  justify-content: space-between;
  align-items: center;
@@ -18,7 +17,7 @@ export const Container = styled(LinearGradient)`
 export const Title = styled.Text`
  font-size: 21px;
  font-weight: 700;
- color:  #FFF;
+ color:  ${({theme}) => theme.colors.white};
 `;
 
 

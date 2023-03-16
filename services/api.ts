@@ -10,4 +10,3 @@ export default api;
 export const apiTv = axios.create({
   baseURL: "https://api.themoviedb.org/3/tv",
 });
-

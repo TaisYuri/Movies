@@ -1,21 +1,19 @@
 import styled from "styled-components/native";
 
 export const Container = styled.View`
-  padding-left: 10px;
-  padding-right: 10px;
-  background-color: #1f222a;
-  flex: 1;
+  background-color: ${({theme}) => theme.colors.background};
+  flex-grow: 1;
 `;
 
-export const BoxTitle = styled.View`
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: baseline;
+export const BoxPerson = styled.View`
+  padding: 16px 10px;
+  margin-bottom: 10px;
 `;
 
 export const Title = styled.Text`
-  color: #fff;
+  color: ${({theme}) => theme.colors.white};
   margin-top: 10px;
+  margin-bottom: 16px;
   font-size: 25px;
   max-width: 80%;
 `;
@@ -24,26 +22,30 @@ export const Label = styled.Text`
   font-size: 15px;  
 `;
 export const SubTitle = styled.Text`
-  color: #fff;
-  /* margin-left: 10px; */
+  color: ${({theme}) => theme.colors.white};
   font-size: 14px;
   
 `;
 
-export const Section = styled.View`
-  flex-direction: row;
-  align-items: center;
-  margin-top: 12px;
-  `;
 
 export const BoxCard = styled.View`
   flex-direction: row;
-    margin-left: 8px;
+    margin-left: 10px;
 
   `;
 
-  export const Sinopse = styled.Text`
-    color: #fff;
-    margin-top: 12px;
-    font-size: 13px;
+  export const ContainerLoading = styled.View`
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+  `;
+
+  export const ActivityIndicator = styled.ActivityIndicator`
+    width: 120px;
+    height: 120px;
+  `;
+
+  export const BoxSimiliar = styled.View`
+    margin-right: -16px;
+    margin-left: -16px;
   `;
