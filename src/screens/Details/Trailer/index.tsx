@@ -1,10 +1,10 @@
 import { useFocusEffect } from "@react-navigation/native";
-import React, { useCallback, useEffect, useState } from "react";
-import { ActivityIndicator, Text, useWindowDimensions } from "react-native";
+import React, {  useEffect, useState } from "react";
+import { ActivityIndicator, Text, useWindowDimensions, View } from "react-native";
 import YoutubeIframe from "react-native-youtube-iframe";
 import * as ScreenOrientation from "expo-screen-orientation";
 import api from "../../../../services/api";
-import { BoxVideo, Container, Title } from "./styles";
+import { BoxLoading, BoxVideo, Container, Title, VIDEO_HEIGHT } from "./styles";
 import { ITrailer, ITrailerProps } from "./types";
 
 export function Trailer({ movie_id }: ITrailer) {
@@ -12,7 +12,6 @@ export function Trailer({ movie_id }: ITrailer) {
   const [videoReady, setVideoReady] = useState(false);
 
   const { width } = useWindowDimensions();
-  const VIDEO_HEIGHT = 210;
   const VIDEO_WIDTH = width;
 
   async function getTrailers() {
@@ -29,34 +28,36 @@ export function Trailer({ movie_id }: ITrailer) {
     getTrailers();
   }, []);
 
-  const onFullScreenChange = useCallback((isFullScreen: boolean) => {
-    if (isFullScreen) {
-      ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE);
-    } else {
-      ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT);
-    }
-  }, []);
+  //FUNÇÃO DE EXPANDIR PARA TELA INTEIRA
+  // const onFullScreenChange = useCallback((isFullScreen: boolean) => {
+  //   if (isFullScreen) {
+  //     ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.LANDSCAPE);
+  //   } else {
+  //     ScreenOrientation.lockAsync(ScreenOrientation.OrientationLock.PORTRAIT);
+  //   }
+  // }, []);
+  
 
   return (
     <Container>
-      {trailer.map((item) => {
-        return(
-          <>
-          <Title>{item.name}</Title>
+         {trailer?.map( (item) => {
+          return (
+            <View key={item.key}>
+            <Title>{item.name}</Title>
           <BoxVideo>
             <YoutubeIframe
               videoId={item.key}
-              height={VIDEO_HEIGHT}
+              height={videoReady ? VIDEO_HEIGHT: 0}
               width={VIDEO_WIDTH}
               onReady={() => setVideoReady(true)}
-              onFullScreenChange={onFullScreenChange}
+              // onFullScreenChange={onFullScreenChange}
             />
 
-            {!videoReady && <ActivityIndicator />}
-          </BoxVideo>
-        </>
-        )
-      })}
+            {!videoReady && <BoxLoading><ActivityIndicator size="large" color={'#FF4451'}/></BoxLoading>}
+          </BoxVideo></View>
+          )
+         }) }
+  
     </Container>
   );
 }
