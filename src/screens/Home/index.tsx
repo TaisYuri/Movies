@@ -8,6 +8,7 @@ import { Loading } from "../../components/Loading";
 import { Scroll } from "./styles";
 import { IMovies } from "./types";
 import { ListCards } from "../../components/ListCards";
+import { LinearGradient } from "expo-linear-gradient";
 
 export function Home() {
 
