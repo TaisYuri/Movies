@@ -132,7 +132,7 @@ export function Details() {
             logo_path={productionCompany?.logo_path}
           />
 
-          <View style={{ width: "100%", height: layout.height - 150 }}>
+          <View style={{ width: "100%", height: layout.height - 120 }}>
             <TabView
               navigationState={{
                 index: 0,
