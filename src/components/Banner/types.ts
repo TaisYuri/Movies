@@ -3,5 +3,6 @@ export interface IBanner {
     uri?: string;
     vote?: string;
     genre_ids?: string[];
+    filePath: string;
   }
   

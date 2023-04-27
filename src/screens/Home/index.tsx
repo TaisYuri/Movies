@@ -6,6 +6,8 @@ import { ListCards } from "src/components/ListCards";
 import { useGetMovies } from "src/hooks/useGetMovies";
 import { useGetUpcoming } from "src/hooks/useGetUpcoming";
 import { useGetTv } from "src/hooks/useGetTv";
+import { View } from "react-native";
+import { useGetImage } from "src/hooks/useGetImage";
 
 export function Home() {
   const nowPlaying = useGetMovies({ page: "1" });
@@ -14,6 +16,7 @@ export function Home() {
   const { getMoviesUpComing, movieUpComing, isLoadingUpComing } =
     useGetUpcoming({ page: "1" });
   const { getTv, tv, isLoadingTv } = useGetTv();
+  const {getImage, filePath, isLoadingImage } = useGetImage();
 
   useEffect(() => {
     nowPlaying.getMovies("now_playing");
@@ -27,19 +30,27 @@ export function Home() {
     getTv();
   }, []);
 
+  useEffect(()=> {
+    if(popular.value.length > 0){
+      getImage(popular?.value[0].id)
+    }
+  },[])
+
   if (
     popular.isLoading ||
     topRated.isLoading ||
     nowPlaying.isLoading ||
     isLoadingUpComing ||
-    isLoadingTv
+    isLoadingTv ||
+    isLoadingImage
   ) {
     return <Loading />;
   }
 
   return (
     <Scroll>
-      <Banner data={popular?.value[0]} />
+      <Banner data={popular?.value[0]} filePath={filePath?.poster}/>
+      <View style={{marginTop : -170}}>
       <ListCards title="Top 10 Filmes populares" dataMovies={popular.value} />
       <ListCards title="Melhores avaliações" dataMovies={topRated.value} />
       <ListCards title="Top Filmes no cinema" dataMovies={nowPlaying.value} />
@@ -49,6 +60,7 @@ export function Home() {
         newMovies={true}
       />
       <ListCards title="Top Series" dataMovies={tv} />
+      </View>
     </Scroll>
   );
 }

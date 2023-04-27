@@ -6,7 +6,7 @@ import { IHeaderAnimation } from "./types";
 
 export function HeaderAnimation({ image, scrollY }: IHeaderAnimation) {
   const navigation = useNavigation();
-  const inputRangeToAnimated = [0, 180, 260];
+  const inputRangeToAnimated = [0, 60, 180, 260];
 
   return (
     <>
@@ -15,7 +15,7 @@ export function HeaderAnimation({ image, scrollY }: IHeaderAnimation) {
           {
             backgroundColor: scrollY.interpolate({
               inputRange: inputRangeToAnimated,
-              outputRange: ["transparent", "#1f222a61", "#1f222a"],
+              outputRange: ["transparent", "#1f222a1c","#1f222a61", "#1f222a"],
               extrapolate: "clamp",
             }),
           },
@@ -32,7 +32,7 @@ export function HeaderAnimation({ image, scrollY }: IHeaderAnimation) {
           style={{
             opacity: scrollY.interpolate({
               inputRange: inputRangeToAnimated,
-              outputRange: [0, 0.5, 1],
+              outputRange: [0, 0.5, 0.75, 1],
             }),
             color: "#fff",
             fontSize: 20,
@@ -46,7 +46,7 @@ export function HeaderAnimation({ image, scrollY }: IHeaderAnimation) {
         style={{
           height: scrollY.interpolate({
             inputRange: inputRangeToAnimated,
-            outputRange: [250, 130, 60],
+            outputRange: [250, 190, 120, 60],
             extrapolate: "clamp",
           }),
           width: "100%",
