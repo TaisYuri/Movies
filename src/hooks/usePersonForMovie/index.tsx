@@ -1,7 +1,7 @@
 import { useCallback, useState } from "react";
 import { PersonsSchema } from "./types";
 import api from "src/services/api";
-import { API_KEY } from "src/env";
+import Constants from "expo-constants";
 
 
 export function usePersonForMovie(): {
@@ -16,7 +16,7 @@ export function usePersonForMovie(): {
     (id: string) => {
       setIsLoadingPerson(true);
       api
-        .get(`${id}?api_key=${API_KEY}`)
+        .get(`${id}?api_key=${Constants?.expoConfig?.extra?.api_key}`)
         .then(({ data }) => {
           const director = data?.crew?.filter((item) => item.job === "Director")?.map( name => {
             return({id: name?.credit_id, name: name?.original_name})

@@ -2,7 +2,7 @@ import { useCallback, useState } from "react";
 import api from "src/services/api";
 import { IMovies } from "src/screens/Home/types";
 import { GetMoviesProps, TMovie } from "./types";
-import { API_KEY, LANGUAGE } from "src/env";
+import Constants from "expo-constants";
 
 export function useGetMovies({ page }: GetMoviesProps) {
   const [isLoading, setIsLoading] = useState(false);
@@ -10,10 +10,11 @@ export function useGetMovies({ page }: GetMoviesProps) {
 
   const getMovies = useCallback(
     (link: TMovie) => {
+
       setIsLoading(true);
       api
         .get(
-          `${link}?api_key=${API_KEY}&language=${LANGUAGE}&page=${page}`
+          `${link}?api_key=${Constants?.expoConfig?.extra?.api_key}&language=pt-BR&page=${page}`
         )
         .then(({ data }) => {
           setValue(data.results);

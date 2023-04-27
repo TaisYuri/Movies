@@ -1,7 +1,7 @@
 import { useCallback, useState } from "react";
 import { apiTv } from "src/services/api";
 import { IMovies } from "src/screens/Home/types";
-import { API_KEY } from "src/env";
+import Constants from "expo-constants";
 
 export function useGetTv(): {
   getTv: () => void;
@@ -15,7 +15,7 @@ export function useGetTv(): {
     setIsLoadingTv(true);
     apiTv
       .get(
-        `on_the_air?api_key=${API_KEY}&language=en-US&page=1`
+        `on_the_air?api_key=${Constants?.expoConfig?.extra?.api_key}&language=en-US&page=1`
       )
       .then(({ data }) => {
         setTv(data.results);

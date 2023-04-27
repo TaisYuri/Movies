@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 import { GetMoviesProps, IDetailSchema } from "./types";
-import { API_KEY, LANGUAGE } from "src/env";
+import Constants from "expo-constants";
 import api from "src/services/api";
 
 export function useGetDetailMovie({ page }: GetMoviesProps):{
@@ -16,7 +16,7 @@ export function useGetDetailMovie({ page }: GetMoviesProps):{
       setIsLoading(true);
       api
         .get(
-          `${link}?api_key=${API_KEY}&language=${LANGUAGE}&page=${page}`
+          `${link}?api_key=${Constants?.expoConfig?.extra?.api_key}&language=pt-BR&page=${page}`
         )
         .then(({ data }) => {
           setValue({

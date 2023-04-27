@@ -4,7 +4,7 @@ import YoutubeIframe from "react-native-youtube-iframe";
 import api from "src/services/api";
 import { BoxLoading, BoxVideo, Container, Title, VIDEO_HEIGHT } from "./styles";
 import { ITrailer, ITrailerProps } from "./types";
-import { API_KEY, LANGUAGE } from "src/env";
+import Constants from "expo-constants";
 
 export function Trailer({ movie_id }: ITrailer) {
   const [trailer, setTrailer] = useState<ITrailerProps[]>([]);
@@ -16,7 +16,7 @@ export function Trailer({ movie_id }: ITrailer) {
   async function getTrailers() {
     await api
       .get(
-        `/${movie_id}/videos?api_key=${API_KEY}&language=${LANGUAGE}`
+        `/${movie_id}/videos?api_key=${Constants?.expoConfig?.extra?.api_key}&language=pt-BR`
       )
       .then((response) => {
         setTrailer(response.data.results);

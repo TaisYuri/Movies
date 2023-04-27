@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 import api from "src/services/api";
-import { API_KEY } from "src/env";
+import Constants from "expo-constants";
 
 export interface IImageSchema {
   poster: string;
@@ -19,7 +19,7 @@ export function useGetImage(): {
     (link: string) => {
       setIsLoadingImage(true);
       api
-        .get(`/${link}/images?api_key=${API_KEY}`)
+        .get(`/${link}/images?api_key=${Constants?.expoConfig?.extra?.api_key}`)
         .then(({ data }) => {
           setFilePath({
             file_path: data?.backdrops[0]?.file_path,

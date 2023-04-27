@@ -3,7 +3,7 @@ import api from "src/services/api";
 import { IMovies } from "src/screens/Home/types";
 import { format } from "date-fns";
 import { GetMoviesProps } from "../useGetMovies/types";
-import { API_KEY, LANGUAGE } from "src/env";
+import Constants from "expo-constants";
 
 export function useGetUpcoming({ page }: GetMoviesProps): {
   getMoviesUpComing: (link: string) => void;
@@ -18,7 +18,7 @@ export function useGetUpcoming({ page }: GetMoviesProps): {
       setIsLoadingUpComing(true);
       api
         .get(
-          `${link}?api_key=${API_KEY}&language=${LANGUAGE}&page=${page}`
+          `${link}?api_key=${Constants?.expoConfig?.extra?.api_key}&language=pt-BR&page=${page}`
         )
         .then(({ data }) => {
           setMovieUpComing(
