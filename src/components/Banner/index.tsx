@@ -15,15 +15,15 @@ import { IBanner } from "./types";
 export function Banner({ data }: IBanner) {
   return (
     <ImageBackground
-      source={{ uri: `https://image.tmdb.org/t/p/w500/${data.backdrop_path}` }}
+      source={{ uri: `https://image.tmdb.org/t/p/w500/${data?.backdrop_path}` }}
       style={{ width: "100%", height: 360}}
       // resizeMode='stretch'
     >
       <ColorBackground>
         <Information>
-          <Title>{data.title}</Title>
+          <Title>{data?.title}</Title>
           <Note numberOfLines={2} ellipsizeMode="tail">
-            {data.overview}
+            {data?.overview}
           </Note>
           <Buttons>
             <ButtonPlay>

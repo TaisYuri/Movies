@@ -1,15 +1,14 @@
-import { NavigationContainer } from "@react-navigation/native";
+import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import Icon from "react-native-vector-icons/MaterialCommunityIcons";
-import React from "react";
+import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
 import { Home } from "../screens/Home";
 import { ActionMenu } from "../screens/PlusMovies";
 import { Details } from "../screens/Details";
 import { Profile } from "../screens/Profile";
-import { View, TouchableOpacity } from "react-native";
 import { Search } from "../screens/Search";
 import { theme } from "../theme/styles";
+import { CustomTabBar } from "../components/CustomTabBar";
 
 const Bottom = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -31,32 +30,34 @@ function StackNav() {
         name="details"
         component={Details}
         options={{ headerShown: false }}
-      />      
+      />
     </Stack.Navigator>
   );
 }
 
 export function Routes() {
-  const themeColors = theme
+  const themeColors = theme;
 
   return (
     <Bottom.Navigator
       screenOptions={{
+        headerShown: false,
+        tabBarHideOnKeyboard: true, // esconde a tab caso abra o teclado por cima
         tabBarShowLabel: false,
+        tabBarActiveTintColor: themeColors.colors.black,
         tabBarStyle: {
           backgroundColor: themeColors.colors.background,
-          height: 60
-        }, headerShown: false
-      }} 
+          borderTopWidth: 0,
+        },
+      }}
+      tabBar={(props) => <CustomTabBar {...props} />}
     >
       <Bottom.Screen
         name="Home"
         component={StackNav}
         options={{
-          tabBarIcon: ({ color, focused }) => (
-            <View style={{ position: "absolute" }}>
-              <Icon name="home" color={focused ? themeColors.colors.primary : themeColors.colors.black} size={26} />
-            </View>
+          tabBarIcon: ({ color, size }) => (
+            <AntDesign name="home" color={color} size={size} />
           ),
         }}
       />
@@ -65,27 +66,12 @@ export function Routes() {
         name="Search"
         component={Search}
         options={{
-          tabBarIcon: ({ color, focused }) => (
-            <View
-            style={{
-              position: "absolute",
-              top: -20,
-              width: 52,
-              height: 52,
-              borderRadius: 26,
-              backgroundColor: themeColors.colors.primary,
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-           
-              <Icon
-                name="movie-search-outline"
-                color={focused ? themeColors.colors.white : themeColors.colors.black}
-                size={26}
-              />
-            </View>
-
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons
+              name="movie-search-outline"
+              color={color}
+              size={size}
+            />
           ),
         }}
       />
@@ -94,8 +80,12 @@ export function Routes() {
         name="Profile"
         component={Profile}
         options={{
-          tabBarIcon: ({ focused }) => (
-            <Icon name="account" color={focused ? themeColors.colors.primary : themeColors.colors.black} size={26} />
+          tabBarIcon: ({ color, size }) => (
+            <MaterialCommunityIcons
+              name="account-heart-outline"
+              color={color}
+              size={size}
+            />
           ),
         }}
       />
