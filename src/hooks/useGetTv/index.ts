@@ -1,6 +1,7 @@
 import { useCallback, useState } from "react";
-import { apiTv } from "../../../services/api";
-import { IMovies } from "../../screens/Home/types";
+import { apiTv } from "src/services/api";
+import { IMovies } from "src/screens/Home/types";
+import { API_KEY } from "src/env";
 
 export function useGetTv(): {
   getTv: () => void;
@@ -14,7 +15,7 @@ export function useGetTv(): {
     setIsLoadingTv(true);
     apiTv
       .get(
-        "on_the_air?api_key=856d12c0c4ce7988a3a8486fc485fad4&language=en-US&page=1"
+        `on_the_air?api_key=${API_KEY}&language=en-US&page=1`
       )
       .then(({ data }) => {
         setTv(data.results);

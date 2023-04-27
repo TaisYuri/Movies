@@ -1,3 +1,5 @@
+import { IProviderSchema } from "src/hooks/useProvider/types";
+
 export interface IBasicInformation {
   runtime: string;
   title: string;
@@ -5,11 +7,11 @@ export interface IBasicInformation {
   release_date: string;
   genres: IGenres[];
   overview: string;
-  provider: IProvider[];
+  provider: IProviderSchema[];
   logo_path: string;
 }
 
-interface IGenres {
+export interface IGenres {
   id: string;
   name: string;
 }

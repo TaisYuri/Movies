@@ -1,5 +1,5 @@
 import { useFocusEffect, useRoute } from "@react-navigation/native";
-import React, { useCallback, useState } from "react";
+import React, { useCallback } from "react";
 import { FlatList, ListRenderItem } from "react-native";
 import {
   BoxCard,
@@ -10,58 +10,43 @@ import {
   Title,
   ActivityIndicator,
   BoxPerson,
-  BoxSimiliar
+  BoxSimiliar,
 } from "./styles";
-import { IPerson, RouteParams } from "./types";
-import { CardPerson } from "../../../components/CardPerson";
-import { ConexionApi } from "../../../../services/ConectionApi";
-import { ListCards } from "../../../components/ListCards";
+import { RouteParams } from "./types";
+import { CardPerson } from "src/components/CardPerson";
+import { ListCards } from "src/components/ListCards";
+import { useGetMovies } from "src/hooks/useGetMovies";
+import {
+  usePersonForMovie,
+} from "src/hooks/usePersonForMovie";
+import { PersonProps } from "src/hooks/usePersonForMovie/types";
 
 export function MoreInformation() {
   const route = useRoute();
   const { id } = route.params as RouteParams;
 
-  const [person, SetPerson] = useState([]);
-  const [crew, SetCrew] = useState([]);
-  const [similar, SetSimilar] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const { getMovies, value, isLoading } = useGetMovies({ page: "1" });
+  const { getPersons, PersonsOfMovies, isLoadingPerson } = usePersonForMovie();
 
   useFocusEffect(
     useCallback(() => {
-      ConexionApi(
-        `/${id}/credits`,
-        (response) => {
-          SetPerson(response.data.cast);
-          SetCrew(response.data.crew);
-        },
-        setLoading
-      );
-      ConexionApi(
-        `/${id}/similar`,
-        (response) => {
-          SetSimilar(response.data.results);
-        },
-        setLoading
-      );
-
-      return () => {
-        SetPerson([]);
-      };
+      getPersons(`/${id}/credits`);
+      getMovies(`/${id}/similar`);
     }, [id])
   );
 
-  const renderItem: ListRenderItem<IPerson> = ({ item }) => (
+  const renderItem: ListRenderItem<PersonProps> = ({ item }) => (
     <BoxCard>
       <CardPerson
-        id={item.id}
-        name={item.name}
-        profile_path={item.profile_path}
-        character={item.character}
+        id={item?.id}
+        name={item?.name}
+        profile_path={item?.profile_path}
+        character={item?.character}
       />
     </BoxCard>
   );
 
-  if (loading) {
+  if (isLoading || isLoadingPerson) {
     return (
       <ContainerLoading>
         <ActivityIndicator />
@@ -70,31 +55,29 @@ export function MoreInformation() {
   }
 
   return (
-      <Container>
-        <BoxPerson>
-          {Boolean(person.length > 0) &&<Title>Elenco principal</Title>}
-          <FlatList
-            data={person.slice(0, 10)}
-            renderItem={renderItem}
-            keyExtractor={(item: IPerson) => item.id}
-            showsHorizontalScrollIndicator={false}
-            horizontal
-          />
-        </BoxPerson>
-        {crew.map(
-          (item) =>
-            item.job === "Director" && (
-              <Label key={item.credit_id}>
-                Diretor:{" "}
-                <SubTitle key={item.credit_id}>{item.original_name}</SubTitle>
-              </Label>
-            )
+    <Container>
+      <BoxPerson>
+        {Boolean(PersonsOfMovies?.persons?.length > 0) && (
+          <Title>Elenco principal</Title>
         )}
-        {similar.length > 0 && (
-          <BoxSimiliar>
-            <ListCards title={"Recomendações"} dataMovies={similar} textLink={''}/>
-          </BoxSimiliar>
-        )}
-      </Container>
+        <FlatList
+          data={PersonsOfMovies?.persons}
+          renderItem={renderItem}
+          keyExtractor={(item: PersonProps) => item.id}
+          showsHorizontalScrollIndicator={false}
+          horizontal
+        />
+      </BoxPerson>
+      {PersonsOfMovies?.director.map((item) => (
+        <Label key={item?.id}>
+          Diretor: <SubTitle key={item?.id}>{item?.name}</SubTitle>
+        </Label>
+      ))}
+      {value.length > 0 && (
+        <BoxSimiliar>
+          <ListCards title={"Recomendações"} dataMovies={value} textLink={""} />
+        </BoxSimiliar>
+      )}
+    </Container>
   );
 }

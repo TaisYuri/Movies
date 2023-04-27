@@ -1,20 +1,19 @@
-import React, { useEffect, useState } from "react";
-import { Banner } from "../../components/Banner";
-import { Loading } from "../../components/Loading";
+import React, { useEffect } from "react";
+import { Banner } from "src/components/Banner";
+import { Loading } from "src/components/Loading";
 import { Scroll } from "./styles";
-import { ListCards } from "../../components/ListCards";
-import {  useGetMovies } from "../../hooks/useGetMovies";
-import { useGetUpcoming } from "../../hooks/useGetUpcoming";
-import { useGetTv } from "../../hooks/useGetTv";
+import { ListCards } from "src/components/ListCards";
+import { useGetMovies } from "src/hooks/useGetMovies";
+import { useGetUpcoming } from "src/hooks/useGetUpcoming";
+import { useGetTv } from "src/hooks/useGetTv";
 
 export function Home() {
-
   const nowPlaying = useGetMovies({ page: "1" });
   const popular = useGetMovies({ page: "1" });
   const topRated = useGetMovies({ page: "1" });
   const { getMoviesUpComing, movieUpComing, isLoadingUpComing } =
-  useGetUpcoming({ page: "1" });
-  const {getTv, tv, isLoadingTv} = useGetTv();
+    useGetUpcoming({ page: "1" });
+  const { getTv, tv, isLoadingTv } = useGetTv();
 
   useEffect(() => {
     nowPlaying.getMovies("now_playing");
@@ -26,19 +25,6 @@ export function Home() {
     // ORDENANDO POR DATA
     getMoviesUpComing("upcoming");
     getTv();
-    // async function airingToday() {
-    //   await apiTv
-
-    //     .get(
-    //       "on_the_air?api_key=856d12c0c4ce7988a3a8486fc485fad4&language=en-US&page=1"
-    //     )
-    //     .then((response) => setTv(response.data.results))
-    //     .catch((err) => {
-    //       console.error("ops! ocorreu um erro" + err);
-    //     });
-    // }
-    // airingToday();
-
   }, []);
 
   if (

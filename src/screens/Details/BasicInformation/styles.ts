@@ -62,9 +62,10 @@ export const SubTitleProvider = styled.Text`
   font-size: 18px;
 `;
 
-export const BoxProvider = styled.View`
-  flex-direction: row;
-  align-items: baseline;
+export const BoxProvider = styled.ScrollView`
+  /* flex-direction: row;
+  align-items: baseline; */
+
 `;
 export const ProductionCompany = styled.View`
   flex-direction: row;

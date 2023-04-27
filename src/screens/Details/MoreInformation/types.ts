@@ -2,14 +2,7 @@ export type RouteParams = {
     id: string;
   };
   
-  export interface IPerson {
-    id: string;
-    name: string;
-    profile_path: string;
-    character: string;
-    known_for_department: string;
-  }
-  
+ 
   export interface IMovieDetails {
     id: string;
     original_title: string;

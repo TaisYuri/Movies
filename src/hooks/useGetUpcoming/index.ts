@@ -1,8 +1,9 @@
 import { useCallback, useState } from "react";
-import api from "../../../services/api";
-import { IMovies } from "../../screens/Home/types";
+import api from "src/services/api";
+import { IMovies } from "src/screens/Home/types";
 import { format } from "date-fns";
 import { GetMoviesProps } from "../useGetMovies/types";
+import { API_KEY, LANGUAGE } from "src/env";
 
 export function useGetUpcoming({ page }: GetMoviesProps): {
   getMoviesUpComing: (link: string) => void;
@@ -17,7 +18,7 @@ export function useGetUpcoming({ page }: GetMoviesProps): {
       setIsLoadingUpComing(true);
       api
         .get(
-          `${link}?api_key=856d12c0c4ce7988a3a8486fc485fad4&language=pt-BR&page=${page}`
+          `${link}?api_key=${API_KEY}&language=${LANGUAGE}&page=${page}`
         )
         .then(({ data }) => {
           setMovieUpComing(
