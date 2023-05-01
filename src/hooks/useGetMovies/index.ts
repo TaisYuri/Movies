@@ -9,12 +9,11 @@ export function useGetMovies({ page }: GetMoviesProps) {
   const [value, setValue] = useState<IMovies[]>([]);
 
   const getMovies = useCallback(
-    (link: TMovie) => {
-
+    async (link: TMovie) => {
       setIsLoading(true);
-      api
-        .get(
-          `${link}?api_key=${Constants?.expoConfig?.extra?.api_key}&language=pt-BR&page=${page}`
+      await api
+      .get(
+        `${link}?api_key=${Constants?.expoConfig?.extra?.api_key}&language=pt-BR&page=${page}`
         )
         .then(({ data }) => {
           setValue(data.results);
