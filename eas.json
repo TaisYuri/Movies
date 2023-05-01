@@ -11,14 +11,26 @@
       "ios": {
         "buildConfiguration": "Debug"
       },
-      "channel": "development"
+      "channel": "development",
+      "env": {
+        "api_key":"public",
+        "API_KEY":"public"
+      }
     },
     "preview": {
       "distribution": "internal",
-      "channel": "preview"
+      "channel": "preview",
+      "env": {
+        "api_key":"public",
+        "API_KEY":"public"
+      }
     },
     "production": {
-      "channel": "production"
+      "channel": "production",
+      "env": {
+        "api_key":"public",
+        "API_KEY":"public"
+      }
     }
   },
   "submit": {
