@@ -27,7 +27,8 @@ export function useGetDetailMovie({ page }: GetMoviesProps):{
             vote_average: data.vote_average,
             overview: data.overview,
             runtime: data.runtime,
-            production_companies: data.production_companies[0]?.logo_path
+            production_companies: data.production_companies[0]?.logo_path,
+            belongs_to_collection:{ id: data.belongs_to_collection.id}
           });
         })
         .catch((err) => {

@@ -18,4 +18,7 @@ export interface IDetailSchema {
   genres: IGenres[];
   overview: string;
   production_companies: string;
+  belongs_to_collection: {
+    id: string;
+  }
 }
