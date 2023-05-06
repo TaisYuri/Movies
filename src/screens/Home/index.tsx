@@ -1,7 +1,6 @@
 import React, {
   useCallback,
   useEffect,
-  useLayoutEffect,
   useState,
 } from "react";
 import { Banner } from "src/components/Banner";
@@ -38,7 +37,6 @@ export function Home() {
  async function getImageByPopular(){
     if (popular.value.length > 0) {
       const random = Math.floor(Math.random() * popular.value.length);
-      console.log('executando', random)
     await getImage(popular?.value[random].id);
     }
   }

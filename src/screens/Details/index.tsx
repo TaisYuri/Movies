@@ -1,9 +1,15 @@
 import { useFocusEffect, useRoute } from "@react-navigation/native";
-import React, { useCallback, useEffect, useState } from "react";
-import { Animated, ScrollView, useWindowDimensions, View, Text } from "react-native";
+import React, { useCallback, useState } from "react";
+import {
+  Animated,
+  ScrollView,
+  useWindowDimensions,
+  View,
+  Text,
+} from "react-native";
 import { TabView, SceneMap, TabBar } from "react-native-tab-view";
-import { Container, Box,Title } from "./styles";
-import { IProductionCompany, RouteParams } from "./types";
+import { Container, Box, Title } from "./styles";
+import { RouteParams } from "./types";
 import { MoreInformation } from "./MoreInformation";
 import { Loading } from "src/components/Loading";
 import { theme } from "src/theme/styles";
@@ -14,11 +20,8 @@ import { useGetDetailMovie } from "src/hooks/useGetDetailMovie";
 import { useGetImage } from "src/hooks/useGetImage";
 import { useProvider } from "src/hooks/useProvider";
 import { useCollection } from "src/hooks/useCollection";
-import { ListCards } from "src/components/ListCards";
 import { CardsCollection } from "src/components/CardsCollection";
 
-//TODO https://api.themoviedb.org/3/collection/2602?api_key=856d12c0c4ce7988a3a8486fc485fad4&language=pt-BR
-//COLLECTIONS
 export function Details() {
   const routeNavigation = useRoute();
   const { id } = routeNavigation.params as RouteParams;
@@ -30,7 +33,8 @@ export function Details() {
   const { getDetail, isLoading, value } = useGetDetailMovie({ page: "1" });
   const { getImage, filePath, isLoadingImage } = useGetImage();
   const { getProvider, providers, isLoadingProvider } = useProvider();
-  const { getCollection, collections, isLoadingCollection } = useCollection();
+  const { getCollection, collections, isLoadingCollection, reset } =
+    useCollection();
 
   useFocusEffect(
     useCallback(() => {
@@ -44,17 +48,20 @@ export function Details() {
     }, [id])
   );
 
-  useEffect(() => {
-    if (value?.belongs_to_collection?.id) {
-      getCollection(value?.belongs_to_collection?.id);
-    }
-  }, [value]);
-  
+  useFocusEffect(
+    useCallback(() => {
+      if (value?.belongs_to_collection?.id) {
+        return getCollection(value?.belongs_to_collection?.id);
+      }
+      return reset();
+    }, [value])
+  );
+
   const renderScene = SceneMap({
     first: MoreInformation,
     second: () => <Trailer movie_id={id} />,
   });
-  
+
   const renderTabBar = (props) => (
     <TabBar
       {...props}
@@ -100,9 +107,14 @@ export function Details() {
             logo_path={value?.production_companies}
           />
 
-          <View>
-            <CardsCollection data={collections?.parts} title="Talvez você também precise assistir"/>
-          </View>
+          {collections?.parts?.length > 0 && (
+            <CardsCollection
+              data={collections?.parts}
+              idMovie={id}
+              title="Talvez você também precise assistir"
+            />
+          )}
+
           <View style={{ width: "100%", height: layout.height - 120 }}>
             <TabView
               navigationState={{

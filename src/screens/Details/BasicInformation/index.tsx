@@ -33,9 +33,6 @@ export function BasicInformation({
 }: IBasicInformation) {
   const hour = minutesToHours(Number(runtime));
 
-
-  console.log(provider)
-  console.log(provider?.length > 0)
   return (
     <>
       <BoxRow>

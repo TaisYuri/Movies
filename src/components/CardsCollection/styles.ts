@@ -1,22 +1,22 @@
+import { TouchableOpacity } from 'react-native';
 import styled from "styled-components/native";
 
 export const ContainerBox = styled.View`
   margin-top: 24px;
-`;
+  `;
 
-export const Content = styled.View`
+export const Content = styled.TouchableOpacity`
   display: flex;
   flex-direction: row;
   width: 48%;
   margin-bottom: 8px;
+  opacity: 0.7;
 `;
 
 export const BoxText = styled.View`
   flex: 1;
   justify-content: center;
   margin-left: 8px;
-
-
 `;
 
 export const Title = styled.Text`
@@ -28,6 +28,7 @@ export const Title = styled.Text`
 
 export const Info = styled.Text`
   color: #fff;
+  font-size: 12px;
 `;
 
 export const Poster = styled.Image`
@@ -35,3 +36,4 @@ export const Poster = styled.Image`
   height: 100px;
   border-radius: 12px;
 `;
+

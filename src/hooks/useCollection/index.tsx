@@ -2,14 +2,20 @@ import { useCallback, useState } from "react";
 import { apiBase } from "src/services/api";
 import { ICollectionSchema } from "./types";
 import Constants from "expo-constants";
+import { dateConvert } from "src/functions/dateConvert/dateConvert";
 
 export function useCollection(): {
   getCollection: (id: string) => void;
   isLoadingCollection: boolean;
   collections: ICollectionSchema;
+  reset: () => void
 } {
   const [isLoadingCollection, setIsLoadingCollection] = useState(false);
   const [collections, setCollections] = useState<ICollectionSchema>();
+  
+  function dateIsValid(date) {
+    return !Number.isNaN(new Date(date).getTime());
+  }
 
   const getCollection = useCallback(
     (id: string) => {
@@ -21,14 +27,18 @@ export function useCollection(): {
         .then(({ data }) => {
           setCollections({
             id: data.id,
-            parts: data.parts.map((item) => {
-              return {
-                id: item.id,
-                title: item.title,
-                overview: item.overview,
-                poster_path: item.poster_path,
-                release_date: item.release_date,
-              };
+            parts: data.parts.map((item) => 
+            {
+              if (dateIsValid(item.release_date)) {
+                const newFormatDate = dateConvert(item.release_date).formatOnlyYear
+                return {
+                  id: item.id,
+                  title: item.title,
+                  overview: item.overview,
+                  poster_path: item.poster_path,
+                  release_date: newFormatDate,
+                };
+              }
             }),
           });
         })
@@ -43,10 +53,14 @@ export function useCollection(): {
     [setCollections]
   );
 
+  const reset = useCallback(() => {
+    setCollections({} as ICollectionSchema)
+  },[])
+
   return {
     getCollection,
     collections,
     isLoadingCollection,
+    reset,
   };
 }
-//TODO https://api.themoviedb.org/3/collection/2602?api_key=856d12c0c4ce7988a3a8486fc485fad4&language=pt-BR

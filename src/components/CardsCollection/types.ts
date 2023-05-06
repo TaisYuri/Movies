@@ -6,5 +6,5 @@ import { IMovies } from "../../screens/Home/types";
 export interface ICardCollection {
     title: string;
     data: collectionItems[]
-  
+    idMovie: string;
   }
