@@ -1,6 +1,12 @@
 {
   "compilerOptions": {
-    "baseUrl": "."
+    "baseUrl": ".",
+    "outDir": "./dist",
+    "module": "CommonJS",
+    "target": "ES2019",
+    "esModuleInterop": true,
+    "allowJs": true,
+    "strict": true
   },
   "extends": "expo/tsconfig.base",
   "include": ["src", "src/**.*.ts", "src/**.*.tsx"]
