@@ -1,14 +1,14 @@
-import React from "react";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { AntDesign, MaterialCommunityIcons } from "@expo/vector-icons";
-import { Home } from "../screens/Home";
-import { ActionMenu } from "../screens/PlusMovies";
-import { Details } from "../screens/Details";
-import { Profile } from "../screens/Profile";
-import { Search } from "../screens/Search";
-import { theme } from "../theme/styles";
-import { CustomTabBar } from "../components/CustomTabBar";
+import React from 'react';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
+import { Home } from '../screens/Home';
+import { ActionMenu } from '../screens/PlusMovies';
+import { Details } from '../screens/Details';
+import { Profile } from '../screens/Profile';
+import { Search } from '../screens/Search';
+import Theme from '../theme/Theme';
+import { CustomTabBar } from '../components/CustomTabBar';
 
 const Bottom = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -36,7 +36,7 @@ function StackNav() {
 }
 
 export function Routes() {
-  const themeColors = theme;
+  const themeColors = Theme;
 
   return (
     <Bottom.Navigator

@@ -1,36 +1,37 @@
-import { useFocusEffect, useRoute } from "@react-navigation/native";
-import React, { useCallback, useState } from "react";
+import { useFocusEffect, useRoute } from '@react-navigation/native';
+import React, { useCallback, useState } from 'react';
 import {
   Animated,
   ScrollView,
   useWindowDimensions,
   View,
   Text,
-} from "react-native";
-import { TabView, SceneMap, TabBar } from "react-native-tab-view";
-import { Container, Box, Title } from "./styles";
-import { RouteParams } from "./types";
-import { MoreInformation } from "./MoreInformation";
-import { Loading } from "src/components/Loading";
-import { theme } from "src/theme/styles";
-import { HeaderAnimation } from "../../components/HeaderAnimation";
-import { BasicInformation } from "./BasicInformation";
-import { Trailer } from "./Trailer";
-import { useGetDetailMovie } from "src/hooks/useGetDetailMovie";
-import { useGetImage } from "src/hooks/useGetImage";
-import { useProvider } from "src/hooks/useProvider";
-import { useCollection } from "src/hooks/useCollection";
-import { CardsCollection } from "src/components/CardsCollection";
+} from 'react-native';
+import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
+import { Container, Box, Title } from './styles';
+import { RouteParams } from './types';
+import { MoreInformation } from './MoreInformation';
+import { Loading } from 'src/components/Loading';
+import Theme from 'src/theme/Theme';
+import { HeaderAnimation } from '../../components/HeaderAnimation';
+import { BasicInformation } from './BasicInformation';
+import { Trailer } from './Trailer';
+import { useGetDetailMovie } from 'src/hooks/useGetDetailMovie';
+import { useGetImage } from 'src/hooks/useGetImage';
+import { useProvider } from 'src/hooks/useProvider';
+import { useCollection } from 'src/hooks/useCollection';
+import { CardsCollection } from 'src/components/CardsCollection';
 
 export function Details() {
   const routeNavigation = useRoute();
   const { id } = routeNavigation.params as RouteParams;
   const layout = useWindowDimensions();
+  const colorTheme = Theme;
 
   const [scrollY, setScrollY] = useState(new Animated.Value(0));
   const [index, setIndex] = React.useState(0);
 
-  const { getDetail, isLoading, value } = useGetDetailMovie({ page: "1" });
+  const { getDetail, isLoading, value } = useGetDetailMovie({ page: '1' });
   const { getImage, filePath, isLoadingImage } = useGetImage();
   const { getProvider, providers, isLoadingProvider } = useProvider();
   const { getCollection, collections, isLoadingCollection, reset } =
@@ -51,9 +52,10 @@ export function Details() {
   useFocusEffect(
     useCallback(() => {
       if (value?.belongs_to_collection?.id) {
-        return getCollection(value?.belongs_to_collection?.id);
+        getCollection(value?.belongs_to_collection?.id);
+        return;
       }
-      return reset();
+      reset();
     }, [value])
   );
 
@@ -65,12 +67,12 @@ export function Details() {
   const renderTabBar = (props) => (
     <TabBar
       {...props}
-      indicatorStyle={{ backgroundColor: theme.colors.primary }}
-      style={{ backgroundColor: theme.colors.background }}
-      activeColor={theme.colors.primary}
-      inactiveColor={theme.colors.white}
+      indicatorStyle={{ backgroundColor: colorTheme.colors.primary }}
+      style={{ backgroundColor: colorTheme.colors.background }}
+      activeColor={colorTheme.colors.primary}
+      inactiveColor={colorTheme.colors.white}
       getLabelText={({ route }) => route.title}
-      labelStyle={{ textTransform: "none" }}
+      labelStyle={{ textTransform: 'none' }}
     />
   );
 
@@ -115,13 +117,13 @@ export function Details() {
             />
           )}
 
-          <View style={{ width: "100%", height: layout.height - 120 }}>
+          <View style={{ width: '100%', height: layout.height - 120 }}>
             <TabView
               navigationState={{
                 index: 0,
                 routes: [
-                  { key: "first", title: "Mais Informações" },
-                  { key: "second", title: "Trailers" },
+                  { key: 'first', title: 'Mais Informações' },
+                  { key: 'second', title: 'Trailers' },
                 ],
               }}
               renderScene={renderScene}
@@ -129,9 +131,9 @@ export function Details() {
               initialLayout={{ width: layout.width }}
               renderTabBar={renderTabBar}
               style={{
-                width: "100%",
-                height: "100%",
-                position: "absolute",
+                width: '100%',
+                height: '100%',
+                position: 'absolute',
                 top: 0,
                 paddingTop: 20,
               }}

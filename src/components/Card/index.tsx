@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   BoxNote,
   Poster,
@@ -7,11 +7,16 @@ import {
   BoxRelease,
   PosterWithoutImg,
   TextWithoutImg,
-} from "./styles";
-import { ICard } from "./types";
+} from './styles';
+import { type ICard } from './types';
 
-export function Card({ uri,title, vote, release, onPress }: ICard) {
-
+export function Card({
+  uri,
+  title,
+  vote,
+  release,
+  onPress,
+}: ICard): JSX.Element {
   return (
     <Container onPress={onPress}>
       {uri !== undefined && uri !== null ? (
@@ -25,17 +30,19 @@ export function Card({ uri,title, vote, release, onPress }: ICard) {
         </PosterWithoutImg>
       )}
 
-      {(Boolean(vote) && Boolean(Number(vote) > 0))&& (
+      {Boolean(vote) && Boolean(Number(vote) > 0) && (
         <BoxNote>
           <Note>
-            {vote?.length > 2 ? Number(vote).toFixed(1) : `${vote}.0`}
+            {vote != null && vote?.length > 2
+              ? Number(vote).toFixed(1)
+              : `${vote}.0`}
           </Note>
         </BoxNote>
       )}
 
       {Boolean(release) && (
         <BoxRelease>
-          <Note style={{ fontWeight: "bold" }}>{release}</Note>
+          <Note style={{ fontWeight: 'bold' }}>{release}</Note>
         </BoxRelease>
       )}
     </Container>

@@ -1,7 +1,7 @@
 export interface ICardPerson {
-    id: string;
-    name: string;
-    profile_path: string;
-    character: string;
-    onPress?: () => void;
-  }
+  id: string;
+  name: string;
+  profilePath: string;
+  character: string;
+  onPress?: () => void;
+}

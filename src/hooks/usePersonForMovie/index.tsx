@@ -1,8 +1,7 @@
-import { useCallback, useState } from "react";
-import { PersonsSchema } from "./types";
-import api from "src/services/api";
-import Constants from "expo-constants";
-
+import { useCallback, useState } from 'react';
+import { type PersonsSchema } from './types';
+import api from 'src/services/api';
+import Constants from 'expo-constants';
 
 export function usePersonForMovie(): {
   getPersons: (link: string) => void;
@@ -18,23 +17,25 @@ export function usePersonForMovie(): {
       api
         .get(`${id}?api_key=${Constants?.expoConfig?.extra?.api_key}`)
         .then(({ data }) => {
-          const director = data?.crew?.filter((item) => item.job === "Director")?.map( name => {
-            return({id: name?.credit_id, name: name?.original_name})
-          });
-          setPersonsOfMovies({ 
-            director: director, 
-            persons: data.cast.slice(0,10).map( person => {
-              return({
+          const director = data?.crew
+            ?.filter((item) => item.job === 'Director')
+            ?.map((name) => {
+              return { id: name?.credit_id, name: name?.original_name };
+            });
+          setPersonsOfMovies({
+            director,
+            persons: data.cast.slice(0, 10).map((person) => {
+              return {
                 id: person.id,
                 name: person.name,
-                profile_path: person.profile_path,
-                character: person.character
-              })
-            })
-          })
+                profilePath: person.profilePath,
+                character: person.character,
+              };
+            }),
+          });
         })
         .catch((err) => {
-          console.error("ops! ocorreu um erro" + err);
+          console.error('ops! ocorreu um erro' + err);
           setPersonsOfMovies({} as PersonsSchema);
         })
         .finally(() => {

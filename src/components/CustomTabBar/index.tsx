@@ -1,35 +1,41 @@
-import React from "react";
-import { Container, Content, Button, BorderButton, ButtonContentSelected } from "./styles";
-import { ICustomTabBar } from "./types";
-import { theme } from "../../theme/styles";
+import React from 'react';
+import {
+  Container,
+  Content,
+  Button,
+  BorderButton,
+  ButtonContentSelected,
+} from './styles';
+import { ICustomTabBar } from './types';
+import Theme from '../../theme/Theme';
 
 export function CustomTabBar({
   state,
   descriptors,
   navigation,
-}: ICustomTabBar) {
-  const themeColors = theme;
+}: ICustomTabBar): JSX.Element {
+  const themeColors = Theme;
 
   return (
     <Container>
       <Content
         style={{
-          //elevação para IOS
+          // elevação para IOS
           shadowOffset: { height: 0.2, width: 0 },
-          shadowColor: theme.colors.black,
+          shadowColor: themeColors.colors.black,
           shadowOpacity: 0.2,
           shadowRadius: 3.8,
         }}
       >
         {state.routes.map((route, index) => {
-          //percorre todas as rotas
+          // percorre todas as rotas
           const { options } = descriptors[route.key];
 
           const isFocused = state.index === index;
 
-          const onPress = () => {
+          const onPress = (): void => {
             const event = navigation.emit({
-              type: "tabPress",
+              type: 'tabPress',
               target: route.key,
               canPreventDefault: true,
             });
@@ -45,7 +51,7 @@ export function CustomTabBar({
 
           const onLongPress = () => {
             navigation.emit({
-              type: "tabLongPress",
+              type: 'tabLongPress',
               target: route.key,
             });
           };
@@ -61,9 +67,11 @@ export function CustomTabBar({
               key={index}
             >
               <BorderButton>
-                <ButtonContentSelected isFocused={isFocused} >
-                  {options.tabBarIcon({
-                    color: isFocused ? themeColors.colors.primary : themeColors.colors.background,
+                <ButtonContentSelected isFocused={isFocused}>
+                  {options?.tabBarIcon?.({
+                    color: isFocused
+                      ? themeColors.colors.primary
+                      : themeColors.colors.background,
                     focused: isFocused,
                     size: 25,
                   })}

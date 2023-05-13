@@ -1,10 +1,7 @@
-import { collectionItems } from "src/hooks/useCollection/types";
-import { IMovies } from "../../screens/Home/types";
-
-
+import { type collectionItems } from 'src/hooks/useCollection/types';
 
 export interface ICardCollection {
-    title: string;
-    data: collectionItems[]
-    idMovie: string;
-  }
+  title: string;
+  data: collectionItems[];
+  idMovie: string;
+}

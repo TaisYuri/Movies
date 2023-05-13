@@ -1,15 +1,14 @@
-import React from "react";
-import { TagButton, TagText } from "./styles";
+import React from 'react';
+import { TagButton, TagText } from './styles';
 
-type ITag ={
+interface ITag {
   label: string;
-} 
+}
 
-export function Tag({label}: ITag) {
+export function Tag({ label }: ITag): JSX.Element {
   return (
     <TagButton>
       <TagText>{label}</TagText>
     </TagButton>
   );
 }
-

@@ -1,13 +1,14 @@
-import React from "react";
-import { View} from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import { ContainerBox, Content, Info, Title, Poster, BoxText } from "./styles";
-import { ICardCollection } from "./types";
+import React from 'react';
+import { View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { ContainerBox, Content, Info, Title, Poster, BoxText } from './styles';
+import { type ICardCollection } from './types';
 
-export function CardsCollection({ title, 
-  data, 
-  idMovie 
-}: ICardCollection) {
+export function CardsCollection({
+  title,
+  data,
+  idMovie,
+}: ICardCollection): JSX.Element {
   const navigation = useNavigation();
 
   return (
@@ -16,34 +17,38 @@ export function CardsCollection({ title,
       <View
         style={{
           flex: 1,
-          flexDirection: "row",
-          flexWrap: "wrap",
+          flexDirection: 'row',
+          flexWrap: 'wrap',
           // backgroundColor: "red",
-          justifyContent: "space-between",
+          justifyContent: 'space-between',
         }}
       >
-        {data?.map((item) => 
-        {
+        {data?.map((item) => {
           if (item?.id !== idMovie) {
             return (
-              <Content key={item?.id} 
-              onPress={() => navigation.navigate("details", { id: item.id })}
+              <Content
+                key={item?.id}
+                onPress={() => {
+                  navigation.navigate('details', { id: item.id });
+                }}
               >
                 {item?.poster_path !== undefined &&
-                item?.poster_path !== null && (
-                  <Poster
-                    source={{
-                      uri: `https://image.tmdb.org/t/p/w500/${item?.poster_path}`,
-                    }}
-                    resizeMode="contain"
-                  />
-                )}
+                  item?.poster_path !== null && (
+                    <Poster
+                      source={{
+                        uri: `https://image.tmdb.org/t/p/w500/${item?.poster_path}`,
+                      }}
+                      resizeMode="contain"
+                    />
+                  )}
                 <BoxText>
                   <Info>{item?.title}</Info>
-                    <Info>{item?.release_date}</Info>
+                  <Info>{item?.release_date}</Info>
                 </BoxText>
               </Content>
             );
+          } else {
+            return null;
           }
         })}
       </View>

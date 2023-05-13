@@ -1,13 +1,13 @@
-import React from "react";
-import {  TouchableOpacityProps } from "react-native";
-import { Button, ButtonText } from "./styles";
+import React from 'react';
+import { type TouchableWithoutFeedbackProps } from 'react-native';
+import { Button, ButtonText } from './styles';
 
-type IButton = TouchableOpacityProps 
+type IButton = TouchableWithoutFeedbackProps;
 
-export function ButtonPrimary({children, ...props}: IButton) {
+export function ButtonPrimary({ children, ...props }: IButton): JSX.Element {
   return (
     <Button {...props}>
-      <ButtonText >{children}</ButtonText>
+      <ButtonText>{children}</ButtonText>
     </Button>
   );
 }

@@ -6,11 +6,11 @@ interface DirectorProps {
 export interface PersonProps {
   id: string;
   name: string;
-  profile_path: string;
+  profilePath: string;
   character: string;
 }
 
-export interface PersonsSchema{
+export interface PersonsSchema {
   director: DirectorProps[];
-  persons:PersonProps[];
+  persons: PersonProps[];
 }

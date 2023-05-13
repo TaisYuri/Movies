@@ -1,5 +1,5 @@
-import { Platform } from "react-native";
-import styled from "styled-components/native";
+import { Platform } from 'react-native';
+import styled from 'styled-components/native';
 
 interface ColorButton {
   isFocused: boolean;
@@ -11,7 +11,7 @@ export const Container = styled.View`
 `;
 export const Content = styled.TouchableOpacity`
   flex-direction: row;
-  margin-bottom: ${Platform.OS === "ios" ? 38 : 24}px;
+  margin-bottom: ${Platform.OS === 'ios' ? 38 : 24}px;
   align-items: center;
   justify-content: center;
   position: absolute;
@@ -37,5 +37,5 @@ export const ButtonContentSelected = styled.View<ColorButton>`
   padding: 8px;
   border-radius: 99px;
   background-color: ${(props) =>
-    props.isFocused ? props.theme.colors.primary_translucid : "transparent"};
+    props.isFocused ? props.theme.colors.primary_translucid : 'transparent'};
 `;

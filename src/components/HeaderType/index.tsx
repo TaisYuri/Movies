@@ -1,6 +1,6 @@
-import React from "react";
-import { TouchableOpacity } from "react-native";
-import { Title, Link, Container } from "./styles";
+import React from 'react';
+import { TouchableOpacity } from 'react-native';
+import { Title, Link, Container } from './styles';
 
 interface IHeaderType {
   title: string;
@@ -8,7 +8,11 @@ interface IHeaderType {
   link?: () => void;
 }
 
-export function HeaderType({ title, link, textLink }: IHeaderType) {
+export function HeaderType({
+  title,
+  link,
+  textLink,
+}: IHeaderType): JSX.Element {
   return (
     <Container>
       <Title>{title}</Title>
@@ -18,5 +22,3 @@ export function HeaderType({ title, link, textLink }: IHeaderType) {
     </Container>
   );
 }
-
-

@@ -1,14 +1,14 @@
-import { useCallback, useState } from "react";
-import api from "src/services/api";
-import { IMovies } from "src/screens/Home/types";
-import { format } from "date-fns";
-import { GetMoviesProps } from "../useGetMovies/types";
-import Constants from "expo-constants";
+import { useCallback, useState } from 'react';
+import api from 'src/services/api';
+import { type IMovies } from 'src/screens/Home/types';
+import { format } from 'date-fns';
+import { type GetMoviesProps } from '../useGetMovies/types';
+import Constants from 'expo-constants';
 
 export function useGetUpcoming({ page }: GetMoviesProps): {
   getMoviesUpComing: (link: string) => void;
   movieUpComing: IMovies[];
-  isLoadingUpComing: Boolean;
+  isLoadingUpComing: boolean;
 } {
   const [isLoadingUpComing, setIsLoadingUpComing] = useState(false);
   const [movieUpComing, setMovieUpComing] = useState<IMovies[]>([]);
@@ -21,19 +21,20 @@ export function useGetUpcoming({ page }: GetMoviesProps): {
           `${link}?api_key=${Constants?.expoConfig?.extra?.api_key}&language=pt-BR&page=${page}`
         )
         .then(({ data }) => {
+          console.log('data', data);
           setMovieUpComing(
             data.results
               // FILTRAR TODOS COM DATA SUPERIOR A DATA ATUAL
               // ORDENANDO POR DATA
               .filter(
                 (item) =>
-                  item.release_date > format(new Date(Date.now()), "yyyy-MM-dd")
+                  item.release_date > format(new Date(Date.now()), 'yyyy-MM-dd')
               )
               .sort((a, b) => a.release_date.localeCompare(b.release_date))
           );
         })
         .catch((err) => {
-          console.error("ops! ocorreu um erro" + err);
+          console.error('ops! ocorreu um erro' + err);
           setMovieUpComing([]);
         })
         .finally(() => {

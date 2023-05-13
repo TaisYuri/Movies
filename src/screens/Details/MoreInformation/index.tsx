@@ -1,6 +1,6 @@
-import { useFocusEffect, useRoute } from "@react-navigation/native";
-import React, { useCallback } from "react";
-import { FlatList, ListRenderItem } from "react-native";
+import { useFocusEffect, useRoute } from '@react-navigation/native';
+import React, { useCallback } from 'react';
+import { FlatList, ListRenderItem } from 'react-native';
 import {
   BoxCard,
   Container,
@@ -11,21 +11,19 @@ import {
   ActivityIndicator,
   BoxPerson,
   BoxSimiliar,
-} from "./styles";
-import { RouteParams } from "./types";
-import { CardPerson } from "src/components/CardPerson";
-import { ListCards } from "src/components/ListCards";
-import { useGetMovies } from "src/hooks/useGetMovies";
-import {
-  usePersonForMovie,
-} from "src/hooks/usePersonForMovie";
-import { PersonProps } from "src/hooks/usePersonForMovie/types";
+} from './styles';
+import { RouteParams } from './types';
+import { CardPerson } from 'src/components/CardPerson';
+import { ListCards } from 'src/components/ListCards';
+import { useGetMovies } from 'src/hooks/useGetMovies';
+import { usePersonForMovie } from 'src/hooks/usePersonForMovie';
+import { PersonProps } from 'src/hooks/usePersonForMovie/types';
 
 export function MoreInformation() {
   const route = useRoute();
   const { id } = route.params as RouteParams;
 
-  const { getMovies, value, isLoading } = useGetMovies({ page: "1" });
+  const { getMovies, value, isLoading } = useGetMovies({ page: '1' });
   const { getPersons, PersonsOfMovies, isLoadingPerson } = usePersonForMovie();
 
   useFocusEffect(
@@ -40,7 +38,7 @@ export function MoreInformation() {
       <CardPerson
         id={item?.id}
         name={item?.name}
-        profile_path={item?.profile_path}
+        profilePath={item?.profilePath}
         character={item?.character}
       />
     </BoxCard>
@@ -75,7 +73,7 @@ export function MoreInformation() {
       ))}
       {value.length > 0 && (
         <BoxSimiliar>
-          <ListCards title={"Recomendações"} dataMovies={value} textLink={""} />
+          <ListCards title={'Recomendações'} dataMovies={value} textLink={''} />
         </BoxSimiliar>
       )}
     </Container>

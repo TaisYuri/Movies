@@ -1,11 +1,14 @@
-import React from "react";
-import { useNavigation } from "@react-navigation/native";
-import { Animated, ImageBackground, StyleSheet } from "react-native";
-import Icon from "react-native-vector-icons/AntDesign";
-import { IHeaderAnimation } from "./types";
-import { LinearGradient } from "expo-linear-gradient";
+import React from 'react';
+import { useNavigation } from '@react-navigation/native';
+import { Animated, ImageBackground, StyleSheet } from 'react-native';
+import Icon from 'react-native-vector-icons/AntDesign';
+import { IHeaderAnimation } from './types';
+import { LinearGradient } from 'expo-linear-gradient';
 
-export function HeaderAnimation({ image, scrollY }: IHeaderAnimation) {
+export function HeaderAnimation({
+  image,
+  scrollY,
+}: IHeaderAnimation): JSX.Element {
   const navigation = useNavigation();
   const inputRangeToAnimated = [0, 60, 110, 190, 260, 360];
 
@@ -20,14 +23,14 @@ export function HeaderAnimation({ image, scrollY }: IHeaderAnimation) {
             backgroundColor: scrollY.interpolate({
               inputRange: inputRangeToAnimated,
               outputRange: [
-                "transparent",
-                "transparent",
-                "transparent",
-                "#1f222a1c",
-                "#1f222a61",
-                "#1f222a",
+                'transparent',
+                'transparent',
+                'transparent',
+                '#1f222a1c',
+                '#1f222a61',
+                '#1f222a',
               ],
-              extrapolate: "clamp",
+              extrapolate: 'clamp',
             }),
           },
           style.containerHeader,
@@ -45,7 +48,7 @@ export function HeaderAnimation({ image, scrollY }: IHeaderAnimation) {
               inputRange: inputRangeToAnimated,
               outputRange: [0, 0.25, 0.25, 0.5, 0.75, 1],
             }),
-            color: "#fff",
+            color: '#fff',
             fontSize: 20,
           }}
         >
@@ -60,18 +63,18 @@ export function HeaderAnimation({ image, scrollY }: IHeaderAnimation) {
       >
         <AnimatedGradientHelper
           colors={[
-            "transparent",
-            "transparent",
-            "#1f222a1c",
-            "#1f222ace",
-            "#1f222a",
+            'transparent',
+            'transparent',
+            '#1f222a1c',
+            '#1f222ace',
+            '#1f222a',
           ]}
           style={{
-            width: "100%",
+            width: '100%',
             height: scrollY.interpolate({
               inputRange: inputRangeToAnimated,
               outputRange: [250, 210, 180, 130, 100, 60],
-              extrapolate: "clamp",
+              extrapolate: 'clamp',
             }),
           }}
         ></AnimatedGradientHelper>
@@ -83,10 +86,10 @@ export function HeaderAnimation({ image, scrollY }: IHeaderAnimation) {
 const style = StyleSheet.create({
   containerHeader: {
     zIndex: 99,
-    justifyContent: "space-between",
-    alignItems: "center",
-    flexDirection: "row",
-    position: "absolute",
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    flexDirection: 'row',
+    position: 'absolute',
     left: 0,
     right: 0,
     paddingHorizontal: 16,

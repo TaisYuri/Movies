@@ -1,9 +1,8 @@
-import { TouchableOpacity } from 'react-native';
-import styled from "styled-components/native";
+import styled from 'styled-components/native';
 
 export const ContainerBox = styled.View`
   margin-top: 24px;
-  `;
+`;
 
 export const Content = styled.TouchableOpacity`
   display: flex;
@@ -36,4 +35,3 @@ export const Poster = styled.Image`
   height: 100px;
   border-radius: 12px;
 `;
-
