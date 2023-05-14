@@ -1,19 +1,19 @@
-import { useCallback, useState } from "react";
-import { apiBase } from "src/services/api";
-import { ICollectionSchema } from "./types";
-import Constants from "expo-constants";
-import { dateConvert } from "src/functions/dateConvert/dateConvert";
+import { useCallback, useState } from 'react';
+import { apiBase } from 'src/services/api';
+import { ICollectionSchema, collectionItems } from './types';
+import Constants from 'expo-constants';
+import { dateConvert } from 'src/functions/dateConvert/dateConvert';
 
 export function useCollection(): {
   getCollection: (id: string) => void;
   isLoadingCollection: boolean;
-  collections: ICollectionSchema;
-  reset: () => void
+  collections?: ICollectionSchema;
+  reset: () => void;
 } {
   const [isLoadingCollection, setIsLoadingCollection] = useState(false);
   const [collections, setCollections] = useState<ICollectionSchema>();
-  
-  function dateIsValid(date) {
+
+  function dateIsValid(date: string): boolean {
     return !Number.isNaN(new Date(date).getTime());
   }
 
@@ -27,10 +27,11 @@ export function useCollection(): {
         .then(({ data }) => {
           setCollections({
             id: data.id,
-            parts: data.parts.map((item) => 
-            {
+            parts: data.parts.map((item: collectionItems) => {
               if (dateIsValid(item.release_date)) {
-                const newFormatDate = dateConvert(item.release_date).formatOnlyYear
+                const newFormatDate = dateConvert(
+                  item.release_date
+                ).formatOnlyYear;
                 return {
                   id: item.id,
                   title: item.title,
@@ -39,12 +40,13 @@ export function useCollection(): {
                   release_date: newFormatDate,
                 };
               }
+              return false;
             }),
           });
         })
         .catch((err) => {
-          console.error("ops! ocorreu um erro" + err);
-          setCollections({} as ICollectionSchema);
+          console.error(`ops! ocorreu um erro ${err}`);
+          setCollections(undefined);
         })
         .finally(() => {
           setIsLoadingCollection(false);
@@ -54,8 +56,8 @@ export function useCollection(): {
   );
 
   const reset = useCallback(() => {
-    setCollections({} as ICollectionSchema)
-  },[])
+    setCollections(undefined);
+  }, []);
 
   return {
     getCollection,

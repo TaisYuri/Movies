@@ -1,12 +1,12 @@
-import { useCallback, useState } from "react";
-import { GetMoviesProps, IDetailSchema } from "./types";
-import Constants from "expo-constants";
-import api from "src/services/api";
+import { useCallback, useState } from 'react';
+import { GetMoviesProps, IDetailSchema } from './types';
+import Constants from 'expo-constants';
+import api from 'src/services/api';
 
-export function useGetDetailMovie({ page }: GetMoviesProps):{
-  getDetail: (link: string) => void,
-  isLoading: boolean,
-  value: IDetailSchema,
+export function useGetDetailMovie({ page }: GetMoviesProps): {
+  getDetail: (link: string) => void;
+  isLoading: boolean;
+  value?: IDetailSchema;
 } {
   const [isLoading, setIsLoading] = useState(false);
   const [value, setValue] = useState<IDetailSchema>();
@@ -22,18 +22,18 @@ export function useGetDetailMovie({ page }: GetMoviesProps):{
           setValue({
             id: data.id,
             title: data.title,
-            genres: data.genres ,
-            release_date: data.release_date,
-            vote_average: data.vote_average,
+            genres: data.genres,
+            releaseDate: data.release_date,
+            voteAverage: data.vote_average,
             overview: data.overview,
             runtime: data.runtime,
             production_companies: data.production_companies[0]?.logo_path,
-            belongs_to_collection:{ id: data?.belongs_to_collection?.id }
+            belongs_to_collection: { id: data?.belongs_to_collection?.id },
           });
         })
         .catch((err) => {
-          console.error("ops! ocorreu um erro" + err);
-          setValue({} as IDetailSchema);
+          console.error(`ops! ocorreu um erro ${err}`);
+          setValue(undefined);
         })
         .finally(() => {
           setIsLoading(false);

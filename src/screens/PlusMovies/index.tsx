@@ -1,12 +1,16 @@
-import { useFocusEffect, useRoute } from "@react-navigation/native";
-import React, { useCallback, useState } from "react";
-import { useNavigation } from "@react-navigation/native";
-import { Card } from "src/components/Card";
-import { Header } from "src/components/Header";
-import { BoxCard, ContainerBox, Scroll } from "./styles";
-import { IMovies, RouteParams } from "./types";
+import {
+  useFocusEffect,
+  useRoute,
+  useNavigation,
+} from '@react-navigation/native';
+import React, { useCallback, useState } from 'react';
 
-export function ActionMenu() {
+import { Card } from 'src/components/Card';
+import { Header } from 'src/components/Header';
+import { BoxCard, ContainerBox, Scroll } from './styles';
+import { IMovies, RouteParams } from './types';
+
+export function ActionMenu(): JSX.Element {
   const route = useRoute();
   const { title, films, newMovies } = route.params as RouteParams;
 
@@ -17,15 +21,22 @@ export function ActionMenu() {
     useCallback(() => {
       setData(films);
 
-      return () => setData([]);
+      return () => {
+        setData([]);
+      };
     }, [data])
   );
 
-  //RETORNA FILMES QUE AINDA NÃO FORAM LANÇADOS (POR DATA) E QUE NÃO TEM NOTA
-  if (newMovies) {
+  // RETORNA FILMES QUE AINDA NÃO FORAM LANÇADOS (POR DATA) E QUE NÃO TEM NOTA
+  if (newMovies ?? false) {
     return (
       <>
-        <Header title={title} goBack={() => navigation.goBack()} />
+        <Header
+          title={title}
+          goBack={() => {
+            navigation.goBack();
+          }}
+        />
         <Scroll>
           <ContainerBox>
             {data.map((item: IMovies) => (
@@ -34,10 +45,10 @@ export function ActionMenu() {
                   key={item.id}
                   title=""
                   uri={item.poster_path}
-                  onPress={() =>
-                    navigation.navigate("details", { id: item.id })
-                  }
-                  release={item.release_date}
+                  onPress={() => {
+                    navigation.navigate('details', { id: item.id });
+                  }}
+                  release={item.releaseDate}
                 />
               </BoxCard>
             ))}
@@ -49,21 +60,26 @@ export function ActionMenu() {
 
   return (
     <>
-      <Header title={title} goBack={() => navigation.goBack()} />
+      <Header
+        title={title}
+        goBack={() => {
+          navigation.goBack();
+        }}
+      />
       <Scroll>
         <ContainerBox>
           {data.map(
             (item: IMovies) =>
-              Number(item.vote_average) !== 0 && (
+              Number(item.voteAverage) !== 0 && (
                 <BoxCard key={item.id}>
                   <Card
                     title=""
                     key={item.id}
-                    vote={String(item.vote_average)}
+                    vote={String(item.voteAverage)}
                     uri={item.poster_path}
-                    onPress={() =>
-                      navigation.navigate("details", { id: item.id })
-                    }
+                    onPress={() => {
+                      navigation.navigate('details', { id: item.id });
+                    }}
                   />
                 </BoxCard>
               )

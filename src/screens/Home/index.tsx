@@ -1,43 +1,39 @@
-import React, {
-  useCallback,
-  useEffect,
-  useState,
-} from "react";
-import { Banner } from "src/components/Banner";
-import { Loading } from "src/components/Loading";
-import { Scroll } from "./styles";
-import { ListCards } from "src/components/ListCards";
-import { useGetMovies } from "src/hooks/useGetMovies";
-import { useGetUpcoming } from "src/hooks/useGetUpcoming";
-import { useGetTv } from "src/hooks/useGetTv";
-import { RefreshControl, View } from "react-native";
-import { useGetImage } from "src/hooks/useGetImage";
+import React, { useCallback, useEffect, useState } from 'react';
+import { Banner } from 'src/components/Banner';
+import { Loading } from 'src/components/Loading';
+import { Scroll } from './styles';
+import { ListCards } from 'src/components/ListCards';
+import { useGetMovies } from 'src/hooks/useGetMovies';
+import { useGetUpcoming } from 'src/hooks/useGetUpcoming';
+import { useGetTv } from 'src/hooks/useGetTv';
+import { RefreshControl, View } from 'react-native';
+import { useGetImage } from 'src/hooks/useGetImage';
 
-export function Home() {
+export function Home(): JSX.Element {
   const [refreshing, setRefreshing] = useState(false);
-  const nowPlaying = useGetMovies({ page: "1" });
-  const popular = useGetMovies({ page: "1" });
-  const topRated = useGetMovies({ page: "1" });
+  const nowPlaying = useGetMovies({ page: '1' });
+  const popular = useGetMovies({ page: '1' });
+  const topRated = useGetMovies({ page: '1' });
   const { getMoviesUpComing, movieUpComing, isLoadingUpComing } =
-    useGetUpcoming({ page: "1" });
+    useGetUpcoming({ page: '1' });
   const { getTv, tv, isLoadingTv } = useGetTv();
   const { getImage, filePath, isLoadingImage } = useGetImage();
 
-  function getConnectionApi() {
-    popular.getMovies("popular");
-    nowPlaying.getMovies("now_playing");
-    topRated.getMovies("top_rated");
+  function getConnectionApi(): void {
+    popular.getMovies('popular');
+    nowPlaying.getMovies('now_playing');
+    topRated.getMovies('top_rated');
 
     // FILTRAR TODOS COM DATA SUPERIOR A DATA ATUAL
     // ORDENANDO POR DATA
-    getMoviesUpComing("upcoming");
+    getMoviesUpComing('upcoming');
     getTv();
   }
 
- async function getImageByPopular(){
+  function getImageByPopular(): void {
     if (popular.value.length > 0) {
       const random = Math.floor(Math.random() * popular.value.length);
-    await getImage(popular?.value[random].id);
+      getImage(popular?.value[random].id);
     }
   }
 
@@ -46,7 +42,7 @@ export function Home() {
   }, []);
 
   useEffect(() => {
-    getImageByPopular()
+    getImageByPopular();
   }, [popular.value]);
 
   const onRefresh = useCallback(() => {

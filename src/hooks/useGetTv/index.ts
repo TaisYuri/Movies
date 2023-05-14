@@ -1,12 +1,12 @@
-import { useCallback, useState } from "react";
-import { apiTv } from "src/services/api";
-import { IMovies } from "src/screens/Home/types";
-import Constants from "expo-constants";
+import { useCallback, useState } from 'react';
+import { apiTv } from 'src/services/api';
+import { IMovies } from 'src/screens/Home/types';
+import Constants from 'expo-constants';
 
 export function useGetTv(): {
   getTv: () => void;
   tv: IMovies[];
-  isLoadingTv: Boolean;
+  isLoadingTv: boolean;
 } {
   const [isLoadingTv, setIsLoadingTv] = useState(false);
   const [tv, setTv] = useState<IMovies[]>([]);
@@ -21,7 +21,7 @@ export function useGetTv(): {
         setTv(data.results);
       })
       .catch((err) => {
-        console.error("ops! ocorreu um erro" + err);
+        console.error(`ops! ocorreu um erro ${err}`);
         setTv([]);
       })
       .finally(() => {

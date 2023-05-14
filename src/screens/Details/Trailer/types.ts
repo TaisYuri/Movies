@@ -1,11 +1,10 @@
 export interface ITrailer {
- movie_id: string;
+  movieId: string;
 }
 export interface ITrailerProps {
   name: string;
   key: string;
   site: string;
-  official: boolean,
+  official: boolean;
   published_at: string;
 }
-

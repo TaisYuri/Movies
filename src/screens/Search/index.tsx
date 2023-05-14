@@ -1,14 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { Text, View } from "react-native";
+import React from 'react';
+import { Text, View } from 'react-native';
 
-
-export function Search() {
-
+export function Search(): JSX.Element {
   return (
     <View>
-     <Text>Search</Text>
+      <Text>Search</Text>
     </View>
   );
 }
-
-

@@ -20,12 +20,12 @@ export function ListCards({
     <BoxCard>
       <Card
         title={item.title}
-        vote={String(item.vote_average)}
+        vote={String(item.voteAverage)}
         uri={item.poster_path}
         onPress={() => {
           navigation.navigate('details', { id: item.id });
         }}
-        release={newMovies ? item.release_date : ''}
+        release={newMovies ? item.releaseDate : ''}
       />
     </BoxCard>
   );

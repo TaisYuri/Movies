@@ -19,7 +19,7 @@ import { useGetMovies } from 'src/hooks/useGetMovies';
 import { usePersonForMovie } from 'src/hooks/usePersonForMovie';
 import { PersonProps } from 'src/hooks/usePersonForMovie/types';
 
-export function MoreInformation() {
+export function MoreInformation(): JSX.Element {
   const route = useRoute();
   const { id } = route.params as RouteParams;
 
@@ -55,9 +55,9 @@ export function MoreInformation() {
   return (
     <Container>
       <BoxPerson>
-        {Boolean(PersonsOfMovies?.persons?.length > 0) && (
-          <Title>Elenco principal</Title>
-        )}
+        {Boolean(
+          PersonsOfMovies != null && PersonsOfMovies?.persons?.length > 0
+        ) && <Title>Elenco principal</Title>}
         <FlatList
           data={PersonsOfMovies?.persons}
           renderItem={renderItem}

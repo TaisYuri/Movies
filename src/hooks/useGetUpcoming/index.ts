@@ -27,14 +27,16 @@ export function useGetUpcoming({ page }: GetMoviesProps): {
               // FILTRAR TODOS COM DATA SUPERIOR A DATA ATUAL
               // ORDENANDO POR DATA
               .filter(
-                (item) =>
+                (item: IMovies) =>
                   item.release_date > format(new Date(Date.now()), 'yyyy-MM-dd')
               )
-              .sort((a, b) => a.release_date.localeCompare(b.release_date))
+              .sort((a: any, b: any) =>
+                a.release_date.localeCompare(b.release_date)
+              )
           );
         })
         .catch((err) => {
-          console.error('ops! ocorreu um erro' + err);
+          console.error(`ops! ocorreu um erro ${err}`);
           setMovieUpComing([]);
         })
         .finally(() => {

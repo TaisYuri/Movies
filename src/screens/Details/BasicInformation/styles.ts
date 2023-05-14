@@ -1,4 +1,4 @@
-import styled from "styled-components/native";
+import styled from 'styled-components/native';
 
 export const Container = styled.View`
   padding-left: 10px;
@@ -56,7 +56,7 @@ export const NotFound = styled.Text`
   font-size: 14px;
 `;
 export const SubTitleProvider = styled.Text`
-  color: ${({theme}) => theme.colors.subtitle};
+  color: ${({ theme }) => theme.colors.subtitle};
   margin-top: 15px;
   margin-bottom: 8px;
   font-size: 18px;
@@ -65,7 +65,6 @@ export const SubTitleProvider = styled.Text`
 export const BoxProvider = styled.ScrollView`
   /* flex-direction: row;
   align-items: baseline; */
-
 `;
 export const ProductionCompany = styled.View`
   flex-direction: row;
@@ -79,14 +78,14 @@ export const ImageProvider = styled.Image`
   margin-right: 10px;
   border-radius: 8px;
 `;
-export const ImageCompany= styled.Image`
+export const ImageCompany = styled.Image`
   width: 70px;
   height: 70px;
   margin-top: 3px;
 `;
 
 export const Label = styled.Text`
-  color: ${({theme}) => theme.colors.subtitle};
+  color: ${({ theme }) => theme.colors.subtitle};
   font-size: 15px;
   margin-top: 15px;
 `;

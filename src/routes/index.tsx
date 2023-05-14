@@ -13,7 +13,7 @@ import { CustomTabBar } from '../components/CustomTabBar';
 const Bottom = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
-function StackNav() {
+function StackNav(): JSX.Element {
   return (
     <Stack.Navigator>
       <Stack.Screen
@@ -35,7 +35,7 @@ function StackNav() {
   );
 }
 
-export function Routes() {
+export function Routes(): JSX.Element {
   const themeColors = Theme;
 
   return (

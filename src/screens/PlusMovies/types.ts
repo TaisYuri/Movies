@@ -1,17 +1,17 @@
-export type RouteParams = {
+export interface RouteParams {
   title: string;
   films: IMovies[];
   newMovies?: boolean;
-};
+}
 
-export type IMovies = {
+export interface IMovies {
   id: string;
   title: string;
-  spoken_languages: Array<string>;
+  spoken_languages: string[];
   poster_path: string;
-  release_date: string;
+  releaseDate: string;
   tagline: string;
-  vote_average: string;
-  genres: Array<string>;
+  voteAverage: string;
+  genres: string[];
   vote_count: string;
-};
+}

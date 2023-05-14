@@ -1,4 +1,4 @@
-import styled from "styled-components/native";
+import styled from 'styled-components/native';
 
 export const VIDEO_HEIGHT = 210;
 
@@ -10,7 +10,6 @@ export const BoxVideo = styled.View`
   justify-content: center;
   align-items: center;
   display: flex;
-
 `;
 export const BoxLoading = styled.View`
   justify-content: center;
@@ -26,5 +25,3 @@ export const Title = styled.Text`
   margin-bottom: 10px;
   font-size: 17px;
 `;
-
-                                                                                                                                                                   

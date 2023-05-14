@@ -1,16 +1,15 @@
-import axios from "axios";
+import axios from 'axios';
 
 const api = axios.create({
-  baseURL: "https://api.themoviedb.org/3/movie",
-
+  baseURL: 'https://api.themoviedb.org/3/movie',
 });
 
 export default api;
 
 export const apiTv = axios.create({
-  baseURL: "https://api.themoviedb.org/3/tv",
+  baseURL: 'https://api.themoviedb.org/3/tv',
 });
 
 export const apiBase = axios.create({
-  baseURL: "https://api.themoviedb.org/3/",
+  baseURL: 'https://api.themoviedb.org/3/',
 });

@@ -1,14 +1,8 @@
 import { useFocusEffect, useRoute } from '@react-navigation/native';
 import React, { useCallback, useState } from 'react';
-import {
-  Animated,
-  ScrollView,
-  useWindowDimensions,
-  View,
-  Text,
-} from 'react-native';
+import { Animated, ScrollView, useWindowDimensions, View } from 'react-native';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
-import { Container, Box, Title } from './styles';
+import { Container, Box } from './styles';
 import { RouteParams } from './types';
 import { MoreInformation } from './MoreInformation';
 import { Loading } from 'src/components/Loading';
@@ -22,14 +16,14 @@ import { useProvider } from 'src/hooks/useProvider';
 import { useCollection } from 'src/hooks/useCollection';
 import { CardsCollection } from 'src/components/CardsCollection';
 
-export function Details() {
+export function Details(): JSX.Element {
   const routeNavigation = useRoute();
   const { id } = routeNavigation.params as RouteParams;
   const layout = useWindowDimensions();
   const colorTheme = Theme;
 
   const [scrollY, setScrollY] = useState(new Animated.Value(0));
-  const [index, setIndex] = React.useState(0);
+  const [, setIndex] = React.useState(0);
 
   const { getDetail, isLoading, value } = useGetDetailMovie({ page: '1' });
   const { getImage, filePath, isLoadingImage } = useGetImage();
@@ -51,7 +45,7 @@ export function Details() {
 
   useFocusEffect(
     useCallback(() => {
-      if (value?.belongs_to_collection?.id) {
+      if (value?.belongs_to_collection?.id != null) {
         getCollection(value?.belongs_to_collection?.id);
         return;
       }
@@ -61,10 +55,10 @@ export function Details() {
 
   const renderScene = SceneMap({
     first: MoreInformation,
-    second: () => <Trailer movie_id={id} />,
+    second: () => <Trailer movieId={id} />,
   });
 
-  const renderTabBar = (props) => (
+  const renderTabBar = (props: any) => (
     <TabBar
       {...props}
       indicatorStyle={{ backgroundColor: colorTheme.colors.primary }}
@@ -101,21 +95,22 @@ export function Details() {
           <BasicInformation
             title={value?.title}
             runtime={value?.runtime}
-            vote_average={value?.vote_average}
-            release_date={value?.release_date}
+            voteAverage={value?.voteAverage}
+            releaseDate={value?.releaseDate}
             genres={value?.genres}
             overview={value?.overview}
             provider={providers}
-            logo_path={value?.production_companies}
+            logoPath={value?.production_companies}
           />
 
-          {collections?.parts?.length > 0 && (
-            <CardsCollection
-              data={collections?.parts}
-              idMovie={id}
-              title="Talvez você também precise assistir"
-            />
-          )}
+          {collections?.parts?.length != null &&
+            collections?.parts?.length > 0 && (
+              <CardsCollection
+                data={collections?.parts}
+                idMovie={id}
+                title="Talvez você também precise assistir"
+              />
+            )}
 
           <View style={{ width: '100%', height: layout.height - 120 }}>
             <TabView

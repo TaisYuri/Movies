@@ -1,16 +1,12 @@
-import { useCallback, useState } from "react";
-import api from "src/services/api";
-import Constants from "expo-constants";
-
-export interface IImageSchema {
-  poster: string;
-  file_path: string;
-}
+import { useCallback, useState } from 'react';
+import api from 'src/services/api';
+import Constants from 'expo-constants';
+import { IImageSchema } from './types';
 
 export function useGetImage(): {
   getImage: (link: string) => void;
   isLoadingImage: boolean;
-  filePath: IImageSchema;
+  filePath?: IImageSchema;
 } {
   const [isLoadingImage, setIsLoadingImage] = useState(false);
   const [filePath, setFilePath] = useState<IImageSchema>();
@@ -27,8 +23,8 @@ export function useGetImage(): {
           });
         })
         .catch((err) => {
-          console.error("ops! ocorreu um erro" + err);
-          setFilePath({} as IImageSchema);
+          console.error(`ops! ocorreu um erro ${err}`);
+          setFilePath(undefined);
         })
         .finally(() => {
           setIsLoadingImage(false);

@@ -1,7 +1,7 @@
-import React from "react";
-import {View } from "react-native";
-import Icon from "react-native-vector-icons/AntDesign";
-import { hoursToMinutes, minutesToHours } from "date-fns";
+import React from 'react';
+import { View } from 'react-native';
+import Icon from 'react-native-vector-icons/AntDesign';
+import { hoursToMinutes, minutesToHours } from 'date-fns';
 import {
   BoxCard,
   BoxProvider,
@@ -17,20 +17,20 @@ import {
   TextMedium,
   TextSmall,
   Title,
-} from "./styles";
-import { IBasicInformation } from "./types";
-import { Tag } from "src/components/Tag";
+} from './styles';
+import { IBasicInformation } from './types';
+import { Tag } from 'src/components/Tag';
 
 export function BasicInformation({
   runtime,
   title,
-  vote_average,
-  release_date,
+  voteAverage,
+  releaseDate,
   genres,
   overview,
   provider,
-  logo_path,
-}: IBasicInformation) {
+  logoPath,
+}: IBasicInformation): JSX.Element {
   const hour = minutesToHours(Number(runtime));
 
   return (
@@ -38,12 +38,12 @@ export function BasicInformation({
       <BoxRow>
         <Title>{title}</Title>
         <BoxRow>
-          <Icon name="star" color="red" weight="fill" size={15} />
-          <SubTitle>{Number(vote_average).toFixed(1)}</SubTitle>
+          <Icon name="star" color="red" size={15} />
+          <SubTitle>{Number(voteAverage).toFixed(1)}</SubTitle>
         </BoxRow>
       </BoxRow>
       <Section>
-        <SubTitle>{String(release_date).slice(0, 4)} ●</SubTitle>
+        <SubTitle>{String(releaseDate).slice(0, 4)} ●</SubTitle>
         <SubTitle>{`${hour}h${hoursToMinutes(
           Number(runtime) / 60 - hour
         )}m`}</SubTitle>
@@ -56,30 +56,28 @@ export function BasicInformation({
         ))}
       </BoxCard>
       <SubTitleProvider>Stream</SubTitleProvider>
-      {provider?.length > 0 ? (
-        
-          <BoxProvider horizontal showsHorizontalScrollIndicator={false}>
-            {provider?.map((item) => (
-              <ImageProvider
-                key={item?.provider_id}
-                source={{
-                  uri: `https://image.tmdb.org/t/p/w500/${item?.logo_path}`,
-                }}
-              />
-            ))}
-          </BoxProvider>
-        
+      {provider?.length != null && provider?.length > 0 ? (
+        <BoxProvider horizontal showsHorizontalScrollIndicator={false}>
+          {provider?.map((item) => (
+            <ImageProvider
+              key={item?.provider_id}
+              source={{
+                uri: `https://image.tmdb.org/t/p/w500/${item?.logoPath}`,
+              }}
+            />
+          ))}
+        </BoxProvider>
       ) : (
         <NotFound>Não disponível</NotFound>
       )}
-      {logo_path !== null && logo_path !== undefined ? (
+      {logoPath !== null && logoPath !== undefined ? (
         <>
           <TextSmall numberOfLines={5}>{overview}</TextSmall>
           <Label>Distribuido por:</Label>
           <ProductionCompany>
             <ImageCompany
               source={{
-                uri: `https://image.tmdb.org/t/p/w500/${logo_path}`,
+                uri: `https://image.tmdb.org/t/p/w500/${logoPath}`,
               }}
               resizeMode="contain"
             />
