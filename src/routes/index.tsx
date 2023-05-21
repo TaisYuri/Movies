@@ -9,6 +9,7 @@ import { Profile } from '../screens/Profile';
 import { Search } from '../screens/Search';
 import Theme from '../theme/Theme';
 import { CustomTabBar } from '../components/CustomTabBar';
+import { Trailers } from 'src/screens/Trailers';
 
 const Bottom = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -29,6 +30,11 @@ function StackNav(): JSX.Element {
       <Stack.Screen
         name="details"
         component={Details}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="trailers"
+        component={Trailers}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>
