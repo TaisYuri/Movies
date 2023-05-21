@@ -1,4 +1,8 @@
-import { useFocusEffect, useRoute } from '@react-navigation/native';
+import {
+  useFocusEffect,
+  useRoute,
+  useNavigation,
+} from '@react-navigation/native';
 import React, { useCallback, useState } from 'react';
 import { Animated, ScrollView, useWindowDimensions, View } from 'react-native';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
@@ -9,16 +13,18 @@ import { Loading } from 'src/components/Loading';
 import Theme from 'src/theme/Theme';
 import { HeaderAnimation } from '../../components/HeaderAnimation';
 import { BasicInformation } from './BasicInformation';
-import { Trailer } from './Trailer';
 import { useGetDetailMovie } from 'src/hooks/useGetDetailMovie';
 import { useGetImage } from 'src/hooks/useGetImage';
 import { useProvider } from 'src/hooks/useProvider';
 import { useCollection } from 'src/hooks/useCollection';
 import { CardsCollection } from 'src/components/CardsCollection';
+import { ButtonPrimary } from 'src/components/Buttons/ButtonPrimary';
 
 export function Details(): JSX.Element {
   const routeNavigation = useRoute();
   const { id } = routeNavigation.params as RouteParams;
+  const navigation = useNavigation();
+
   const layout = useWindowDimensions();
   const colorTheme = Theme;
 
@@ -112,7 +118,7 @@ export function Details(): JSX.Element {
               />
             )}
 
-          <View style={{ width: '100%', height: layout.height - 120 }}>
+          {/* <View style={{ width: '100%', height: layout.height - 120 }}>
             <TabView
               navigationState={{
                 index: 0,
@@ -133,7 +139,15 @@ export function Details(): JSX.Element {
                 paddingTop: 20,
               }}
             />
-          </View>
+          </View> */}
+          <MoreInformation />
+          <ButtonPrimary
+            onPress={() => {
+              navigation.navigate('trailers', { movieId: id });
+            }}
+          >
+            Assista ao Trailer
+          </ButtonPrimary>
         </Container>
       </ScrollView>
     </Box>

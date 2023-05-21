@@ -7,17 +7,25 @@ export const Container = styled.View`
   flex: 1;
 `;
 
-export const BoxRow = styled.View`
+export const ContentHeader = styled.View`
   flex-direction: row;
   justify-content: space-between;
-  align-items: baseline;
+  align-items: flex-start;
+  padding-right: 10px;
 `;
+export const ContentTitles = styled.View`
+  display: flex;
+  max-width: 90%;
+  min-width: 75%;
+  flex: 1;
+`;
+export const ContentoVote = styled.View``;
 
 export const Title = styled.Text`
   color: ${({ theme }) => theme.colors.white};
   margin-top: 10px;
-  font-size: 20px;
-  max-width: 80%;
+  font-size: 26px;
+  /* max-width: 90%; */
 `;
 export const SubTitle = styled.Text`
   color: ${({ theme }) => theme.colors.white};
@@ -45,8 +53,9 @@ export const TextSmall = styled.Text`
 `;
 export const TextMedium = styled.Text`
   color: ${({ theme }) => theme.colors.white};
-  margin-top: 24px;
-  font-size: 14px;
+  margin: 24px 8px 0px 8px;
+  font-size: 16px;
+  text-align: center;
 `;
 
 export const NotFound = styled.Text`

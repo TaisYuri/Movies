@@ -1,11 +1,11 @@
 import React from 'react';
 import { View } from 'react-native';
-import Icon from 'react-native-vector-icons/AntDesign';
+// import Icon from 'react-native-vector-icons/AntDesign';
 import { hoursToMinutes, minutesToHours } from 'date-fns';
 import {
   BoxCard,
   BoxProvider,
-  BoxRow,
+  ContentHeader,
   ImageCompany,
   ImageProvider,
   Label,
@@ -16,10 +16,13 @@ import {
   SubTitleProvider,
   TextMedium,
   TextSmall,
+  ContentoVote,
   Title,
+  ContentTitles,
 } from './styles';
 import { IBasicInformation } from './types';
 import { Tag } from 'src/components/Tag';
+import { VoteAverage } from 'src/components/VoteAverage';
 
 export function BasicInformation({
   runtime,
@@ -35,19 +38,22 @@ export function BasicInformation({
 
   return (
     <>
-      <BoxRow>
-        <Title>{title}</Title>
-        <BoxRow>
-          <Icon name="star" color="red" size={15} />
-          <SubTitle>{Number(voteAverage).toFixed(1)}</SubTitle>
-        </BoxRow>
-      </BoxRow>
-      <Section>
-        <SubTitle>{String(releaseDate).slice(0, 4)} ●</SubTitle>
-        <SubTitle>{`${hour}h${hoursToMinutes(
-          Number(runtime) / 60 - hour
-        )}m`}</SubTitle>
-      </Section>
+      <ContentHeader>
+        <ContentTitles>
+          <Title>{title}</Title>
+          <Section>
+            <SubTitle>{String(releaseDate).slice(0, 4)} ●</SubTitle>
+            <SubTitle>{`${hour}h${hoursToMinutes(
+              Number(runtime) / 60 - hour
+            )}m`}</SubTitle>
+          </Section>
+        </ContentTitles>
+
+        <ContentoVote>
+          <VoteAverage label={Number(voteAverage).toFixed(1)} />
+        </ContentoVote>
+      </ContentHeader>
+
       <BoxCard>
         {genres?.map((item) => (
           <View key={item.id}>
@@ -55,36 +61,22 @@ export function BasicInformation({
           </View>
         ))}
       </BoxCard>
-      <SubTitleProvider>Stream</SubTitleProvider>
-      {provider?.length != null && provider?.length > 0 ? (
-        <BoxProvider horizontal showsHorizontalScrollIndicator={false}>
-          {provider?.map((item) => (
-            <ImageProvider
-              key={item?.provider_id}
-              source={{
-                uri: `https://image.tmdb.org/t/p/w500/${item?.logoPath}`,
-              }}
-            />
-          ))}
-        </BoxProvider>
-      ) : (
-        <NotFound>Não disponível</NotFound>
-      )}
-      {logoPath !== null && logoPath !== undefined ? (
+      <TextMedium numberOfLines={10}>{overview}</TextMedium>
+
+      {provider?.length != null && provider?.length > 0 && (
         <>
-          <TextSmall numberOfLines={5}>{overview}</TextSmall>
-          <Label>Distribuido por:</Label>
-          <ProductionCompany>
-            <ImageCompany
-              source={{
-                uri: `https://image.tmdb.org/t/p/w500/${logoPath}`,
-              }}
-              resizeMode="contain"
-            />
-          </ProductionCompany>
+          <SubTitleProvider>Stream</SubTitleProvider>
+          <BoxProvider horizontal showsHorizontalScrollIndicator={false}>
+            {provider?.map((item) => (
+              <ImageProvider
+                key={item?.provider_id}
+                source={{
+                  uri: `https://image.tmdb.org/t/p/w500/${item?.logoPath}`,
+                }}
+              />
+            ))}
+          </BoxProvider>
         </>
-      ) : (
-        <TextMedium numberOfLines={10}>{overview}</TextMedium>
       )}
     </>
   );

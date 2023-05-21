@@ -10,7 +10,7 @@ export function HeaderAnimation({
   scrollY,
 }: IHeaderAnimation): JSX.Element {
   const navigation = useNavigation();
-  const inputRangeToAnimated = [0, 60, 110, 190, 260, 360];
+  const inputRangeToAnimated = [0, 60, 120, 180, 240, 300, 360, 420];
 
   const AnimatedGradientHelper =
     Animated.createAnimatedComponent(LinearGradient);
@@ -26,6 +26,8 @@ export function HeaderAnimation({
                 'transparent',
                 'transparent',
                 'transparent',
+                'transparent',
+                '#1f222a1c',
                 '#1f222a1c',
                 '#1f222a61',
                 '#1f222a',
@@ -46,7 +48,7 @@ export function HeaderAnimation({
           style={{
             opacity: scrollY.interpolate({
               inputRange: inputRangeToAnimated,
-              outputRange: [0, 0.25, 0.25, 0.5, 0.75, 1],
+              outputRange: [0, 0.25, 0.25, 0.25, 0.5, 0.5, 0.75, 1],
             }),
             color: '#fff',
             fontSize: 20,
@@ -60,6 +62,7 @@ export function HeaderAnimation({
         source={{
           uri: `https://image.tmdb.org/t/p/w500/${image}`,
         }}
+        // resizeMode="stretch"
       >
         <AnimatedGradientHelper
           colors={[
@@ -73,7 +76,7 @@ export function HeaderAnimation({
             width: '100%',
             height: scrollY.interpolate({
               inputRange: inputRangeToAnimated,
-              outputRange: [250, 210, 180, 130, 100, 60],
+              outputRange: [320, 280, 240, 200, 160, 120, 80, 60],
               extrapolate: 'clamp',
             }),
           }}

@@ -1,11 +1,13 @@
 import { format } from 'date-fns';
-
+import formatDistanceToNow from 'date-fns/formatDistanceToNow';
 export function dateConvert(date: string): {
   formateDate: string;
   formatOnlyYear: string;
+  elapsedTime: string;
 } {
   const ISOdateString = date;
   const formateDate = format(new Date(ISOdateString), 'dd-MM-yyyy');
   const formatOnlyYear = format(new Date(ISOdateString), 'yyyy');
-  return { formateDate, formatOnlyYear };
+  const elapsedTime = formatDistanceToNow(new Date(ISOdateString));
+  return { formateDate, formatOnlyYear, elapsedTime };
 }
