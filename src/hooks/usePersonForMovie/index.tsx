@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react';
-import { PersonProps, type PersonsSchema } from './types';
+import { type PersonsSchema } from './types';
 import api from 'src/services/api';
 import Constants from 'expo-constants';
 
@@ -24,11 +24,11 @@ export function usePersonForMovie(): {
             });
           setPersonsOfMovies({
             director,
-            persons: data.cast.slice(0, 10).map((person: PersonProps) => {
+            persons: data.cast.slice(0, 10).map((person: any) => {
               return {
                 id: person.id,
                 name: person.name,
-                profilePath: person.profilePath,
+                profilePath: person.profile_path,
                 character: person.character,
               };
             }),

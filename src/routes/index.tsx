@@ -50,7 +50,7 @@ export function Routes(): JSX.Element {
         headerShown: false,
         tabBarHideOnKeyboard: true, // esconde a tab caso abra o teclado por cima
         tabBarShowLabel: false,
-        tabBarActiveTintColor: themeColors.colors.black,
+        tabBarActiveTintColor: themeColors.colors.base_alternative,
         tabBarStyle: {
           backgroundColor: themeColors.colors.background,
           borderTopWidth: 0,

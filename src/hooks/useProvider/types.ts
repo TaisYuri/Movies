@@ -1,4 +1,4 @@
 export interface IProviderSchema {
   provider_id: string;
-  logoPath: string;
+  logo_path: string;
 }

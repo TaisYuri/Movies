@@ -1,6 +1,7 @@
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
-import { Title, Link, Container } from './styles';
+import { Link, Container } from './styles';
+import { Title } from '../Title';
 
 interface IHeaderType {
   title: string;

@@ -8,9 +8,3 @@ export const ContentImage = styled.View`
   right: 0;
   left: 37%;
 `;
-
-export const TagText = styled.Text`
-  font-size: 20px;
-  font-weight: bold;
-  color: ${({ theme }) => theme.colors.white};
-`;

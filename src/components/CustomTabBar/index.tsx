@@ -22,7 +22,7 @@ export function CustomTabBar({
         style={{
           // elevação para IOS
           shadowOffset: { height: 0.2, width: 0 },
-          shadowColor: themeColors.colors.black,
+          shadowColor: themeColors.colors.base_alternative,
           shadowOpacity: 0.2,
           shadowRadius: 3.8,
         }}

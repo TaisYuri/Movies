@@ -9,14 +9,8 @@ export const Container = styled.View`
   margin-bottom: 5px;
 `;
 
-export const Title = styled.Text`
-  font-size: 20px;
-  font-weight: 700;
-  color: ${({ theme }) => theme.colors.white};
-`;
-
 export const Link = styled.Text`
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 700;
   color: ${({ theme }) => theme.colors.primary};
 `;

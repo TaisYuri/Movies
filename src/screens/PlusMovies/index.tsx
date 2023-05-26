@@ -48,7 +48,7 @@ export function ActionMenu(): JSX.Element {
                   onPress={() => {
                     navigation.navigate('details', { id: item.id });
                   }}
-                  release={item.releaseDate}
+                  release={item.release_date}
                 />
               </BoxCard>
             ))}

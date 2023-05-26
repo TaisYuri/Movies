@@ -7,10 +7,13 @@ import { ThemeProvider } from 'styled-components';
 import Theme from './src/theme/Theme';
 
 export default function App() {
+  const theme = Theme;
   return (
     <NavigationContainer>
       <ThemeProvider theme={Theme}>
-        <SafeAreaView style={{ backgroundColor: '#1f222a', height: 10 }} />
+        <SafeAreaView
+          style={{ backgroundColor: Theme.colors.background, height: 10 }}
+        />
         <StatusBar style="dark" translucent />
         <Routes />
       </ThemeProvider>

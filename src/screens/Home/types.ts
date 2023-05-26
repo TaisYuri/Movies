@@ -7,7 +7,7 @@ export interface IMovies {
   title: string;
   spoken_languages: string[];
   poster_path: string;
-  releaseDate: string;
+  release_date: string;
   tagline: string;
   voteAverage: string;
   genres: string[];

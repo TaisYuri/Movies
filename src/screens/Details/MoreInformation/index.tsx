@@ -7,7 +7,6 @@ import {
   ContainerLoading,
   Label,
   SubTitle,
-  Title,
   ActivityIndicator,
   BoxPerson,
   BoxSimiliar,
@@ -18,6 +17,7 @@ import { ListCards } from 'src/components/ListCards';
 import { useGetMovies } from 'src/hooks/useGetMovies';
 import { usePersonForMovie } from 'src/hooks/usePersonForMovie';
 import { PersonProps } from 'src/hooks/usePersonForMovie/types';
+import { Title } from 'src/components/Title';
 
 export function MoreInformation(): JSX.Element {
   const route = useRoute();
@@ -51,7 +51,6 @@ export function MoreInformation(): JSX.Element {
       </ContainerLoading>
     );
   }
-
   return (
     <Container>
       <BoxPerson>

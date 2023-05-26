@@ -22,12 +22,12 @@ export const PosterWithoutImg = styled.View`
 
 export const TextWithoutImg = styled.Text`
   font-size: 28px;
-  color: ${({ theme }) => theme.colors.white};
+  color: ${({ theme }) => theme.colors.base};
 `;
 
 export const Note = styled.Text`
   font-size: 12px;
-  color: ${({ theme }) => theme.colors.white};
+  color: ${({ theme }) => theme.colors.base};
 `;
 
 export const BoxNote = styled.View`

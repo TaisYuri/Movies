@@ -1,8 +1,9 @@
 import React from 'react';
 import { View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { ContainerBox, Content, Info, Title, Poster, BoxText } from './styles';
+import { ContainerBox, Content, Info, Poster, BoxText } from './styles';
 import { type ICardCollection } from './types';
+import { Title } from '../Title';
 
 export function CardsCollection({
   title,
@@ -19,7 +20,7 @@ export function CardsCollection({
           flex: 1,
           flexDirection: 'row',
           flexWrap: 'wrap',
-          // backgroundColor: "red",
+          marginTop: 10,
           justifyContent: 'space-between',
         }}
       >

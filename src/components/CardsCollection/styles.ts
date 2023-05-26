@@ -18,15 +18,8 @@ export const BoxText = styled.View`
   margin-left: 8px;
 `;
 
-export const Title = styled.Text`
-  color: ${({ theme }) => theme.colors.white};
-  margin-bottom: 10px;
-  font-size: 20px;
-  max-width: 80%;
-`;
-
 export const Info = styled.Text`
-  color: #fff;
+  color: ${({ theme }) => theme.colors.base};
   font-size: 12px;
 `;
 

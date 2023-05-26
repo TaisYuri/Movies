@@ -1,7 +1,8 @@
 import React from 'react';
 import Icon from 'react-native-vector-icons/AntDesign';
-import { Title, Container, ContentTitle } from './styles';
+import { Container, ContentTitle } from './styles';
 import { IHeader } from './types';
+import { Title } from '../Title';
 
 export function Header({ title, goBack }: IHeader): JSX.Element {
   return (

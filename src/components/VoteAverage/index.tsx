@@ -1,6 +1,7 @@
 import React from 'react';
-import { Container, TagText, ContentImage } from './styles';
+import { Container, ContentImage } from './styles';
 import VoteStars from '../../assets/vote_stars.svg';
+import { Title } from '../Title';
 
 interface ITag {
   label?: string;
@@ -11,7 +12,7 @@ export function VoteAverage({ label }: ITag): JSX.Element {
     <Container>
       <VoteStars width={140} height={60} style={{ margin: 0 }} />
       <ContentImage>
-        <TagText>{label}</TagText>
+        <Title>{label}</Title>
       </ContentImage>
     </Container>
   );

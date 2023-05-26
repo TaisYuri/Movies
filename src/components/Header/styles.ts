@@ -19,10 +19,3 @@ export const ContentTitle = styled.View`
   flex: 1;
   align-items: center;
 `;
-
-export const Title = styled.Text`
-  font-size: 21px;
-  font-weight: 700;
-
-  color: ${({ theme }) => theme.colors.white};
-`;

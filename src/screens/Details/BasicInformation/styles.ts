@@ -22,13 +22,13 @@ export const ContentTitles = styled.View`
 export const ContentoVote = styled.View``;
 
 export const Title = styled.Text`
-  color: ${({ theme }) => theme.colors.white};
+  color: ${({ theme }) => theme.colors.base};
   margin-top: 10px;
   font-size: 26px;
   /* max-width: 90%; */
 `;
 export const SubTitle = styled.Text`
-  color: ${({ theme }) => theme.colors.white};
+  color: ${({ theme }) => theme.colors.base};
   margin-left: 10px;
   font-size: 18px;
 `;
@@ -42,24 +42,24 @@ export const Section = styled.View`
 
 export const BoxCard = styled.View`
   flex-direction: row;
-  margin-top: 8px;
+  margin-top: 16px;
   flex-wrap: wrap;
 `;
 
 export const TextSmall = styled.Text`
-  color: ${({ theme }) => theme.colors.white};
+  color: ${({ theme }) => theme.colors.base};
   margin-top: 24px;
   font-size: 12px;
 `;
 export const TextMedium = styled.Text`
-  color: ${({ theme }) => theme.colors.white};
-  margin: 24px 8px 0px 8px;
+  color: ${({ theme }) => theme.colors.base};
+  margin-bottom: 16px;
   font-size: 16px;
   text-align: center;
 `;
 
 export const NotFound = styled.Text`
-  color: ${({ theme }) => theme.colors.white};
+  color: ${({ theme }) => theme.colors.base};
   margin-top: 5px;
   margin-bottom: 12px;
   font-size: 14px;

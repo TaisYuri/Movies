@@ -2,7 +2,7 @@
 
 // const Container = styled.View`
 //   flex: 1;
-//   background-color: ${({ theme }) => theme.colors.white};
+//   background-color: ${({ theme }) => theme.colors.base};
 //   align-items: center;
 //   justify-content: center;
 // `;

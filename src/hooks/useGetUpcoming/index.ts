@@ -21,7 +21,6 @@ export function useGetUpcoming({ page }: GetMoviesProps): {
           `${link}?api_key=${Constants?.expoConfig?.extra?.api_key}&language=pt-BR&page=${page}`
         )
         .then(({ data }) => {
-          console.log('data', data);
           setMovieUpComing(
             data.results
               // FILTRAR TODOS COM DATA SUPERIOR A DATA ATUAL

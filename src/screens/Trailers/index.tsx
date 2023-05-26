@@ -6,7 +6,6 @@ import {
   BoxLoading,
   BoxVideo,
   Container,
-  Title,
   ContentInfos,
   SubTitle,
   Content,
@@ -23,11 +22,14 @@ import { Header } from 'src/components/Header';
 import NoData from '../../assets/no_data.svg';
 import { useGetTrailers } from 'src/hooks/useGetTrailers';
 import { Loading } from 'src/components/Loading';
+import Theme from 'src/theme/Theme';
+import { Title } from 'src/components/Title';
 
 export function Trailers(): JSX.Element {
   const routeNavigation = useRoute();
   const navigation = useNavigation();
   const { movieId } = routeNavigation.params as ITrailer;
+  const theme = Theme;
 
   const [videoReady, setVideoReady] = useState(false);
 
@@ -78,7 +80,10 @@ export function Trailers(): JSX.Element {
 
                 {!videoReady && (
                   <BoxLoading>
-                    <ActivityIndicator size="large" color={'#FF4451'} />
+                    <ActivityIndicator
+                      size="large"
+                      color={theme.colors.primary}
+                    />
                   </BoxLoading>
                 )}
               </BoxVideo>

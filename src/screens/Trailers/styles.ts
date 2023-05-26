@@ -29,13 +29,8 @@ export const ContentInfos = styled.View`
   align-items: center;
 `;
 
-export const Title = styled.Text`
-  color: ${({ theme }) => theme.colors.white};
-  font-size: 18px;
-  font-weight: bold;
-`;
 export const SubTitle = styled.Text`
-  color: ${({ theme }) => theme.colors.white};
+  color: ${({ theme }) => theme.colors.base};
   font-size: 14px;
 `;
 
@@ -47,13 +42,13 @@ export const ViewNotFind = styled.TouchableOpacity`
 `;
 
 export const TitleNotFind = styled.Text`
-  color: ${({ theme }) => theme.colors.white};
+  color: ${({ theme }) => theme.colors.base};
   font-size: 22px;
   font-weight: bold;
   line-height: 32px;
   margin-top: 16px;
 `;
 export const SubtitleNotFind = styled.Text`
-  color: ${({ theme }) => theme.colors.white};
+  color: ${({ theme }) => theme.colors.base};
   font-size: 18px;
 `;

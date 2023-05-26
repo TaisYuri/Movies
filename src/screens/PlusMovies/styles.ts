@@ -12,11 +12,6 @@ export const ContainerBox = styled.View`
   padding-right: 10px;
   padding-bottom: 50px;
 `;
-export const Title = styled.Text`
-  color: ${({ theme }) => theme.colors.black};
-  text-align: center;
-  font-size: 16px;
-`;
 
 export const BoxCard = styled.View`
   margin: 8px;

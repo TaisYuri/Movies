@@ -25,7 +25,7 @@ export function ListCards({
         onPress={() => {
           navigation.navigate('details', { id: item.id });
         }}
-        release={newMovies ? item.releaseDate : ''}
+        release={newMovies ? item.release_date : ''}
       />
     </BoxCard>
   );

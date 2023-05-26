@@ -8,27 +8,22 @@ export const Container = styled.View`
 export const BoxPerson = styled.View`
   padding: 16px 10px;
   margin-bottom: 10px;
+  margin-top: 10px;
 `;
 
-export const Title = styled.Text`
-  color: ${({ theme }) => theme.colors.white};
-  margin-top: 10px;
-  margin-bottom: 16px;
-  font-size: 25px;
-  max-width: 80%;
-`;
 export const Label = styled.Text`
-  color: #5d5d5d;
-  font-size: 15px;
+  color: ${({ theme }) => theme.colors.subtitle};
+  font-size: 14px;
 `;
 export const SubTitle = styled.Text`
-  color: ${({ theme }) => theme.colors.white};
+  color: ${({ theme }) => theme.colors.base};
   font-size: 14px;
 `;
 
 export const BoxCard = styled.View`
   flex-direction: row;
   margin-left: 10px;
+  margin-top: 16px;
 `;
 
 export const ContainerLoading = styled.View`

@@ -6,16 +6,11 @@ import {
   BoxCard,
   BoxProvider,
   ContentHeader,
-  ImageCompany,
   ImageProvider,
-  Label,
-  NotFound,
-  ProductionCompany,
   Section,
   SubTitle,
   SubTitleProvider,
   TextMedium,
-  TextSmall,
   ContentoVote,
   Title,
   ContentTitles,
@@ -61,23 +56,24 @@ export function BasicInformation({
           </View>
         ))}
       </BoxCard>
-      <TextMedium numberOfLines={10}>{overview}</TextMedium>
 
       {provider?.length != null && provider?.length > 0 && (
         <>
-          <SubTitleProvider>Stream</SubTitleProvider>
+          <SubTitleProvider>Onde assistir</SubTitleProvider>
           <BoxProvider horizontal showsHorizontalScrollIndicator={false}>
             {provider?.map((item) => (
               <ImageProvider
                 key={item?.provider_id}
                 source={{
-                  uri: `https://image.tmdb.org/t/p/w500/${item?.logoPath}`,
+                  uri: `https://image.tmdb.org/t/p/w500/${item?.logo_path}`,
                 }}
               />
             ))}
           </BoxProvider>
         </>
       )}
+      <SubTitleProvider>Sinopse</SubTitleProvider>
+      <TextMedium numberOfLines={10}>{overview}</TextMedium>
     </>
   );
 }

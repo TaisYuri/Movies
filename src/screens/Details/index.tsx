@@ -4,13 +4,11 @@ import {
   useNavigation,
 } from '@react-navigation/native';
 import React, { useCallback, useState } from 'react';
-import { Animated, ScrollView, useWindowDimensions, View } from 'react-native';
-import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
+import { Animated, ScrollView } from 'react-native';
 import { Container, Box } from './styles';
 import { RouteParams } from './types';
 import { MoreInformation } from './MoreInformation';
 import { Loading } from 'src/components/Loading';
-import Theme from 'src/theme/Theme';
 import { HeaderAnimation } from '../../components/HeaderAnimation';
 import { BasicInformation } from './BasicInformation';
 import { useGetDetailMovie } from 'src/hooks/useGetDetailMovie';
@@ -25,11 +23,7 @@ export function Details(): JSX.Element {
   const { id } = routeNavigation.params as RouteParams;
   const navigation = useNavigation();
 
-  const layout = useWindowDimensions();
-  const colorTheme = Theme;
-
   const [scrollY, setScrollY] = useState(new Animated.Value(0));
-  const [, setIndex] = React.useState(0);
 
   const { getDetail, isLoading, value } = useGetDetailMovie({ page: '1' });
   const { getImage, filePath, isLoadingImage } = useGetImage();
@@ -57,23 +51,6 @@ export function Details(): JSX.Element {
       }
       reset();
     }, [value])
-  );
-
-  const renderScene = SceneMap({
-    first: MoreInformation,
-    second: () => <Trailer movieId={id} />,
-  });
-
-  const renderTabBar = (props: any) => (
-    <TabBar
-      {...props}
-      indicatorStyle={{ backgroundColor: colorTheme.colors.primary }}
-      style={{ backgroundColor: colorTheme.colors.background }}
-      activeColor={colorTheme.colors.primary}
-      inactiveColor={colorTheme.colors.white}
-      getLabelText={({ route }) => route.title}
-      labelStyle={{ textTransform: 'none' }}
-    />
   );
 
   if (isLoading || isLoadingImage || isLoadingProvider || isLoadingCollection) {
@@ -108,6 +85,14 @@ export function Details(): JSX.Element {
             provider={providers}
             logoPath={value?.production_companies}
           />
+          <ButtonPrimary
+            onPress={() => {
+              navigation.navigate('trailers', { movieId: id });
+            }}
+            hasIcon
+          >
+            Assista ao Trailer
+          </ButtonPrimary>
 
           {collections?.parts?.length != null &&
             collections?.parts?.length > 0 && (
@@ -118,36 +103,7 @@ export function Details(): JSX.Element {
               />
             )}
 
-          {/* <View style={{ width: '100%', height: layout.height - 120 }}>
-            <TabView
-              navigationState={{
-                index: 0,
-                routes: [
-                  { key: 'first', title: 'Mais Informações' },
-                  { key: 'second', title: 'Trailers' },
-                ],
-              }}
-              renderScene={renderScene}
-              onIndexChange={setIndex}
-              initialLayout={{ width: layout.width }}
-              renderTabBar={renderTabBar}
-              style={{
-                width: '100%',
-                height: '100%',
-                position: 'absolute',
-                top: 0,
-                paddingTop: 20,
-              }}
-            />
-          </View> */}
           <MoreInformation />
-          <ButtonPrimary
-            onPress={() => {
-              navigation.navigate('trailers', { movieId: id });
-            }}
-          >
-            Assista ao Trailer
-          </ButtonPrimary>
         </Container>
       </ScrollView>
     </Box>
