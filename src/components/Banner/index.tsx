@@ -3,8 +3,10 @@ import { ImageBackground } from 'react-native';
 import { ColorBackground } from './styles';
 import { type IBanner } from './types';
 import { LinearGradient } from 'expo-linear-gradient';
+import { useTheme } from 'styled-components/native';
 
 export function Banner({ filePath }: IBanner): JSX.Element {
+  const theme = useTheme();
   return (
     <ImageBackground
       source={{ uri: `https://image.tmdb.org/t/p/w500/${filePath}` }}
@@ -12,10 +14,11 @@ export function Banner({ filePath }: IBanner): JSX.Element {
       <LinearGradient
         colors={[
           'transparent',
-          'transparent',
-          '#1f222a1c',
-          '#1f222ace',
-          '#1f222a',
+          // 'transparent',
+          theme.colors.grays.grayscale_100,
+          theme.colors.grays.grayscale_100,
+          theme.colors.grays.grayscale_200,
+          theme.colors.grays.grayscale_300,
         ]}
       >
         <ColorBackground></ColorBackground>

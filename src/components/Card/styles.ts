@@ -2,7 +2,7 @@ import styled from 'styled-components/native';
 
 export const Container = styled.TouchableOpacity`
   flex: 1;
-  opacity: 0.7;
+  /* opacity: 0.7; */
 `;
 
 export const Poster = styled.Image`

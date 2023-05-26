@@ -2,7 +2,7 @@ import React from 'react';
 import { type TouchableWithoutFeedbackProps } from 'react-native';
 import { Button, ButtonText } from './styles';
 import { Ionicons } from '@expo/vector-icons';
-import Theme from 'src/theme/Theme';
+import { useTheme } from 'styled-components/native';
 
 type IButton = TouchableWithoutFeedbackProps & {
   hasIcon?: boolean;
@@ -13,7 +13,7 @@ export function ButtonPrimary({
   hasIcon,
   ...props
 }: IButton): JSX.Element {
-  const theme = Theme;
+  const theme = useTheme();
   return (
     <Button {...props}>
       {Boolean(hasIcon) && (

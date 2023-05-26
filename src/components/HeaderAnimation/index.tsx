@@ -4,12 +4,14 @@ import { Animated, ImageBackground, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import { IHeaderAnimation } from './types';
 import { LinearGradient } from 'expo-linear-gradient';
+import { useTheme } from 'styled-components/native';
 
 export function HeaderAnimation({
   image,
   scrollY,
 }: IHeaderAnimation): JSX.Element {
   const navigation = useNavigation();
+  const theme = useTheme();
   const inputRangeToAnimated = [0, 60, 120, 180, 240, 300, 360, 420];
 
   const AnimatedGradientHelper =
@@ -27,10 +29,10 @@ export function HeaderAnimation({
                 'transparent',
                 'transparent',
                 'transparent',
-                '#1f222a1c',
-                '#1f222a1c',
-                '#1f222a61',
-                '#1f222a',
+                theme.colors.grays.grayscale_100,
+                theme.colors.grays.grayscale_100,
+                theme.colors.grays.grayscale_200,
+                theme.colors.grays.grayscale_300,
               ],
               extrapolate: 'clamp',
             }),
@@ -41,7 +43,7 @@ export function HeaderAnimation({
         <Icon
           name="arrowleft"
           size={24}
-          color="white"
+          color={theme.colors.base}
           onPress={navigation.goBack}
         />
         <Animated.Text
@@ -50,7 +52,7 @@ export function HeaderAnimation({
               inputRange: inputRangeToAnimated,
               outputRange: [0, 0.25, 0.25, 0.25, 0.5, 0.5, 0.75, 1],
             }),
-            color: '#fff',
+            color: theme.colors.base,
             fontSize: 20,
           }}
         >
@@ -68,9 +70,9 @@ export function HeaderAnimation({
           colors={[
             'transparent',
             'transparent',
-            '#1f222a1c',
-            '#1f222ace',
-            '#1f222a',
+            theme.colors.grays.grayscale_100,
+            theme.colors.grays.grayscale_200,
+            theme.colors.grays.grayscale_300,
           ]}
           style={{
             width: '100%',

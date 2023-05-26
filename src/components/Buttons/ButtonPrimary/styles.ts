@@ -3,7 +3,7 @@ import styled from 'styled-components/native';
 
 export const Button = styled(TouchableOpacity)`
   background-color: transparent;
-  padding: 8px 0px;
+  padding: 8px 16px;
   border-radius: 14px;
   align-items: center;
   justify-content: center;

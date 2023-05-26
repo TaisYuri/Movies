@@ -24,7 +24,7 @@ export const ContentoVote = styled.View``;
 export const Title = styled.Text`
   color: ${({ theme }) => theme.colors.base};
   margin-top: 10px;
-  font-size: 26px;
+  font-size: 32px;
   /* max-width: 90%; */
 `;
 export const SubTitle = styled.Text`

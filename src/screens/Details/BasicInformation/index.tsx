@@ -27,7 +27,6 @@ export function BasicInformation({
   genres,
   overview,
   provider,
-  logoPath,
 }: IBasicInformation): JSX.Element {
   const hour = minutesToHours(Number(runtime));
 

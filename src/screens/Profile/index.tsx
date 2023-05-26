@@ -1,8 +1,15 @@
 import { LinearGradient } from 'expo-linear-gradient';
-import React from 'react';
+import React, { useState } from 'react';
 import { Text, View } from 'react-native';
+import { ButtonPrimary } from 'src/components/Buttons/ButtonPrimary';
 
 export function Profile(): JSX.Element {
+  const [isDarkTheme, setIsDarkTheme] = useState(true);
+
+  const handleButton = () => {
+    setIsDarkTheme(!isDarkTheme);
+  };
+
   return (
     <View style={{ flex: 1, display: 'flex' }}>
       <LinearGradient
@@ -13,6 +20,9 @@ export function Profile(): JSX.Element {
         // style={{ flex: 1 }}
       >
         <Text>Profile</Text>
+        <ButtonPrimary hasIcon={false} onPress={handleButton}>
+          Trocar Tema
+        </ButtonPrimary>
       </LinearGradient>
     </View>
   );

@@ -34,8 +34,8 @@
         </linearGradient>
         <radialGradient id="paint3_radial_1_589" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse"
             gradientTransform="translate(2.80813e-06 38) scale(76 49.7199)">
-            <stop stop-color="#35B2D0" />
-            <stop offset="1" stop-color="#35B2D0" stop-opacity="0" />
+            <stop stop-color="#FF7A00" />
+            <stop offset="1" stop-color="#FF7A00" stop-opacity="0" />
         </radialGradient>
     </defs>
 </svg>

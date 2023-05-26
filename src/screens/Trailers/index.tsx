@@ -22,14 +22,14 @@ import { Header } from 'src/components/Header';
 import NoData from '../../assets/no_data.svg';
 import { useGetTrailers } from 'src/hooks/useGetTrailers';
 import { Loading } from 'src/components/Loading';
-import Theme from 'src/theme/Theme';
+import { useTheme } from 'styled-components/native';
 import { Title } from 'src/components/Title';
 
 export function Trailers(): JSX.Element {
   const routeNavigation = useRoute();
   const navigation = useNavigation();
   const { movieId } = routeNavigation.params as ITrailer;
-  const theme = Theme;
+  const theme = useTheme();
 
   const [videoReady, setVideoReady] = useState(false);
 

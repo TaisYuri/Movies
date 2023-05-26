@@ -9,7 +9,6 @@ export const Content = styled.TouchableOpacity`
   flex-direction: row;
   width: 48%;
   margin-bottom: 8px;
-  opacity: 0.7;
 `;
 
 export const BoxText = styled.View`

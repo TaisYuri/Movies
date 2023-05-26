@@ -5,7 +5,7 @@ import {
 } from '@react-navigation/native';
 import React, { useCallback, useState } from 'react';
 import { Animated, ScrollView } from 'react-native';
-import { Container, Box } from './styles';
+import { Container, ContentButton } from './styles';
 import { RouteParams } from './types';
 import { MoreInformation } from './MoreInformation';
 import { Loading } from 'src/components/Loading';
@@ -57,8 +57,9 @@ export function Details(): JSX.Element {
     return <Loading />;
   }
   return (
-    <Box>
+    <>
       <HeaderAnimation image={filePath?.file_path} scrollY={scrollY} />
+
       <ScrollView
         scrollEventThrottle={16}
         contentContainerStyle={{ flexGrow: 1 }}
@@ -85,14 +86,16 @@ export function Details(): JSX.Element {
             provider={providers}
             logoPath={value?.production_companies}
           />
-          <ButtonPrimary
-            onPress={() => {
-              navigation.navigate('trailers', { movieId: id });
-            }}
-            hasIcon
-          >
-            Assista ao Trailer
-          </ButtonPrimary>
+          <ContentButton>
+            <ButtonPrimary
+              onPress={() => {
+                navigation.navigate('trailers', { movieId: id });
+              }}
+              hasIcon
+            >
+              Assista ao Trailer
+            </ButtonPrimary>
+          </ContentButton>
 
           {collections?.parts?.length != null &&
             collections?.parts?.length > 0 && (
@@ -106,6 +109,6 @@ export function Details(): JSX.Element {
           <MoreInformation />
         </Container>
       </ScrollView>
-    </Box>
+    </>
   );
 }
