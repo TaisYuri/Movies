@@ -8,6 +8,7 @@ import { useGetUpcoming } from 'src/hooks/useGetUpcoming';
 import { useGetTv } from 'src/hooks/useGetTv';
 import { RefreshControl, View } from 'react-native';
 import { useGetImage } from 'src/hooks/useGetImage';
+import { useFavorite } from 'src/hooks/useFavorite';
 
 export function Home(): JSX.Element {
   const [refreshing, setRefreshing] = useState(false);
@@ -18,6 +19,7 @@ export function Home(): JSX.Element {
     useGetUpcoming({ page: '1' });
   const { getTv, tv, isLoadingTv } = useGetTv();
   const { getImage, filePath, isLoadingImage } = useGetImage();
+  const { getFavorite } = useFavorite();
 
   function getConnectionApi(): void {
     popular.getMovies('popular');
@@ -45,12 +47,17 @@ export function Home(): JSX.Element {
     getImageByPopular();
   }, [popular.value]);
 
+  useEffect(() => {
+    getFavorite();
+  }, []);
+
   const onRefresh = useCallback(() => {
     setRefreshing(true);
     setTimeout(() => {
       setRefreshing(false);
       getConnectionApi();
       getImageByPopular();
+      getFavorite();
     }, 200);
   }, []);
 

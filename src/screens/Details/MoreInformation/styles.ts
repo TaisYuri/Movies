@@ -3,6 +3,7 @@ import styled from 'styled-components/native';
 export const Container = styled.View`
   background-color: ${({ theme }) => theme.colors.background};
   flex-grow: 1;
+  margin-bottom: 40px;
 `;
 
 export const BoxPerson = styled.View`

@@ -1,14 +1,25 @@
+import { useFocusEffect } from '@react-navigation/native';
 import { LinearGradient } from 'expo-linear-gradient';
-import React, { useState } from 'react';
+import React, { useCallback } from 'react';
 import { Text, View } from 'react-native';
 import { ButtonPrimary } from 'src/components/Buttons/ButtonPrimary';
+import { useFavorite } from 'src/hooks/useFavorite';
+import { useThemeStore } from 'src/states/themeState';
 
 export function Profile(): JSX.Element {
-  const [isDarkTheme, setIsDarkTheme] = useState(true);
+  // const [isDarkTheme, setIsDarkTheme] = useState(true);
+  const { favorites, getFavorite } = useFavorite();
+  const { setData, themeLight } = useThemeStore();
 
   const handleButton = () => {
-    setIsDarkTheme(!isDarkTheme);
+    setData(!themeLight);
   };
+
+  useFocusEffect(
+    useCallback(() => {
+      getFavorite();
+    }, [])
+  );
 
   return (
     <View style={{ flex: 1, display: 'flex' }}>
@@ -23,6 +34,14 @@ export function Profile(): JSX.Element {
         <ButtonPrimary hasIcon={false} onPress={handleButton}>
           Trocar Tema
         </ButtonPrimary>
+
+        <Text>Retornooooo</Text>
+        {favorites?.map((item, index) => (
+          <View key={index} style={{ margin: 10 }}>
+            <Text>{item.id}</Text>
+            <Text>{item.title}</Text>
+          </View>
+        ))}
       </LinearGradient>
     </View>
   );
