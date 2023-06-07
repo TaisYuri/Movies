@@ -1,10 +1,14 @@
 import { useFocusEffect } from '@react-navigation/native';
 import { LinearGradient } from 'expo-linear-gradient';
 import React, { useCallback } from 'react';
-import { Text, View } from 'react-native';
+import { FlatList, ListRenderItem, Text, View } from 'react-native';
 import { ButtonPrimary } from 'src/components/Buttons/ButtonPrimary';
+import { Card } from 'src/components/Card';
+import { ListCards } from 'src/components/ListCards';
+import { dataProps } from 'src/components/ListCards/types';
 import { useFavorite } from 'src/hooks/useFavorite';
 import { useThemeStore } from 'src/states/themeState';
+import { BoxCard } from '../Home/styles';
 
 export function Profile(): JSX.Element {
   // const [isDarkTheme, setIsDarkTheme] = useState(true);
@@ -19,6 +23,17 @@ export function Profile(): JSX.Element {
     useCallback(() => {
       getFavorite();
     }, [])
+  );
+
+  const renderItem: ListRenderItem<dataProps> = ({ item }) => (
+    <BoxCard>
+      <Card
+        title={item.title}
+        vote={String(item.vote_average)}
+        uri={item.poster_path}
+        hasFavorite
+      />
+    </BoxCard>
   );
 
   return (
@@ -36,12 +51,15 @@ export function Profile(): JSX.Element {
         </ButtonPrimary>
 
         <Text>Retornooooo</Text>
-        {favorites?.map((item, index) => (
-          <View key={index} style={{ margin: 10 }}>
-            <Text>{item.id}</Text>
-            <Text>{item.title}</Text>
-          </View>
-        ))}
+        {/* <ListCards dataMovies={favorites} title='' /> */}
+
+        <FlatList
+          data={favorites}
+          renderItem={renderItem}
+          keyExtractor={(item) => item.id}
+          showsHorizontalScrollIndicator={false}
+          horizontal
+        />
       </LinearGradient>
     </View>
   );

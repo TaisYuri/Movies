@@ -1,6 +1,8 @@
+import { dataProps } from 'src/components/ListCards/types';
+
 export interface RouteParams {
   title: string;
-  films: IMovies[];
+  films: dataProps[];
   newMovies?: boolean;
 }
 
@@ -11,7 +13,7 @@ export interface IMovies {
   poster_path: string;
   release_date: string;
   tagline: string;
-  voteAverage: string;
+  vote_average: string;
   genres: string[];
   vote_count: string;
 }

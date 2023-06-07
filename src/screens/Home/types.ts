@@ -9,7 +9,7 @@ export interface IMovies {
   poster_path: string;
   release_date: string;
   tagline: string;
-  voteAverage: string;
+  vote_average: string;
   genres: string[];
   vote_count: string;
 }

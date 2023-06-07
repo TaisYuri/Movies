@@ -5,11 +5,12 @@ const Theme = {
     subtitle: '#5d5d5d',
     primary: '#FF7A00',
     primary_translucid: '#FF7A003b',
-    background: '#1F222A',
+    background: '#0A1428',
+    // background: '#1F222A',
     grays: {
-      grayscale_100: '#1f222a1c',
-      grayscale_200: '#1f222a61',
-      grayscale_300: '#1f222a',
+      grayscale_100: '#0A14281c',
+      grayscale_200: '#0A142861',
+      grayscale_300: '#0A1428',
     },
   },
 };

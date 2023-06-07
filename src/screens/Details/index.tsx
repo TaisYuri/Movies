@@ -17,8 +17,6 @@ import { useProvider } from 'src/hooks/useProvider';
 import { useCollection } from 'src/hooks/useCollection';
 import { CardsCollection } from 'src/components/CardsCollection';
 import { ButtonPrimary } from 'src/components/Buttons/ButtonPrimary';
-import { ButtonFavorite } from 'src/components/Buttons/ButtonFavorite';
-import { useFavorite } from 'src/hooks/useFavorite';
 
 export function Details(): JSX.Element {
   const routeNavigation = useRoute();
@@ -32,7 +30,6 @@ export function Details(): JSX.Element {
   const { getProvider, providers, isLoadingProvider } = useProvider();
   const { getCollection, collections, isLoadingCollection, reset } =
     useCollection();
-  const { handleFavorite, hasFavorite } = useFavorite(id);
 
   useFocusEffect(
     useCallback(() => {
@@ -61,7 +58,7 @@ export function Details(): JSX.Element {
   }
   return (
     <>
-      <HeaderAnimation image={filePath?.file_path} scrollY={scrollY} />
+      <HeaderAnimation image={filePath?.file_path} scrollY={scrollY} id={id} />
 
       <ScrollView
         scrollEventThrottle={16}
@@ -98,9 +95,6 @@ export function Details(): JSX.Element {
             >
               Assista ao Trailer
             </ButtonPrimary>
-            <ButtonFavorite onPress={handleFavorite} hasFavorite={hasFavorite}>
-              Favoritar
-            </ButtonFavorite>
           </ContentButton>
 
           {collections?.parts?.length != null &&

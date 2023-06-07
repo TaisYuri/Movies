@@ -7,8 +7,11 @@ import {
   BoxRelease,
   PosterWithoutImg,
   TextWithoutImg,
+  BoxFavorite,
 } from './styles';
 import { type ICard } from './types';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { useTheme } from 'styled-components/native';
 
 export function Card({
   uri,
@@ -16,7 +19,10 @@ export function Card({
   vote,
   release,
   onPress,
+  hasFavorite = false,
 }: ICard): JSX.Element {
+  const theme = useTheme();
+
   return (
     <Container onPress={onPress}>
       {uri !== undefined && uri !== null ? (
@@ -38,6 +44,15 @@ export function Card({
               : `${vote}.0`}
           </Note>
         </BoxNote>
+      )}
+      {Boolean(hasFavorite) && (
+        <BoxFavorite>
+          <MaterialCommunityIcons
+            name={'heart'}
+            size={24}
+            color={theme.colors.primary}
+          />
+        </BoxFavorite>
       )}
 
       {Boolean(release) && (

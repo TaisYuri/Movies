@@ -40,6 +40,11 @@ export const BoxNote = styled.View`
   top: 10px;
   left: 8px;
 `;
+export const BoxFavorite = styled.View`
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+`;
 
 export const BoxRelease = styled.View`
   background-color: ${({ theme }) => theme.colors.primary};

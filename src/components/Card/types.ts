@@ -4,4 +4,5 @@ export interface ICard {
   vote?: string;
   release?: string;
   onPress?: () => void;
+  hasFavorite?: boolean;
 }
