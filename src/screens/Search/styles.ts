@@ -1,13 +1,45 @@
-// import styled from 'styled-components/native';
+import styled from 'styled-components/native';
 
-// const Container = styled.View`
-//   flex: 1;
-//   background-color: ${({theme}) => theme.colors.base};
-//   align-items: center;
-//   justify-content: center;
-// `;
-// const Title = styled.Text`
-//   color: #000;
-//   text-align: center;
-//   font-size: 16px;
-// `;
+export const Container = styled.View`
+  flex: 1;
+  background-color: ${({ theme }) => theme.colors.background};
+  padding: 80px 16px 0 16px;
+  gap: 8px;
+`;
+
+export const Diviser = styled.View`
+  background-color: ${({ theme }) => theme.colors.base_alternative};
+  width: 30%;
+  height: 1px;
+`;
+
+export const Scroll = styled.ScrollView`
+  background-color: ${({ theme }) => theme.colors.background};
+  margin-top: 16px;
+`;
+
+export const ContentCards = styled.TouchableOpacity`
+  display: flex;
+  flex-direction: row;
+  /* width: 48%; */
+  margin-bottom: 8px;
+  margin-top: 8px;
+`;
+
+export const Poster = styled.Image`
+  width: 110px;
+  height: 120px;
+  border-radius: 12px;
+`;
+
+export const BoxText = styled.View`
+  flex: 1;
+  justify-content: flex-start;
+  margin-left: 8px;
+  margin-top: 16px;
+`;
+
+export const Info = styled.Text`
+  color: ${({ theme }) => theme.colors.base};
+  font-size: 16px;
+`;

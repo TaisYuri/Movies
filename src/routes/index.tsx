@@ -10,6 +10,7 @@ import { Search } from '../screens/Search';
 import Theme from '../theme/Theme';
 import { CustomTabBar } from '../components/CustomTabBar';
 import { Trailers } from 'src/screens/Trailers';
+import { Favorites } from 'src/screens/Favorites';
 
 const Bottom = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -35,6 +36,22 @@ function StackNav(): JSX.Element {
       <Stack.Screen
         name="trailers"
         component={Trailers}
+        options={{ headerShown: false }}
+      />
+    </Stack.Navigator>
+  );
+}
+function StacksProfile(): JSX.Element {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="profile"
+        component={Profile}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="favorites"
+        component={Favorites}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>
@@ -84,7 +101,7 @@ export function Routes(): JSX.Element {
 
       <Bottom.Screen
         name="Profile"
-        component={Profile}
+        component={StacksProfile}
         options={{
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons
