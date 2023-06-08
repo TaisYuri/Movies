@@ -11,3 +11,7 @@ export function dateConvert(date: string): {
   const elapsedTime = formatDistanceToNow(new Date(ISOdateString));
   return { formateDate, formatOnlyYear, elapsedTime };
 }
+
+export function dateIsValid(date: string): boolean {
+  return !Number.isNaN(new Date(date).getTime());
+}

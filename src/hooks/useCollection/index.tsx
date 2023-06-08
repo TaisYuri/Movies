@@ -2,7 +2,10 @@ import { useCallback, useState } from 'react';
 import { apiBase } from 'src/services/api';
 import { ICollectionSchema, collectionItems } from './types';
 import Constants from 'expo-constants';
-import { dateConvert } from 'src/functions/dateConvert/dateConvert';
+import {
+  dateConvert,
+  dateIsValid,
+} from 'src/functions/dateConvert/dateConvert';
 
 export function useCollection(): {
   getCollection: (id: string) => void;
@@ -12,10 +15,6 @@ export function useCollection(): {
 } {
   const [isLoadingCollection, setIsLoadingCollection] = useState(false);
   const [collections, setCollections] = useState<ICollectionSchema>();
-
-  function dateIsValid(date: string): boolean {
-    return !Number.isNaN(new Date(date).getTime());
-  }
 
   const getCollection = useCallback(
     (id: string) => {
