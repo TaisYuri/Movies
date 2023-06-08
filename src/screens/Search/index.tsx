@@ -9,15 +9,21 @@ import {
   BoxText,
   Container,
   ContentCards,
+  ContentGenre,
   Info,
+  InfoGenres,
+  InfoTitle,
   Poster,
+  PosterWithOutImage,
   Scroll,
 } from './styles';
 import { Header } from 'src/components/Header';
 import { useNavigation } from '@react-navigation/native';
 import { Title } from 'src/components/Title';
+import { genresEnum } from 'src/datas/genres';
+import { TextWithoutImg } from 'src/components/Card/styles';
 
-// https://api.themoviedb.org/3/search/person?query=Jennifer%20Lopez&api_key=856d12c0c4ce7988a3a8486fc485fad4&include_adult=false&language=en-US&page=1
+// https://api.themoviedb.org/3/search/person?query=Jennifer%20Lopez&api_key=&include_adult=false&language=en-US&page=1
 // fetch('https://api.themoviedb.org/3/search/movie?include_adult=false&language=en-US&page=1', options)
 
 export function Search(): JSX.Element {
@@ -25,7 +31,7 @@ export function Search(): JSX.Element {
   const [debouncedSearch] = useDebounce(searchText, 700);
   const navigation = useNavigation();
 
-  const { handleSearch, isLoading, value } = useSearch();
+  const { handleSearch, isLoading, value, resetData } = useSearch();
 
   // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
   const handleChange = (
@@ -40,46 +46,65 @@ export function Search(): JSX.Element {
     }
   }, [debouncedSearch]);
 
-  if (isLoading) {
-    <Loading />;
-  }
-
   return (
     <>
-      <Header title="Busca" />
+      <Header title="Buscar" />
       <Container>
         <Searchbar
           value={searchText}
           onChange={handleChange}
           placeholder="Pesquise por filme, serie ou atores"
+          onClearIconPress={() => {
+            resetData();
+          }}
         />
-        <Scroll>
-          <Title>Resultados</Title>
-          {value?.map((item) => {
-            return (
-              <ContentCards
-                key={item?.id}
-                onPress={() => {
-                  navigation.navigate('details', { id: item.id });
-                }}
-              >
-                {item?.poster_path !== undefined &&
-                  item?.poster_path !== null && (
+        {isLoading ? (
+          <Loading />
+        ) : (
+          <Scroll showsVerticalScrollIndicator={false}>
+            {Boolean(value?.length) && <Title>Resultados</Title>}
+            {value?.map((item) => {
+              return (
+                <ContentCards
+                  key={item?.id}
+                  onPress={() => {
+                    navigation.navigate('details', { id: item.id });
+                  }}
+                >
+                  {item?.poster_path !== undefined &&
+                  item?.poster_path !== null ? (
                     <Poster
                       source={{
                         uri: `https://image.tmdb.org/t/p/w500/${item?.poster_path}`,
                       }}
                       resizeMode="contain"
                     />
+                  ) : (
+                    <PosterWithOutImage>
+                      <TextWithoutImg>
+                        {item?.title?.slice(0, 1)}
+                      </TextWithoutImg>
+                    </PosterWithOutImage>
                   )}
-                <BoxText>
-                  <Info style={{ fontWeight: 'bold' }}>{item?.title}</Info>
-                  <Info>{item?.release_date}</Info>
-                </BoxText>
-              </ContentCards>
-            );
-          })}
-        </Scroll>
+                  <BoxText>
+                    <InfoTitle>{item?.title}</InfoTitle>
+                    <Info>{item?.release_date}</Info>
+                    <ContentGenre>
+                      {item?.genre_ids?.map((genre: number) => (
+                        <InfoGenres key={genre}>
+                          {
+                            genresEnum.filter((item) => item.id === genre)[0]
+                              .name
+                          }
+                        </InfoGenres>
+                      ))}
+                    </ContentGenre>
+                  </BoxText>
+                </ContentCards>
+              );
+            })}
+          </Scroll>
+        )}
       </Container>
     </>
   );

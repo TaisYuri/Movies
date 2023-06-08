@@ -31,15 +31,41 @@ export const Poster = styled.Image`
   height: 120px;
   border-radius: 12px;
 `;
+export const PosterWithOutImage = styled.View`
+  width: 110px;
+  height: 120px;
+  border-radius: 12px;
+  align-items: center;
+  justify-content: center;
+  background-color: ${({ theme }) => theme.colors.primary};
+`;
 
 export const BoxText = styled.View`
   flex: 1;
   justify-content: flex-start;
   margin-left: 8px;
-  margin-top: 16px;
+  margin-top: 8px;
+`;
+export const ContentGenre = styled.View`
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  flex-wrap: wrap;
 `;
 
+export const InfoTitle = styled.Text`
+  color: ${({ theme }) => theme.colors.base};
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 8px;
+`;
+export const InfoGenres = styled.Text`
+  color: ${({ theme }) => theme.colors.base};
+  font-size: 12px;
+  text-decoration: underline;
+`;
 export const Info = styled.Text`
   color: ${({ theme }) => theme.colors.base};
   font-size: 16px;
+  margin-bottom: 4px;
 `;

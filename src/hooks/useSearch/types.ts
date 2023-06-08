@@ -1,21 +1,7 @@
-import { IGenres } from 'src/screens/Details/BasicInformation/types';
-
-export type TMovie = 'popular' | 'now_playing' | 'top_rated' | string;
-
-export interface GetMoviesProps {
-  page?: string;
-}
-
-export interface IDetailSchema {
+export interface ISearchMovies {
   id: string;
-  runtime: string;
+  poster_path: string;
   title: string;
-  voteAverage: string;
-  releaseDate: string;
-  genres: IGenres[];
-  overview: string;
-  production_companies: string;
-  belongs_to_collection: {
-    id: string;
-  };
+  release_date: string;
+  genre_ids: number[];
 }
