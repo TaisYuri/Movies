@@ -3,13 +3,14 @@ import axios from 'axios';
 import { useCallback, useEffect, useState } from 'react';
 import { FavoriteSchema, FavoriteSendProps, FavoriteProps } from './types';
 import { useFavoriteStore } from 'src/states/favoriteState';
-import { Alert } from 'react-native';
 
 export function useFavorite(idMovie?: string): {
   getFavorite: () => void;
   favorites?: FavoriteProps[];
   hasFavorite: boolean;
   handleFavorite: () => void;
+  loading: boolean;
+  removeFavorite: (idMovie: string) => void;
 } {
   const [message, setMessage] = useState<FavoriteSchema>({
     status_code: 0,
@@ -18,6 +19,7 @@ export function useFavorite(idMovie?: string): {
   });
   const [favorites, setFavorites] = useState<FavoriteProps[]>();
   const [hasFavorite, setHasFavorite] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const { setData, favoriteStore } = useFavoriteStore();
 
@@ -40,6 +42,7 @@ export function useFavorite(idMovie?: string): {
 
   const sendFavorite = useCallback(
     ({ isFavorite, mediaId }: FavoriteSendProps) => {
+      setLoading(true);
       axios
         .request({
           method: 'POST',
@@ -53,8 +56,10 @@ export function useFavorite(idMovie?: string): {
         })
         .then(function (response) {
           setMessage(response.data);
+          setLoading(false);
         })
         .catch(function (error) {
+          setLoading(false);
           console.error(error);
         });
     },
@@ -62,6 +67,7 @@ export function useFavorite(idMovie?: string): {
   );
 
   const getFavorite = useCallback(() => {
+    setLoading(true);
     axios
       .request({
         method: 'GET',
@@ -89,8 +95,10 @@ export function useFavorite(idMovie?: string): {
             };
           }),
         });
+        setLoading(false);
       })
       .catch(function (error) {
+        setLoading(false);
         console.error(error);
       });
   }, []);
@@ -113,11 +121,26 @@ export function useFavorite(idMovie?: string): {
       sendFavorite({ isFavorite: true, mediaId: Number(id) });
     }
   };
+  const removeFavorite = (idToRemove: string) => {
+    if (favoriteStore.find((item) => item.idFavorite === idToRemove) != null) {
+      const index = favoriteStore.findIndex(
+        (item) => item.idFavorite === idToRemove
+      );
+      favoriteStore.splice(index, 1);
+      setData({
+        favoriteStore,
+      });
+      sendFavorite({ isFavorite: false, mediaId: Number(idToRemove) });
+      setHasFavorite(false);
+    }
+  };
 
   return {
     getFavorite,
     favorites,
     hasFavorite,
     handleFavorite,
+    loading,
+    removeFavorite,
   };
 }
