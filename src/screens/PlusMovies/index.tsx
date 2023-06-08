@@ -8,14 +8,15 @@ import React, { useCallback, useState } from 'react';
 import { Card } from 'src/components/Card';
 import { Header } from 'src/components/Header';
 import { BoxCard, ContainerBox, Scroll } from './styles';
-import { IMovies, RouteParams } from './types';
+import { RouteParams } from './types';
+import { DataProps } from 'src/components/ListCards/types';
 
 export function ActionMenu(): JSX.Element {
   const route = useRoute();
   const { title, films, newMovies } = route.params as RouteParams;
 
   const navigation = useNavigation();
-  const [data, setData] = useState<IMovies[]>([]);
+  const [data, setData] = useState<DataProps[]>([]);
 
   useFocusEffect(
     useCallback(() => {
@@ -31,15 +32,10 @@ export function ActionMenu(): JSX.Element {
   if (newMovies ?? false) {
     return (
       <>
-        <Header
-          title={title}
-          goBack={() => {
-            navigation.goBack();
-          }}
-        />
+        <Header title={title} />
         <Scroll>
           <ContainerBox>
-            {data.map((item: IMovies) => (
+            {data.map((item: DataProps) => (
               <BoxCard key={item.id}>
                 <Card
                   key={item.id}
@@ -60,22 +56,17 @@ export function ActionMenu(): JSX.Element {
 
   return (
     <>
-      <Header
-        title={title}
-        goBack={() => {
-          navigation.goBack();
-        }}
-      />
+      <Header title={title} />
       <Scroll>
         <ContainerBox>
           {data.map(
-            (item: IMovies) =>
-              Number(item.voteAverage) !== 0 && (
+            (item: DataProps) =>
+              Number(item.vote_average) !== 0 && (
                 <BoxCard key={item.id}>
                   <Card
                     title=""
                     key={item.id}
-                    vote={String(item.voteAverage)}
+                    vote={String(item.vote_average)}
                     uri={item.poster_path}
                     onPress={() => {
                       navigation.navigate('details', { id: item.id });

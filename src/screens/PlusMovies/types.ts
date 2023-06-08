@@ -1,8 +1,8 @@
-import { dataProps } from 'src/components/ListCards/types';
+import { DataProps } from 'src/components/ListCards/types';
 
 export interface RouteParams {
   title: string;
-  films: dataProps[];
+  films: DataProps[];
   newMovies?: boolean;
 }
 

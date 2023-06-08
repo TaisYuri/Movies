@@ -14,7 +14,7 @@ import {
   SubtitleNotFind,
 } from './styles';
 import { ITrailer } from './types';
-import { useRoute, useNavigation } from '@react-navigation/native';
+import { useRoute } from '@react-navigation/native';
 import * as ScreenOrientation from 'expo-screen-orientation';
 import { Zocial } from '@expo/vector-icons';
 import { dateConvert } from 'src/functions/dateConvert/dateConvert';
@@ -27,7 +27,6 @@ import { Title } from 'src/components/Title';
 
 export function Trailers(): JSX.Element {
   const routeNavigation = useRoute();
-  const navigation = useNavigation();
   const { movieId } = routeNavigation.params as ITrailer;
   const theme = useTheme();
 
@@ -57,12 +56,7 @@ export function Trailers(): JSX.Element {
 
   return (
     <Container>
-      <Header
-        title="Trailers"
-        goBack={() => {
-          navigation.goBack();
-        }}
-      />
+      <Header title="Trailers" />
       <Content>
         {value?.slice(0, 3)?.map((item) => {
           return (

@@ -9,7 +9,7 @@ const LightTheme: ITheme = {
     primary_translucid: '#FF7A003b',
     background: '#F0F3FF',
     grays: {
-      grayscale_100: 'rgba(0,0,0,0.2)',
+      grayscale_100: 'rgba(0,0,0,0.1)',
       grayscale_200: '#f9fbff30',
       grayscale_300: '#F0F3FF',
     },

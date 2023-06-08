@@ -1,4 +1,4 @@
-export interface dataProps {
+export interface DataProps {
   id: string;
   title: string;
   vote_average: string;
@@ -8,7 +8,7 @@ export interface dataProps {
 
 export interface IListCards {
   title: string;
-  dataMovies: dataProps[];
+  dataMovies: DataProps[];
   newMovies?: boolean;
   textLink?: string;
   hasFavorite?: boolean;

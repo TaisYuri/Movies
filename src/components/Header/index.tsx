@@ -4,18 +4,27 @@ import { Container, ContentTitle } from './styles';
 import { IHeader } from './types';
 import { Title } from '../Title';
 import { useTheme } from 'styled-components/native';
+import { useNavigation } from '@react-navigation/native';
 
-export function Header({ title, goBack }: IHeader): JSX.Element {
+export function Header({ title }: IHeader): JSX.Element {
   const theme = useTheme();
+  const navigation = useNavigation();
+
   return (
     <Container
-      colors={['rgba(0,0,0,0.2)', 'rgba(255,255,255,0.1)', 'transparent']}
+      colors={[
+        theme.colors.grays.grayscale_200,
+        theme.colors.grays.grayscale_100,
+        'transparent',
+      ]}
     >
       <Icon
         name="arrowleft"
         size={24}
         color={theme.colors.base}
-        onPress={goBack}
+        onPress={() => {
+          navigation.goBack();
+        }}
       />
       <ContentTitle>
         <Title>{title}</Title>

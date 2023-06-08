@@ -3,7 +3,7 @@ import { FlatList, ListRenderItem } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { HeaderType } from '../HeaderType';
 import { ContainerBox } from './styles';
-import { IListCards, dataProps } from './types';
+import { IListCards, DataProps } from './types';
 import { BoxCard } from '../../screens/Home/styles';
 import { Card } from '../Card';
 
@@ -15,7 +15,7 @@ export function ListCards({
   hasFavorite = false,
 }: IListCards): JSX.Element {
   const navigation = useNavigation();
-  const renderItem: ListRenderItem<dataProps> = ({ item }) => (
+  const renderItem: ListRenderItem<DataProps> = ({ item }) => (
     <BoxCard>
       <Card
         title={item.title}

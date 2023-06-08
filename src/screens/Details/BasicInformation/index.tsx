@@ -11,7 +11,6 @@ import {
   SubTitle,
   SubTitleProvider,
   TextMedium,
-  ContentoVote,
   Title,
   ContentTitles,
 } from './styles';
@@ -43,9 +42,7 @@ export function BasicInformation({
           </Section>
         </ContentTitles>
 
-        <ContentoVote>
-          <VoteAverage label={Number(voteAverage).toFixed(1)} />
-        </ContentoVote>
+        <VoteAverage label={Number(voteAverage).toFixed(1)} />
       </ContentHeader>
 
       <BoxCard>
