@@ -18,4 +18,5 @@ export interface IDetailSchema {
   belongs_to_collection: {
     id: string;
   };
+  status: string;
 }

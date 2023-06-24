@@ -7,14 +7,19 @@ export const Container = styled.View`
 `;
 
 export const BoxPerson = styled.View`
-  padding: 16px 10px;
+  padding: 16px 8px;
   margin-bottom: 10px;
   margin-top: 10px;
+`;
+export const BoxDirector = styled.View`
+  padding: 0px 10px;
+  margin-bottom: 10px;
 `;
 
 export const Label = styled.Text`
   color: ${({ theme }) => theme.colors.subtitle};
   font-size: 14px;
+  margin-top: 10px;
 `;
 export const SubTitle = styled.Text`
   color: ${({ theme }) => theme.colors.base};

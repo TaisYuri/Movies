@@ -1,5 +1,5 @@
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Card } from 'src/components/Card';
 import { DataProps } from 'src/components/ListCards/types';
 import { useFavorite } from 'src/hooks/useFavorite';
@@ -7,11 +7,20 @@ import { BoxCard } from '../Home/styles';
 import { Header } from 'src/components/Header';
 import { ContainerBox, Scroll } from '../PlusMovies/styles';
 import { Loading } from 'src/components/Loading';
+import { Snackbar } from 'react-native-paper';
 
 export function Favorites(): JSX.Element {
   const { favorites, getFavorite, loading, removeFavorite } = useFavorite();
   const navigation = useNavigation();
+  const [visible, setVisible] = useState(false);
 
+  const onToggleSnackBar = () => {
+    setVisible(!visible);
+  };
+
+  const onDismissSnackBar = () => {
+    setVisible(false);
+  };
   useFocusEffect(
     useCallback(() => {
       getFavorite();
@@ -20,10 +29,11 @@ export function Favorites(): JSX.Element {
 
   const handleLongPress = useCallback((id: string) => {
     removeFavorite(id);
+    getFavorite();
   }, []);
 
   if (loading) {
-    <Loading />;
+    return <Loading />;
   }
 
   return (
@@ -42,7 +52,9 @@ export function Favorites(): JSX.Element {
                   onPress={() => {
                     navigation.navigate('details', { id: item.id });
                   }}
-                  onLongPress={() => {
+                  hasFavorite
+                  onPressFavorite={() => {
+                    onToggleSnackBar();
                     handleLongPress(item.id);
                   }}
                 />
@@ -50,6 +62,9 @@ export function Favorites(): JSX.Element {
             );
           })}
         </ContainerBox>
+        <Snackbar visible={visible} onDismiss={onDismissSnackBar}>
+          Removido dos favoritos!
+        </Snackbar>
       </Scroll>
     </>
   );

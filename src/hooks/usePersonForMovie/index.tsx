@@ -20,7 +20,11 @@ export function usePersonForMovie(): {
           const director = data?.crew
             ?.filter((item: any) => item.job === 'Director')
             ?.map((name: any) => {
-              return { id: name?.credit_id, name: name?.original_name };
+              return {
+                id: name?.credit_id,
+                name: name?.original_name,
+                profilePath: name?.profile_path,
+              };
             });
           setPersonsOfMovies({
             director,

@@ -20,7 +20,7 @@ export function HeaderAnimation({
 }: IHeaderAnimation): JSX.Element {
   const navigation = useNavigation();
   const theme = useTheme();
-  const inputRangeToAnimated = [0, 60, 120, 180, 240, 300, 360];
+  const inputRangeToAnimated = [0, 60, 120, 180, 240, 300];
 
   const AnimatedGradientHelper =
     Animated.createAnimatedComponent(LinearGradient);
@@ -37,8 +37,6 @@ export function HeaderAnimation({
               outputRange: [
                 'transparent',
                 'transparent',
-                'transparent',
-
                 theme.colors.grays.grayscale_100,
                 theme.colors.grays.grayscale_100,
                 theme.colors.grays.grayscale_200,
@@ -57,7 +55,7 @@ export function HeaderAnimation({
           style={{
             opacity: scrollY.interpolate({
               inputRange: inputRangeToAnimated,
-              outputRange: [0, 0.25, 0.25, 0.5, 0.5, 0.75, 1],
+              outputRange: [0, 0.25, 0.25, 0.5, 0.75, 1],
             }),
             color: theme.colors.base,
             fontSize: 20,
@@ -86,7 +84,7 @@ export function HeaderAnimation({
             width: '100%',
             height: scrollY.interpolate({
               inputRange: inputRangeToAnimated,
-              outputRange: [280, 240, 200, 160, 120, 80, 60],
+              outputRange: [240, 200, 160, 120, 80, 60],
 
               extrapolate: 'clamp',
             }),

@@ -6,10 +6,10 @@ import {
   Container,
   ContainerLoading,
   Label,
-  SubTitle,
   ActivityIndicator,
   BoxPerson,
   BoxSimiliar,
+  BoxDirector,
 } from './styles';
 import { RouteParams } from './types';
 import { CardPerson } from 'src/components/CardPerson';
@@ -65,11 +65,20 @@ export function MoreInformation(): JSX.Element {
           horizontal
         />
       </BoxPerson>
-      {PersonsOfMovies?.director.map((item) => (
-        <Label key={item?.id}>
-          Diretor: <SubTitle key={item?.id}>{item?.name}</SubTitle>
-        </Label>
-      ))}
+      <BoxDirector>
+        <Title>Diretor</Title>
+        {Boolean(PersonsOfMovies?.director.length) && (
+          <Label>
+            <CardPerson
+              id={PersonsOfMovies?.director[0].id}
+              name={PersonsOfMovies?.director[0].name}
+              profilePath={PersonsOfMovies?.director[0].profilePath}
+              size="md"
+            />
+          </Label>
+        )}
+      </BoxDirector>
+
       {value.length > 0 && (
         <BoxSimiliar>
           <ListCards title={'Recomendações'} dataMovies={value} textLink={''} />

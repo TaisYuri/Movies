@@ -1,7 +1,8 @@
 export interface ICardPerson {
-  id: string;
-  name: string;
-  profilePath: string;
-  character: string;
+  id?: string;
+  name?: string;
+  profilePath?: string;
+  character?: string;
   onPress?: () => void;
+  size?: 'xl' | 'md';
 }

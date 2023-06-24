@@ -19,6 +19,7 @@ export function Card({
   vote,
   release,
   onPress,
+  onPressFavorite,
   hasFavorite = false,
 }: ICard): JSX.Element {
   const theme = useTheme();
@@ -46,9 +47,9 @@ export function Card({
         </BoxNote>
       )}
       {Boolean(hasFavorite) && (
-        <BoxFavorite>
+        <BoxFavorite onLongPress={onPressFavorite}>
           <MaterialCommunityIcons
-            name={'heart'}
+            name={onPressFavorite != null ? 'heart-minus' : 'heart'}
             size={24}
             color={theme.colors.primary}
           />

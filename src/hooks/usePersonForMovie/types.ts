@@ -1,6 +1,7 @@
 interface DirectorProps {
   id: string;
   name: string;
+  profilePath: string;
 }
 
 export interface PersonProps {

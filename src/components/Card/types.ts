@@ -6,4 +6,5 @@ export interface ICard extends TouchableOpacityProps {
   vote?: string;
   release?: string;
   hasFavorite?: boolean;
+  onPressFavorite?: () => void;
 }

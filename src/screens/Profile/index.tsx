@@ -41,7 +41,7 @@ export function Profile(): JSX.Element {
             }}
           >
             <MaterialIcons
-              name="favorite-border"
+              name="favorite"
               size={24}
               color={theme.colors.base}
             />

@@ -1,5 +1,9 @@
 import styled from 'styled-components/native';
 
+interface sized {
+  size: 'xl' | 'md';
+}
+
 export const Container = styled.TouchableOpacity`
   flex: 1;
   align-items: center;
@@ -7,9 +11,9 @@ export const Container = styled.TouchableOpacity`
   flex-direction: row;
 `;
 
-export const Poster = styled.Image`
-  width: 110px;
-  height: 110px;
+export const Poster = styled.Image<sized>`
+  width: ${(props) => (props.size === 'xl' ? '110' : '80')}px;
+  height: ${(props) => (props.size === 'xl' ? '110' : '80')}px;
   border-radius: 100px;
 `;
 

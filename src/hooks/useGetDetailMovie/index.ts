@@ -29,6 +29,7 @@ export function useGetDetailMovie({ page }: GetMoviesProps): {
             runtime: data.runtime,
             production_companies: data.production_companies[0]?.logo_path,
             belongs_to_collection: { id: data?.belongs_to_collection?.id },
+            status: data.status,
           });
         })
         .catch((err) => {

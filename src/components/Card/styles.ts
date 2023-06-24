@@ -41,7 +41,7 @@ export const BoxNote = styled.View`
   top: 10px;
   left: 8px;
 `;
-export const BoxFavorite = styled.View`
+export const BoxFavorite = styled.TouchableOpacity`
   position: absolute;
   bottom: 8px;
   left: 8px;
