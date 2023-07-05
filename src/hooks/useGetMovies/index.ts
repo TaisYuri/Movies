@@ -1,8 +1,8 @@
 import { useCallback, useState } from 'react';
-import api from 'src/services/api';
 import { type IMovies } from 'src/screens/Home/types';
 import { type GetMoviesProps, type TMovie } from './types';
-import Constants from 'expo-constants';
+import { optionsDefault } from 'src/services';
+import axios from 'axios';
 
 export function useGetMovies({ page }: GetMoviesProps): {
   getMovies: (link: TMovie) => void;
@@ -15,10 +15,7 @@ export function useGetMovies({ page }: GetMoviesProps): {
   const getMovies = useCallback(
     (link: TMovie) => {
       setIsLoading(true);
-      api
-        .get(
-          `${link}?api_key=${Constants?.expoConfig?.extra?.api_key}&language=pt-BR&page=${page}`
-        )
+      axios(optionsDefault({ method: 'GET', url: `/movie${link}` }))
         .then(({ data }) => {
           setValue(data.results);
         })

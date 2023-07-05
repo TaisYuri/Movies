@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react';
-import { apiTv } from 'src/services/api';
 import { IMovies } from 'src/screens/Home/types';
-import Constants from 'expo-constants';
+import { optionsDefault } from 'src/services';
+import axios from 'axios';
 
 export function useGetTv(): {
   getTv: () => void;
@@ -13,10 +13,7 @@ export function useGetTv(): {
 
   const getTv = useCallback(() => {
     setIsLoadingTv(true);
-    apiTv
-      .get(
-        `on_the_air?api_key=${Constants?.expoConfig?.extra?.api_key}&language=en-US&page=1`
-      )
+    axios(optionsDefault({ method: 'GET', url: `/tv/on_the_air` }))
       .then(({ data }) => {
         setTv(data.results);
       })

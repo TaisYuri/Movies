@@ -1,11 +1,11 @@
 import { useCallback, useState } from 'react';
-import Constants from 'expo-constants';
-import { apiBase } from 'src/services/api';
 import { ISearchMovies } from './types';
 import {
   dateConvert,
   dateIsValid,
 } from 'src/functions/dateConvert/dateConvert';
+import { optionsDefault } from 'src/services';
+import axios from 'axios';
 
 export function useSearch(): {
   handleSearch: (query: string) => void;
@@ -17,13 +17,12 @@ export function useSearch(): {
   const [value, setValue] = useState<ISearchMovies[]>();
 
   const handleSearch = useCallback(
-    (query: string) => {
+    async (query: string) => {
       setIsLoading(true);
       setValue([]);
-      apiBase
-        .get(
-          `/search/movie?query=${query}&api_key=${Constants?.expoConfig?.extra?.api_key}&include_adult=false&language=pt-BR&page=1`
-        )
+      await axios(
+        optionsDefault({ method: 'GET', url: `/search/movie?query=${query}` })
+      )
         .then(({ data }) => {
           setValue(
             data.results.map((item: ISearchMovies) => {
@@ -43,7 +42,6 @@ export function useSearch(): {
               return false;
             })
           );
-
           setIsLoading(false);
         })
         .catch((err) => {
@@ -61,6 +59,7 @@ export function useSearch(): {
   }, []);
 
   return {
+    // eslint-disable-next-line @typescript-eslint/no-misused-promises
     handleSearch,
     value,
     isLoading,

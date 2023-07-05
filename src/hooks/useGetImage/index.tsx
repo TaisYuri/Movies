@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react';
-import api from 'src/services/api';
-import Constants from 'expo-constants';
 import { IImageSchema } from './types';
+import axios from 'axios';
+import Constants from 'expo-constants';
 
 export function useGetImage(): {
   getImage: (link: string) => void;
@@ -14,8 +14,15 @@ export function useGetImage(): {
   const getImage = useCallback(
     (link: string) => {
       setIsLoadingImage(true);
-      api
-        .get(`/${link}/images?api_key=${Constants?.expoConfig?.extra?.api_key}`)
+      axios({
+        method: 'GET',
+        url: `https://api.themoviedb.org/3/movie/${link}/images`,
+        headers: {
+          accept: 'application/json',
+          'content-type': 'application/json',
+          Authorization: `Bearer ${Constants?.expoConfig?.extra?.access_token}`,
+        },
+      })
         .then(({ data }) => {
           setFilePath({
             file_path: data?.backdrops[0]?.file_path,

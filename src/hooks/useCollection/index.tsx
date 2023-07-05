@@ -1,11 +1,11 @@
 import { useCallback, useState } from 'react';
-import { apiBase } from 'src/services/api';
 import { ICollectionSchema, collectionItems } from './types';
-import Constants from 'expo-constants';
 import {
   dateConvert,
   dateIsValid,
 } from 'src/functions/dateConvert/dateConvert';
+import { optionsDefault } from 'src/services';
+import axios from 'axios';
 
 export function useCollection(): {
   getCollection: (id: string) => void;
@@ -17,12 +17,9 @@ export function useCollection(): {
   const [collections, setCollections] = useState<ICollectionSchema>();
 
   const getCollection = useCallback(
-    (id: string) => {
+    async (id: string) => {
       setIsLoadingCollection(true);
-      apiBase
-        .get(
-          `/collection/${id}?api_key=${Constants?.expoConfig?.extra?.api_key}&language=pt-BR`
-        )
+      await axios(optionsDefault({ method: 'GET', url: `/collection/${id}` }))
         .then(({ data }) => {
           setCollections({
             id: data.id,
@@ -42,13 +39,12 @@ export function useCollection(): {
               return false;
             }),
           });
+          setIsLoadingCollection(false);
         })
         .catch((err) => {
+          setIsLoadingCollection(false);
           console.error(`ops! ocorreu um erro ${err}`);
           setCollections(undefined);
-        })
-        .finally(() => {
-          setIsLoadingCollection(false);
         });
     },
     [setCollections]
@@ -59,6 +55,7 @@ export function useCollection(): {
   }, []);
 
   return {
+    // eslint-disable-next-line @typescript-eslint/no-misused-promises
     getCollection,
     collections,
     isLoadingCollection,

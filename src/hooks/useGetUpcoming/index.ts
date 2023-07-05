@@ -1,9 +1,9 @@
 import { useCallback, useState } from 'react';
-import api from 'src/services/api';
 import { type IMovies } from 'src/screens/Home/types';
 import { format } from 'date-fns';
 import { type GetMoviesProps } from '../useGetMovies/types';
-import Constants from 'expo-constants';
+import { optionsDefault } from 'src/services';
+import axios from 'axios';
 
 export function useGetUpcoming({ page }: GetMoviesProps): {
   getMoviesUpComing: (link: string) => void;
@@ -16,10 +16,7 @@ export function useGetUpcoming({ page }: GetMoviesProps): {
   const getMoviesUpComing = useCallback(
     (link: string) => {
       setIsLoadingUpComing(true);
-      api
-        .get(
-          `${link}?api_key=${Constants?.expoConfig?.extra?.api_key}&language=pt-BR&page=${page}`
-        )
+      axios(optionsDefault({ method: 'GET', url: `/movie/${link}` }))
         .then(({ data }) => {
           setMovieUpComing(
             data.results
@@ -27,7 +24,7 @@ export function useGetUpcoming({ page }: GetMoviesProps): {
               // ORDENANDO POR DATA
               .filter(
                 (item: IMovies) =>
-                  item.release_date > format(new Date(Date.now()), 'yyyy-MM-dd')
+                  item.release_date > format(new Date(Date.now()), 'dd-MM-yyyy')
               )
               .sort((a: any, b: any) =>
                 a.release_date.localeCompare(b.release_date)

@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react';
 import { TrailersItems } from './types';
-import Constants from 'expo-constants';
-import api from 'src/services/api';
+import { optionsDefault } from 'src/services';
+import axios from 'axios';
 
 export function useGetTrailers(): {
   getTrailers: (id: string) => void;
@@ -14,10 +14,7 @@ export function useGetTrailers(): {
   const getTrailers = useCallback(
     (id: string) => {
       setIsLoading(true);
-      api
-        .get(
-          `/${id}/videos?api_key=${Constants?.expoConfig?.extra?.api_key}&language=pt-BR`
-        )
+      axios(optionsDefault({ method: 'GET', url: `/movie/${id}/videos` }))
         .then(({ data }) => {
           setValue(data.results);
         })

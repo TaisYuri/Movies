@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react';
-import api from 'src/services/api';
 import { IProviderSchema } from './types';
-import Constants from 'expo-constants';
+import { optionsDefault } from 'src/services';
+import axios from 'axios';
 
 export function useProvider(): {
   getProvider: (link: string) => void;
@@ -14,10 +14,9 @@ export function useProvider(): {
   const getProvider = useCallback(
     (id: string) => {
       setIsLoadingProvider(true);
-      api
-        .get(
-          `/${id}/watch/providers?api_key=${Constants?.expoConfig?.extra?.api_key}`
-        )
+      axios(
+        optionsDefault({ method: 'GET', url: `/movie/${id}/watch/providers` })
+      )
         .then(({ data }) => {
           setProviders(data?.results?.BR?.flatrate);
         })

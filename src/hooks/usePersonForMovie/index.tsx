@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react';
 import { type PersonsSchema } from './types';
-import api from 'src/services/api';
-import Constants from 'expo-constants';
+import { optionsDefault } from 'src/services';
+import axios from 'axios';
 
 export function usePersonForMovie(): {
   getPersons: (link: string) => void;
@@ -14,8 +14,7 @@ export function usePersonForMovie(): {
   const getPersons = useCallback(
     (id: string) => {
       setIsLoadingPerson(true);
-      api
-        .get(`${id}?api_key=${Constants?.expoConfig?.extra?.api_key}`)
+      axios(optionsDefault({ method: 'GET', url: `/movie${id}` }))
         .then(({ data }) => {
           const director = data?.crew
             ?.filter((item: any) => item.job === 'Director')

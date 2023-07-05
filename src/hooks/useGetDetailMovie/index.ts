@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react';
 import { GetMoviesProps, IDetailSchema } from './types';
-import Constants from 'expo-constants';
-import api from 'src/services/api';
+import { optionsDefault } from 'src/services';
+import axios from 'axios';
 
 export function useGetDetailMovie({ page }: GetMoviesProps): {
   getDetail: (link: string) => void;
@@ -14,10 +14,7 @@ export function useGetDetailMovie({ page }: GetMoviesProps): {
   const getDetail = useCallback(
     (link: string) => {
       setIsLoading(true);
-      api
-        .get(
-          `${link}?api_key=${Constants?.expoConfig?.extra?.api_key}&language=pt-BR&page=${page}`
-        )
+      axios(optionsDefault({ method: 'GET', url: `/movie/${link}` }))
         .then(({ data }) => {
           setValue({
             id: data.id,

@@ -1,16 +1,16 @@
-// { "media_type": "movie", "media_id": 603692, "favorite": false }
-import axios from 'axios';
 import { useCallback, useEffect, useState } from 'react';
 import { FavoriteSchema, FavoriteSendProps, FavoriteProps } from './types';
 import { useFavoriteStore } from 'src/states/favoriteState';
+import { optionsDefault } from 'src/services';
+import axios from 'axios';
 
 export function useFavorite(idMovie?: string): {
   getFavorite: () => void;
   favorites?: FavoriteProps[];
   hasFavorite: boolean;
-  handleFavorite: () => void;
+  handleFavorite: () => Promise<void>;
   loading: boolean;
-  removeFavorite: (idMovie: string) => void;
+  removeFavorite: (idMovie: string) => Promise<void>;
 } {
   const [message, setMessage] = useState<FavoriteSchema>({
     status_code: 0,
@@ -25,15 +25,6 @@ export function useFavorite(idMovie?: string): {
 
   const id = idMovie ?? '';
 
-  const options = {
-    headers: {
-      accept: 'application/json',
-      'content-type': 'application/json',
-      Authorization:
-        'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4NTZkMTJjMGM0Y2U3OTg4YTNhODQ4NmZjNDg1ZmFkNCIsInN1YiI6IjYyZDQxMWEwMGQxZTdmMDA1M2YwMDY3MiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.alS152KUAgBGLIGsC7nNR9gg_yKtDwRrajNhJOuLtTo',
-    },
-  };
-
   useEffect(() => {
     if (favoriteStore.find((item) => item.idFavorite === id) != null) {
       setHasFavorite(true);
@@ -41,19 +32,19 @@ export function useFavorite(idMovie?: string): {
   }, []);
 
   const sendFavorite = useCallback(
-    ({ isFavorite, mediaId }: FavoriteSendProps) => {
+    async ({ isFavorite, mediaId }: FavoriteSendProps) => {
       setLoading(true);
-      axios
-        .request({
+      await axios(
+        optionsDefault({
           method: 'POST',
-          url: 'https://api.themoviedb.org/3/account/13286024/favorite',
+          url: `/account/13286024/favorite`,
           data: {
             media_type: 'movie',
             media_id: mediaId,
             favorite: isFavorite,
           },
-          ...options,
         })
+      )
         .then(function (response) {
           setMessage(response.data);
           setLoading(false);
@@ -68,13 +59,12 @@ export function useFavorite(idMovie?: string): {
 
   const getFavorite = useCallback(() => {
     setLoading(true);
-    axios
-      .request({
+    axios(
+      optionsDefault({
         method: 'GET',
-        url: 'https://api.themoviedb.org/3/account/13286024/favorite/movies',
-        params: { language: 'pt-BR', page: '1', sort_by: 'created_at.asc' },
-        ...options,
+        url: `/account/13286024/favorite/movies`,
       })
+    )
       .then(({ data }) => {
         setFavorites(
           data.results.map((item: FavoriteProps) => {
@@ -103,14 +93,14 @@ export function useFavorite(idMovie?: string): {
       });
   }, []);
 
-  const handleFavorite = () => {
+  const handleFavorite = async (): Promise<void> => {
     if (favoriteStore.find((item) => item.idFavorite === id) != null) {
       const index = favoriteStore.findIndex((item) => item.idFavorite === id);
       favoriteStore.splice(index, 1);
       setData({
         favoriteStore,
       });
-      sendFavorite({ isFavorite: false, mediaId: Number(id) });
+      await sendFavorite({ isFavorite: false, mediaId: Number(id) });
 
       setHasFavorite(false);
     } else {
@@ -118,10 +108,10 @@ export function useFavorite(idMovie?: string): {
         favoriteStore: [...favoriteStore, { idFavorite: id }],
       });
       setHasFavorite(true);
-      sendFavorite({ isFavorite: true, mediaId: Number(id) });
+      await sendFavorite({ isFavorite: true, mediaId: Number(id) });
     }
   };
-  const removeFavorite = (idToRemove: string) => {
+  const removeFavorite = async (idToRemove: string): Promise<void> => {
     if (favoriteStore.find((item) => item.idFavorite === idToRemove) != null) {
       const index = favoriteStore.findIndex(
         (item) => item.idFavorite === idToRemove
@@ -130,7 +120,7 @@ export function useFavorite(idMovie?: string): {
       setData({
         favoriteStore,
       });
-      sendFavorite({ isFavorite: false, mediaId: Number(idToRemove) });
+      await sendFavorite({ isFavorite: false, mediaId: Number(idToRemove) });
       setHasFavorite(false);
     }
   };
