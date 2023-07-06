@@ -29,7 +29,7 @@ export function MoreInformation(): JSX.Element {
   useFocusEffect(
     useCallback(() => {
       getPersons(`/${id}/credits`);
-      getMovies(`/${id}/similar`);
+      getMovies(`/${id}/recommendations`);
     }, [id])
   );
 

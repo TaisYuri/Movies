@@ -22,9 +22,9 @@ export function Home(): JSX.Element {
   const { getFavorite } = useFavorite();
 
   function getConnectionApi(): void {
-    popular.getMovies('popular');
-    nowPlaying.getMovies('now_playing');
-    topRated.getMovies('top_rated');
+    popular.getMovies('/popular');
+    nowPlaying.getMovies('/now_playing');
+    topRated.getMovies('/top_rated');
 
     // FILTRAR TODOS COM DATA SUPERIOR A DATA ATUAL
     // ORDENANDO POR DATA
@@ -79,7 +79,7 @@ export function Home(): JSX.Element {
       }
     >
       <Banner data={popular?.value[0]} filePath={filePath?.poster} />
-      <View style={{ marginTop: -170 }}>
+      <View style={{ marginTop: -170, marginBottom: 20 }}>
         <ListCards title="Top 10 Filmes populares" dataMovies={popular.value} />
         <ListCards title="Melhores avaliações" dataMovies={topRated.value} />
         <ListCards title="Top Filmes no cinema" dataMovies={nowPlaying.value} />

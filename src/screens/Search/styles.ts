@@ -3,7 +3,7 @@ import styled from 'styled-components/native';
 export const Container = styled.View`
   flex: 1;
   background-color: ${({ theme }) => theme.colors.background};
-  padding: 80px 16px 0 16px;
+  padding: 80px 16px 20px 16px;
   gap: 8px;
 `;
 
@@ -31,6 +31,7 @@ export const Poster = styled.Image`
   height: 120px;
   border-radius: 12px;
 `;
+
 export const PosterWithOutImage = styled.View`
   width: 110px;
   height: 120px;
@@ -39,6 +40,11 @@ export const PosterWithOutImage = styled.View`
   justify-content: center;
   background-color: ${({ theme }) => theme.colors.primary};
 `;
+export const CenterLottie = styled.View`
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+`;
 
 export const BoxText = styled.View`
   flex: 1;
@@ -46,6 +52,7 @@ export const BoxText = styled.View`
   margin-left: 8px;
   margin-top: 8px;
 `;
+
 export const ContentGenre = styled.View`
   display: flex;
   flex-direction: row;
@@ -59,11 +66,14 @@ export const InfoTitle = styled.Text`
   font-weight: bold;
   margin-bottom: 8px;
 `;
+
 export const InfoGenres = styled.Text`
   color: ${({ theme }) => theme.colors.base};
   font-size: 12px;
   text-decoration: underline;
+  margin-right: 8px;
 `;
+
 export const Info = styled.Text`
   color: ${({ theme }) => theme.colors.base};
   font-size: 16px;

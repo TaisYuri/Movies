@@ -1,5 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
+import { Image, View } from 'react-native';
 // import Icon from 'react-native-vector-icons/AntDesign';
 import { hoursToMinutes, minutesToHours } from 'date-fns';
 import {
@@ -26,6 +26,7 @@ export function BasicInformation({
   genres,
   overview,
   provider,
+  logoPath,
 }: IBasicInformation): JSX.Element {
   const hour = minutesToHours(Number(runtime));
 
@@ -41,7 +42,6 @@ export function BasicInformation({
             )}m`}</SubTitle>
           </Section>
         </ContentTitles>
-
         <VoteAverage label={Number(voteAverage).toFixed(1)} />
       </ContentHeader>
 
@@ -52,6 +52,20 @@ export function BasicInformation({
           </View>
         ))}
       </BoxCard>
+      {logoPath?.length != null && logoPath?.length > 0 && (
+        <>
+          <SubTitleProvider>Produtora</SubTitleProvider>
+
+          <Image
+            key={logoPath}
+            source={{
+              uri: `https://image.tmdb.org/t/p/w500/${logoPath}`,
+            }}
+            style={{ width: 100, height: 60 }}
+            resizeMode="contain"
+          />
+        </>
+      )}
 
       {provider?.length != null && provider?.length > 0 && (
         <>
@@ -68,6 +82,7 @@ export function BasicInformation({
           </BoxProvider>
         </>
       )}
+
       <SubTitleProvider>Sinopse</SubTitleProvider>
       <TextMedium numberOfLines={10}>{overview}</TextMedium>
     </>

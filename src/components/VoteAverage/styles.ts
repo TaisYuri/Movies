@@ -1,10 +1,9 @@
 import styled from 'styled-components/native';
 
-export const Container = styled.View``;
-export const ContentImage = styled.View`
-  position: absolute;
-  top: 30%;
-  bottom: 0;
-  right: 0;
-  left: 37%;
+export const Container = styled.View`
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  flex: 1;
+  margin-top: 20px;
 `;

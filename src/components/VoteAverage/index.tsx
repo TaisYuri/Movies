@@ -1,19 +1,29 @@
-import React from 'react';
-import { Container, ContentImage } from './styles';
-import VoteStars from '../../assets/vote_stars.svg';
+import React, { useRef } from 'react';
+import { Container } from './styles';
 import { Title } from '../Title';
+import LottieView from 'lottie-react-native';
 
 interface ITag {
   label?: string;
 }
 
 export function VoteAverage({ label }: ITag): JSX.Element {
+  const animation = useRef(null);
+
   return (
     <Container>
-      <VoteStars width={140} height={60} style={{ margin: 0 }} />
-      <ContentImage>
-        <Title>{label}</Title>
-      </ContentImage>
+      <LottieView
+        autoPlay
+        loop={false}
+        duration={5000}
+        ref={animation}
+        style={{
+          width: 18,
+          height: 18,
+        }}
+        source={require('../../assets/stars.json')}
+      />
+      <Title>{label}</Title>
     </Container>
   );
 }

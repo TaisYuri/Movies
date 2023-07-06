@@ -8,7 +8,7 @@ import { optionsDefault } from 'src/services';
 import axios from 'axios';
 
 export function useSearch(): {
-  handleSearch: (query: string) => void;
+  handleSearch: (query: string) => Promise<void>;
   isLoading: boolean;
   value?: ISearchMovies[];
   resetData: () => void;
@@ -25,6 +25,7 @@ export function useSearch(): {
       )
         .then(({ data }) => {
           setValue(
+            // eslint-disable-next-line array-callback-return
             data.results.map((item: ISearchMovies) => {
               if (dateIsValid(item?.release_date)) {
                 const newFormatDate = dateConvert(
@@ -39,14 +40,13 @@ export function useSearch(): {
                   genre_ids: item.genre_ids,
                 };
               }
-              return false;
             })
           );
           setIsLoading(false);
         })
-        .catch((err) => {
+        .catch((err: Error) => {
           setIsLoading(false);
-          console.error(`ops! ocorreu um erro ${err}`);
+          console.error(`ops! ocorreu um erro ${err.message}`);
           setValue(undefined);
         });
     },
@@ -59,7 +59,6 @@ export function useSearch(): {
   }, []);
 
   return {
-    // eslint-disable-next-line @typescript-eslint/no-misused-promises
     handleSearch,
     value,
     isLoading,

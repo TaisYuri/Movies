@@ -15,8 +15,8 @@ export const ContentHeader = styled.View`
 `;
 export const ContentTitles = styled.View`
   display: flex;
-  max-width: 90%;
-  min-width: 75%;
+  max-width: 76%;
+  min-width: 60%;
   flex: 1;
 `;
 export const ContentoVote = styled.View``;
