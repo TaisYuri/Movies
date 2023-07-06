@@ -13,23 +13,29 @@
       },
       "channel": "development",
       "env": {
-        "api_key":"public",
-        "API_KEY":"public"
+        "api_key": "public",
+        "API_KEY": "public",
+        "access_token": "public",
+        "ACCESS_TOKEN": "public"
       }
     },
     "preview": {
       "distribution": "internal",
       "channel": "preview",
       "env": {
-        "api_key":"public",
-        "API_KEY":"public"
+        "api_key": "public",
+        "API_KEY": "public",
+        "access_token": "public",
+        "ACCESS_TOKEN": "public"
       }
     },
     "production": {
       "channel": "production",
       "env": {
-        "api_key":"public",
-        "API_KEY":"public"
+        "api_key": "public",
+        "API_KEY": "public",
+        "access_token": "public",
+        "ACCESS_TOKEN": "public"
       }
     }
   },

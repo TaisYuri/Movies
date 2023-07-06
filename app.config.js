@@ -1,7 +1,8 @@
+/* eslint-disable camelcase */
 import 'dotenv/config';
 
-// eslint-disable-next-line camelcase
 const api_key = process.env.API_KEY;
+const access_token = process.env.ACCESS_TOKEN;
 
 export default {
   expo: {
@@ -18,6 +19,7 @@ export default {
     extra: {
       // eslint-disable-next-line camelcase
       api_key,
+      access_token,
       eas: {
         projectId: '7d8718d2-abed-4263-bc19-5ed2bbb57097',
       },
@@ -32,6 +34,7 @@ export default {
       versionCode: 1,
       jsEngine: 'jsc',
       api_key: process.env.API_KEY,
+      access_token: process.env.ACCESS_TOKEN,
     },
     runtimeVersion: 'exposdk:47.0.0',
 
