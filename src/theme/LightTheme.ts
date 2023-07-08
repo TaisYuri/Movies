@@ -14,6 +14,11 @@ const LightTheme: ITheme = {
       grayscale_300: '#F0F3FF',
     },
   },
+  fonts: {
+    regular: 'OpenSans_400Regular',
+    medium: 'OpenSans_500Medium',
+    bold: 'OpenSans_700Bold',
+  },
 };
 
 export default LightTheme;

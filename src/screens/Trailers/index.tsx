@@ -19,7 +19,6 @@ import * as ScreenOrientation from 'expo-screen-orientation';
 import { Zocial } from '@expo/vector-icons';
 import { dateConvert } from 'src/functions/dateConvert/dateConvert';
 import { Header } from 'src/components/Header';
-import NoData from '../../assets/no_data.svg';
 import { useGetTrailers } from 'src/hooks/useGetTrailers';
 import { Loading } from 'src/components/Loading';
 import { useTheme } from 'styled-components/native';
@@ -96,7 +95,7 @@ export function Trailers(): JSX.Element {
       </Content>
       {value?.length === 0 && (
         <ViewNotFind>
-          <NoData width={200} height={200} />
+          {/* <NoData width={200} height={200} /> */}
 
           <TitleNotFind>Ohhh no!</TitleNotFind>
           <SubtitleNotFind>

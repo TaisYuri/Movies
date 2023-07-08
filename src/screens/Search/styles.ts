@@ -65,6 +65,7 @@ export const InfoTitle = styled.Text`
   font-size: 18px;
   font-weight: bold;
   margin-bottom: 8px;
+  font-family: ${({ theme }) => theme.fonts.medium};
 `;
 
 export const InfoGenres = styled.Text`
@@ -72,10 +73,12 @@ export const InfoGenres = styled.Text`
   font-size: 12px;
   text-decoration: underline;
   margin-right: 8px;
+  font-family: ${({ theme }) => theme.fonts.regular};
 `;
 
 export const Info = styled.Text`
   color: ${({ theme }) => theme.colors.base};
   font-size: 16px;
   margin-bottom: 4px;
+  font-family: ${({ theme }) => theme.fonts.regular};
 `;

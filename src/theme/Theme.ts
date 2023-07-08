@@ -13,6 +13,11 @@ const Theme = {
       grayscale_300: '#0A1428',
     },
   },
+  fonts: {
+    regular: 'OpenSans_400Regular',
+    medium: 'OpenSans_500Medium',
+    bold: 'OpenSans_700Bold',
+  },
 };
 
 export default Theme;

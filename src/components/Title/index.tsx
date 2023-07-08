@@ -1,7 +1,20 @@
 import React from 'react';
-import { ContentTitle } from './styles';
-import { TextProps } from 'react-native';
+import { TextProps, Text } from 'react-native';
+import { useTheme } from 'styled-components/native';
 
-export function Title({ ...props }: TextProps): JSX.Element {
-  return <ContentTitle {...props} />;
+export function Title({ style, ...props }: TextProps): JSX.Element {
+  const theme = useTheme();
+  return (
+    <Text
+      style={[
+        {
+          fontFamily: 'OpenSans_700Bold',
+          fontSize: 22,
+          color: theme.colors.base,
+        },
+        style,
+      ]}
+      {...props}
+    />
+  );
 }

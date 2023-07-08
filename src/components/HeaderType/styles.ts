@@ -13,4 +13,5 @@ export const Link = styled.Text`
   font-size: 12px;
   font-weight: 700;
   color: ${({ theme }) => theme.colors.primary};
+  font-family: ${({ theme }) => theme.fonts.regular};
 `;

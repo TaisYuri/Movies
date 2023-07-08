@@ -20,10 +20,12 @@ export const Label = styled.Text`
   color: ${({ theme }) => theme.colors.subtitle};
   font-size: 14px;
   margin-top: 10px;
+  font-family: ${({ theme }) => theme.fonts.regular};
 `;
 export const SubTitle = styled.Text`
   color: ${({ theme }) => theme.colors.base};
   font-size: 14px;
+  font-family: ${({ theme }) => theme.fonts.regular};
 `;
 
 export const BoxCard = styled.View`

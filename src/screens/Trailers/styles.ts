@@ -47,8 +47,10 @@ export const TitleNotFind = styled.Text`
   font-weight: bold;
   line-height: 32px;
   margin-top: 16px;
+  font-family: ${({ theme }) => theme.fonts.bold};
 `;
 export const SubtitleNotFind = styled.Text`
   color: ${({ theme }) => theme.colors.base};
   font-size: 18px;
+  font-family: ${({ theme }) => theme.fonts.medium};
 `;

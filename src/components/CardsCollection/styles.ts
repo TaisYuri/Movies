@@ -20,6 +20,7 @@ export const BoxText = styled.View`
 export const Info = styled.Text`
   color: ${({ theme }) => theme.colors.base};
   font-size: 12px;
+  font-family: ${({ theme }) => theme.fonts.regular};
 `;
 
 export const Poster = styled.Image`

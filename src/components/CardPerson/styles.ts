@@ -20,6 +20,7 @@ export const Poster = styled.Image<sized>`
 export const Note = styled.Text`
   font-size: 12px;
   color: ${({ theme }) => theme.colors.base};
+  font-family: ${({ theme }) => theme.fonts.regular};
 `;
 
 export const BoxRelease = styled.View`

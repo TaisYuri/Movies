@@ -15,4 +15,5 @@ export const TagButton = styled.TouchableOpacity`
 export const TagText = styled.Text`
   font-size: 12px;
   color: ${({ theme }) => theme.colors.primary};
+  font-family: ${({ theme }) => theme.fonts.regular};
 `;

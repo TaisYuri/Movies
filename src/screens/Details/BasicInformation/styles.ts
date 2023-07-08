@@ -24,13 +24,15 @@ export const ContentoVote = styled.View``;
 export const Title = styled.Text`
   color: ${({ theme }) => theme.colors.base};
   margin-top: 10px;
-  font-size: 32px;
+  font-size: 28px;
+  font-family: ${({ theme }) => theme.fonts.bold};
   /* max-width: 90%; */
 `;
 export const SubTitle = styled.Text`
   color: ${({ theme }) => theme.colors.base};
   margin-left: 10px;
   font-size: 18px;
+  font-family: ${({ theme }) => theme.fonts.regular};
 `;
 
 export const Section = styled.View`
@@ -50,12 +52,14 @@ export const TextSmall = styled.Text`
   color: ${({ theme }) => theme.colors.base};
   margin-top: 24px;
   font-size: 12px;
+  font-family: ${({ theme }) => theme.fonts.regular};
 `;
 export const TextMedium = styled.Text`
   color: ${({ theme }) => theme.colors.base};
   margin-bottom: 16px;
   font-size: 16px;
   text-align: center;
+  font-family: ${({ theme }) => theme.fonts.regular};
 `;
 
 export const NotFound = styled.Text`
@@ -63,12 +67,14 @@ export const NotFound = styled.Text`
   margin-top: 5px;
   margin-bottom: 12px;
   font-size: 14px;
+  font-family: ${({ theme }) => theme.fonts.regular};
 `;
 export const SubTitleProvider = styled.Text`
   color: ${({ theme }) => theme.colors.subtitle};
   margin-top: 15px;
   margin-bottom: 8px;
   font-size: 18px;
+  font-family: ${({ theme }) => theme.fonts.regular};
 `;
 
 export const BoxProvider = styled.ScrollView`
@@ -97,4 +103,5 @@ export const Label = styled.Text`
   color: ${({ theme }) => theme.colors.subtitle};
   font-size: 15px;
   margin-top: 15px;
+  font-family: ${({ theme }) => theme.fonts.regular};
 `;

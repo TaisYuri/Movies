@@ -18,4 +18,5 @@ export const ButtonText = styled.Text`
   font-size: 16px;
   font-weight: 500;
   color: ${({ theme }) => theme.colors.base};
+  font-family: ${({ theme }) => theme.fonts.medium};
 `;

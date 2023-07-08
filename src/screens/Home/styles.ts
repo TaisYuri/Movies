@@ -6,4 +6,5 @@ export const Scroll = styled.ScrollView`
 
 export const BoxCard = styled.Text`
   margin: 8px;
+  font-family: ${({ theme }) => theme.fonts.medium};
 `;

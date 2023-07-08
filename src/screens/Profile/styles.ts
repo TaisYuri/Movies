@@ -30,6 +30,6 @@ export const ItemMenu = styled.TouchableOpacity`
 `;
 export const ItemText = styled.Text`
   color: ${({ theme }) => theme.colors.base};
-
+  font-family: ${({ theme }) => theme.fonts.regular};
   font-size: 16px;
 `;
