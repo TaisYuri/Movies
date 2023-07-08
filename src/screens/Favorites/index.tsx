@@ -1,71 +1,113 @@
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import React, { useCallback, useState } from 'react';
-import { Card } from 'src/components/Card';
-import { DataProps } from 'src/components/ListCards/types';
 import { useFavorite } from 'src/hooks/useFavorite';
-import { BoxCard } from '../Home/styles';
 import { Header } from 'src/components/Header';
-import { ContainerBox, Scroll } from '../PlusMovies/styles';
-import { Loading } from 'src/components/Loading';
-import { Snackbar } from 'react-native-paper';
+import { ListRenderItemInfo, ActivityIndicator } from 'react-native';
+import { FavoriteProps } from 'src/hooks/useFavorite/types';
+import { SwipeListView } from 'react-native-swipe-list-view';
+import { useTheme } from 'styled-components';
+import {
+  ButtonRight,
+  Container,
+  ContainerItem,
+  Content,
+  ContentHidden,
+  ContentHiddenLoading,
+  Poster,
+  Space,
+} from './styles';
+import { BoxText, Info, InfoTitle } from '../Search/styles';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 export function Favorites(): JSX.Element {
-  const { favorites, getFavorite, loading, removeFavorite } = useFavorite();
+  const [isLoading, setIsLoading] = useState(false);
+  const { favorites, getFavorite, removeFavorite } = useFavorite();
   const navigation = useNavigation();
-  const [visible, setVisible] = useState(false);
+  const theme = useTheme();
 
-  const onToggleSnackBar = () => {
-    setVisible(!visible);
-  };
-
-  const onDismissSnackBar = () => {
-    setVisible(false);
-  };
   useFocusEffect(
     useCallback(() => {
       getFavorite();
     }, [])
   );
 
-  const handleLongPress = useCallback((id: string) => {
-    removeFavorite(id);
-    getFavorite();
+  const handleRemoveItem = useCallback(async (item: string) => {
+    try {
+      setIsLoading(true);
+      await removeFavorite(item);
+      getFavorite();
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 400);
+    } catch (err) {
+      console.log('aaaa', err);
+    }
   }, []);
 
-  if (loading) {
-    return <Loading />;
-  }
+  const renderItem = ({
+    item,
+  }: ListRenderItemInfo<FavoriteProps>): JSX.Element => {
+    return (
+      <ContainerItem
+        onPress={() => {
+          navigation.navigate('details', { id: item?.id });
+        }}
+      >
+        <Content>
+          <Poster
+            source={{
+              uri: `https://image.tmdb.org/t/p/w500/${item?.poster_path}`,
+            }}
+            resizeMode="contain"
+          />
+          <BoxText>
+            <InfoTitle>{item?.title}</InfoTitle>
+            <Info>{item?.release_date}</Info>
+          </BoxText>
+        </Content>
+      </ContainerItem>
+    );
+  };
+
+  const renderHiddenItem = (
+    data: ListRenderItemInfo<FavoriteProps>
+  ): JSX.Element => {
+    return isLoading ? (
+      <ContentHiddenLoading>
+        <ActivityIndicator size={24} color={theme.colors.base} />
+      </ContentHiddenLoading>
+    ) : (
+      <ContentHidden>
+        <ButtonRight
+          onPress={() => {
+            void handleRemoveItem(data.item.id);
+          }}
+          disabled={isLoading}
+        >
+          <MaterialCommunityIcons
+            name="delete"
+            color={theme.colors.base}
+            size={20}
+          />
+        </ButtonRight>
+      </ContentHidden>
+    );
+  };
+
+  // if (loading) {
+  //   return <Loading />;
+  // }
 
   return (
-    <>
+    <Container>
       <Header title="Favoritos" />
-      <Scroll>
-        <ContainerBox>
-          {favorites?.map((item: DataProps) => {
-            return (
-              <BoxCard key={item.id}>
-                <Card
-                  title=""
-                  key={item.id}
-                  vote={String(item.vote_average)}
-                  uri={item.poster_path}
-                  onPress={() => {
-                    navigation.navigate('details', { id: item.id });
-                  }}
-                  hasFavorite
-                  onPressFavorite={() => {
-                    onToggleSnackBar();
-                    handleLongPress(item.id);
-                  }}
-                />
-              </BoxCard>
-            );
-          })}
-        </ContainerBox>
-        <Snackbar visible={visible} onDismiss={onDismissSnackBar}>
-          Removido dos favoritos!
-        </Snackbar>
-      </Scroll>
-    </>
+      <Space />
+      <SwipeListView
+        data={favorites}
+        renderItem={renderItem}
+        renderHiddenItem={renderHiddenItem}
+        rightOpenValue={-80}
+      />
+    </Container>
   );
 }

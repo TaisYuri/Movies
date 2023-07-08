@@ -3,10 +3,14 @@ import { FavoriteSchema, FavoriteSendProps, FavoriteProps } from './types';
 import { useFavoriteStore } from 'src/states/favoriteState';
 import { optionsDefault } from 'src/services';
 import axios from 'axios';
+import {
+  dateConvert,
+  dateIsValid,
+} from 'src/functions/dateConvert/dateConvert';
 
 export function useFavorite(idMovie?: string): {
   getFavorite: () => void;
-  favorites?: FavoriteProps[];
+  favorites: FavoriteProps[];
   hasFavorite: boolean;
   handleFavorite: () => Promise<void>;
   loading: boolean;
@@ -17,7 +21,7 @@ export function useFavorite(idMovie?: string): {
     status_message: '',
     success: false,
   });
-  const [favorites, setFavorites] = useState<FavoriteProps[]>();
+  const [favorites, setFavorites] = useState<FavoriteProps[]>([]);
   const [hasFavorite, setHasFavorite] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -68,13 +72,18 @@ export function useFavorite(idMovie?: string): {
       .then(({ data }) => {
         setFavorites(
           data.results.map((item: FavoriteProps) => {
-            return {
-              id: item.id,
-              title: item.title,
-              vote_average: item.vote_average,
-              release_date: item.release_date,
-              poster_path: item.poster_path,
-            };
+            if (dateIsValid(item?.release_date)) {
+              const newFormatDate = dateConvert(
+                item.release_date
+              ).formatOnlyYear;
+              return {
+                id: item.id,
+                title: item.title,
+                vote_average: item.vote_average,
+                release_date: newFormatDate,
+                poster_path: item.poster_path,
+              };
+            }
           })
         );
         setData({
@@ -113,6 +122,7 @@ export function useFavorite(idMovie?: string): {
   };
   const removeFavorite = async (idToRemove: string): Promise<void> => {
     if (favoriteStore.find((item) => item.idFavorite === idToRemove) != null) {
+      setLoading(true);
       const index = favoriteStore.findIndex(
         (item) => item.idFavorite === idToRemove
       );
@@ -122,6 +132,7 @@ export function useFavorite(idMovie?: string): {
       });
       await sendFavorite({ isFavorite: false, mediaId: Number(idToRemove) });
       setHasFavorite(false);
+      setLoading(false);
     }
   };
 
