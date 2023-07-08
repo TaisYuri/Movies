@@ -1,15 +1,26 @@
+import React, { useCallback, useEffect, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
 import { Routes } from './src/routes';
 import { ThemeProvider } from 'styled-components';
 import { SafeArea } from './src/components/SafeArea';
-import ThemeLight from './src/theme/LightTheme';
-import Theme from './src/theme/Theme';
 import { useThemeStore } from './src/states/themeState';
+import { useLoadFonts } from './src/hooks/useLoadFonts';
+import Theme from './src/theme/Theme';
+import ThemeLight from './src/theme/LightTheme';
 
 export default function App() {
   const { themeLight } = useThemeStore();
+
+  const { fontsLoaded, onLayoutRootView } = useLoadFonts();
+
+  useEffect(() => {
+    onLayoutRootView();
+  }, []);
+
+  if (!fontsLoaded) {
+    return null;
+  }
 
   return (
     <NavigationContainer>
