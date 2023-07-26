@@ -15,6 +15,7 @@ export function useFavorite(idMovie?: string): {
   handleFavorite: () => Promise<void>;
   loading: boolean;
   removeFavorite: (idMovie: string) => Promise<void>;
+  message: FavoriteSchema;
 } {
   const [message, setMessage] = useState<FavoriteSchema>({
     status_code: 0,
@@ -71,6 +72,7 @@ export function useFavorite(idMovie?: string): {
     )
       .then(({ data }) => {
         setFavorites(
+          // eslint-disable-next-line array-callback-return
           data.results.map((item: FavoriteProps) => {
             if (dateIsValid(item?.release_date)) {
               const newFormatDate = dateConvert(
@@ -143,5 +145,6 @@ export function useFavorite(idMovie?: string): {
     handleFavorite,
     loading,
     removeFavorite,
+    message,
   };
 }

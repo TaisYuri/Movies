@@ -11,11 +11,13 @@ export function CardPerson({
 }: ICardPerson): JSX.Element {
   return (
     <Container onPress={onPress}>
-      <Poster
-        size={size}
-        source={{ uri: `https://image.tmdb.org/t/p/w500/${profilePath}` }}
-        resizeMode="contain"
-      />
+      {Boolean(profilePath) && (
+        <Poster
+          size={size}
+          source={{ uri: `https://image.tmdb.org/t/p/w500/${profilePath}` }}
+          resizeMode="contain"
+        />
+      )}
       <BoxRelease>
         <Note>{name}</Note>
         <Note style={{ fontWeight: 'bold' }}>{character}</Note>

@@ -30,7 +30,10 @@ export function CardsCollection({
               <Content
                 key={item?.id}
                 onPress={() => {
-                  navigation.navigate('details', { id: item.id });
+                  navigation.navigate('details', {
+                    id: item.id,
+                    type: 'movie',
+                  });
                 }}
               >
                 {item?.poster_path !== undefined &&

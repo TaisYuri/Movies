@@ -23,7 +23,14 @@ export function VoteAverage({ label }: ITag): JSX.Element {
         }}
         source={require('../../assets/stars.json')}
       />
-      <Title>{label}</Title>
+      <Title
+        style={{
+          textAlign: 'center',
+          width: '65%',
+        }}
+      >
+        {label}
+      </Title>
     </Container>
   );
 }

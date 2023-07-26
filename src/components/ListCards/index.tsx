@@ -13,6 +13,7 @@ export function ListCards({
   newMovies = false,
   textLink = 'ver mais',
   hasFavorite = false,
+  type,
 }: IListCards): JSX.Element {
   const navigation = useNavigation();
   const renderItem: ListRenderItem<DataProps> = ({ item }) => (
@@ -22,7 +23,7 @@ export function ListCards({
         vote={String(item.vote_average)}
         uri={item.poster_path}
         onPress={() => {
-          navigation.navigate('details', { id: item.id });
+          navigation.navigate('details', { id: item.id, type });
         }}
         release={newMovies ? item.release_date : ''}
         hasFavorite={hasFavorite}

@@ -1,3 +1,5 @@
+import { typeDetailProps } from 'src/hooks/useHandleTypeDetails/types';
+
 export interface DataProps {
   id: string;
   title: string;
@@ -12,4 +14,5 @@ export interface IListCards {
   newMovies?: boolean;
   textLink?: string;
   hasFavorite?: boolean;
+  type: typeDetailProps;
 }
