@@ -1,3 +1,4 @@
+import { typeDetailProps } from 'src/hooks/useHandleTypeDetails/types';
 import { IProviderSchema } from 'src/hooks/useProvider/types';
 
 export interface IBasicInformation {
@@ -9,6 +10,7 @@ export interface IBasicInformation {
   overview?: string;
   provider?: IProviderSchema[];
   logoPath?: string;
+  type: typeDetailProps;
 }
 
 export interface IGenres {

@@ -2,9 +2,10 @@ import { useCallback, useState } from 'react';
 import { IImageSchema } from './types';
 import axios from 'axios';
 import Constants from 'expo-constants';
+import { typeDetailProps } from '../useHandleTypeDetails/types';
 
 export function useGetImage(): {
-  getImage: (link: string) => void;
+  getImage: (link: string, type: typeDetailProps) => void;
   isLoadingImage: boolean;
   filePath?: IImageSchema;
 } {
@@ -12,11 +13,12 @@ export function useGetImage(): {
   const [filePath, setFilePath] = useState<IImageSchema>();
 
   const getImage = useCallback(
-    (link: string) => {
+    (link: string, type: typeDetailProps) => {
+      const typeLink = String(type);
       setIsLoadingImage(true);
       axios({
         method: 'GET',
-        url: `https://api.themoviedb.org/3/movie/${link}/images`,
+        url: `https://api.themoviedb.org/3/${typeLink}/${link}/images`,
         headers: {
           accept: 'application/json',
           'content-type': 'application/json',

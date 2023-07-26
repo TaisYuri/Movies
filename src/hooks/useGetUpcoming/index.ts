@@ -24,7 +24,7 @@ export function useGetUpcoming({ page }: GetMoviesProps): {
               // ORDENANDO POR DATA
               .filter(
                 (item: IMovies) =>
-                  item.release_date > format(new Date(Date.now()), 'dd-MM-yyyy')
+                  item.release_date > format(new Date(Date.now()), 'yyyy-MM-dd')
               )
               .sort((a: any, b: any) =>
                 a.release_date.localeCompare(b.release_date)

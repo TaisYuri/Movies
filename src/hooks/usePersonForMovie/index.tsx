@@ -2,9 +2,10 @@ import { useCallback, useState } from 'react';
 import { type PersonsSchema } from './types';
 import { optionsDefault } from 'src/services';
 import axios from 'axios';
+import { typeDetailProps } from '../useHandleTypeDetails/types';
 
 export function usePersonForMovie(): {
-  getPersons: (link: string) => void;
+  getPersons: (link: string, type: typeDetailProps) => void;
   isLoadingPerson: boolean;
   PersonsOfMovies?: PersonsSchema;
 } {
@@ -12,9 +13,10 @@ export function usePersonForMovie(): {
   const [PersonsOfMovies, setPersonsOfMovies] = useState<PersonsSchema>();
 
   const getPersons = useCallback(
-    (id: string) => {
+    (id: string, type: typeDetailProps) => {
+      const typeLink = String(type);
       setIsLoadingPerson(true);
-      axios(optionsDefault({ method: 'GET', url: `/movie${id}` }))
+      axios(optionsDefault({ method: 'GET', url: `/${typeLink}${id}` }))
         .then(({ data }) => {
           const director = data?.crew
             ?.filter((item: any) => item.job === 'Director')

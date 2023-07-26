@@ -19,11 +19,19 @@ import {
 import { BoxText, Info, InfoTitle } from '../Search/styles';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
+import { Notification } from 'src/components/Notification';
+
 export function Favorites(): JSX.Element {
   const [isLoading, setIsLoading] = useState(false);
-  const { favorites, getFavorite, removeFavorite } = useFavorite();
+  const [visible, setVisible] = React.useState(false);
+
+  const { favorites, getFavorite, removeFavorite, message } = useFavorite();
   const navigation = useNavigation();
   const theme = useTheme();
+
+  const onToggleSnackBar = (): void => {
+    setVisible(!visible);
+  };
 
   useFocusEffect(
     useCallback(() => {
@@ -32,15 +40,17 @@ export function Favorites(): JSX.Element {
   );
 
   const handleRemoveItem = useCallback(async (item: string) => {
+    setIsLoading(true);
     try {
-      setIsLoading(true);
       await removeFavorite(item);
       getFavorite();
       setTimeout(() => {
         setIsLoading(false);
+        onToggleSnackBar();
       }, 400);
     } catch (err) {
-      console.log('aaaa', err);
+      setIsLoading(false);
+      console.log('error', err);
     }
   }, []);
 
@@ -49,8 +59,9 @@ export function Favorites(): JSX.Element {
   }: ListRenderItemInfo<FavoriteProps>): JSX.Element => {
     return (
       <ContainerItem
+        activeOpacity={1}
         onPress={() => {
-          navigation.navigate('details', { id: item?.id });
+          navigation.navigate('details', { id: item?.id, type: 'movie' });
         }}
       >
         <Content>
@@ -83,6 +94,7 @@ export function Favorites(): JSX.Element {
             void handleRemoveItem(data.item.id);
           }}
           disabled={isLoading}
+          activeOpacity={1}
         >
           <MaterialCommunityIcons
             name="delete"
@@ -107,6 +119,12 @@ export function Favorites(): JSX.Element {
         renderItem={renderItem}
         renderHiddenItem={renderHiddenItem}
         rightOpenValue={-80}
+        showsVerticalScrollIndicator={false}
+      />
+      <Notification
+        message={message.status_message}
+        setVisible={setVisible}
+        visible={visible}
       />
     </Container>
   );

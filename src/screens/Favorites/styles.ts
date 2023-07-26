@@ -3,8 +3,9 @@ import styled from 'styled-components/native';
 export const Container = styled.View`
   background-color: ${({ theme }) => theme.colors.background};
   flex: 1;
+  padding-bottom: 40px;
 `;
-export const ContainerItem = styled.TouchableHighlight`
+export const ContainerItem = styled.TouchableOpacity`
   border-bottom-width: 0.6px;
   border-bottom-color: ${({ theme }) => theme.colors.base_alternative};
   border-top-width: 1px;
@@ -52,7 +53,7 @@ export const ContentHiddenLoading = styled.View`
   border-radius: 10px;
 `;
 
-export const ButtonRight = styled.TouchableHighlight`
+export const ButtonRight = styled.TouchableOpacity`
   margin: 10px 0;
   align-items: flex-end;
   flex: 1;

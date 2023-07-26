@@ -18,8 +18,11 @@ import { useGetMovies } from 'src/hooks/useGetMovies';
 import { usePersonForMovie } from 'src/hooks/usePersonForMovie';
 import { PersonProps } from 'src/hooks/usePersonForMovie/types';
 import { Title } from 'src/components/Title';
+import { typeDetailProps } from 'src/hooks/useHandleTypeDetails/types';
 
-export function MoreInformation(): JSX.Element {
+export function MoreInformation(props: {
+  detailType: typeDetailProps;
+}): JSX.Element {
   const route = useRoute();
   const { id } = route.params as RouteParams;
 
@@ -28,8 +31,8 @@ export function MoreInformation(): JSX.Element {
 
   useFocusEffect(
     useCallback(() => {
-      getPersons(`/${id}/credits`);
-      getMovies(`/${id}/recommendations`);
+      getPersons(`/${id}/credits`, props.detailType);
+      getMovies(`/${id}/recommendations`, props.detailType);
     }, [id])
   );
 
@@ -66,22 +69,29 @@ export function MoreInformation(): JSX.Element {
         />
       </BoxPerson>
       <BoxDirector>
-        <Title>Diretor</Title>
         {Boolean(PersonsOfMovies?.director.length) && (
-          <Label>
-            <CardPerson
-              id={PersonsOfMovies?.director[0].id}
-              name={PersonsOfMovies?.director[0].name}
-              profilePath={PersonsOfMovies?.director[0].profilePath}
-              size="md"
-            />
-          </Label>
+          <>
+            <Title>Diretor</Title>
+            <Label>
+              <CardPerson
+                id={PersonsOfMovies?.director[0].id}
+                name={PersonsOfMovies?.director[0].name}
+                profilePath={PersonsOfMovies?.director[0].profilePath}
+                size="md"
+              />
+            </Label>
+          </>
         )}
       </BoxDirector>
 
       {value.length > 0 && (
         <BoxSimiliar>
-          <ListCards title={'Recomendações'} dataMovies={value} textLink={''} />
+          <ListCards
+            title={'Recomendações'}
+            dataMovies={value}
+            textLink={''}
+            type={props.detailType}
+          />
         </BoxSimiliar>
       )}
     </Container>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Image, View } from 'react-native';
 // import Icon from 'react-native-vector-icons/AntDesign';
 import { hoursToMinutes, minutesToHours } from 'date-fns';
@@ -27,12 +27,13 @@ export function BasicInformation({
   overview,
   provider,
   logoPath,
+  type,
 }: IBasicInformation): JSX.Element {
   const hour = minutesToHours(Number(runtime));
 
-  return (
-    <>
-      <ContentHeader>
+  const header = useCallback(() => {
+    if (type === 'movie') {
+      return (
         <ContentTitles>
           <Title>{title}</Title>
           <Section>
@@ -42,6 +43,25 @@ export function BasicInformation({
             )}m`}</SubTitle>
           </Section>
         </ContentTitles>
+      );
+    } else {
+      return (
+        <ContentTitles>
+          <Title>{title}</Title>
+          <Section>
+            <SubTitle>
+              Exibido pela primeira vez em: {String(releaseDate).slice(0, 4)}
+            </SubTitle>
+          </Section>
+        </ContentTitles>
+      );
+    }
+  }, [type]);
+
+  return (
+    <>
+      <ContentHeader>
+        {header()}
         <VoteAverage label={Number(voteAverage).toFixed(1)} />
       </ContentHeader>
 

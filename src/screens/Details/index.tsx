@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import {
   useFocusEffect,
   useRoute,
@@ -11,54 +12,36 @@ import { MoreInformation } from './MoreInformation';
 import { Loading } from 'src/components/Loading';
 import { HeaderAnimation } from '../../components/HeaderAnimation';
 import { BasicInformation } from './BasicInformation';
-import { useGetDetailMovie } from 'src/hooks/useGetDetailMovie';
-import { useGetImage } from 'src/hooks/useGetImage';
-import { useProvider } from 'src/hooks/useProvider';
-import { useCollection } from 'src/hooks/useCollection';
 import { CardsCollection } from 'src/components/CardsCollection';
 import { ButtonPrimary } from 'src/components/Buttons/ButtonPrimary';
+import { useHandleTypeDetails } from 'src/hooks/useHandleTypeDetails';
+import { Seasons } from './Seasons';
 
 export function Details(): JSX.Element {
   const routeNavigation = useRoute();
-  const { id } = routeNavigation.params as RouteParams;
+  const { id, type } = routeNavigation.params as RouteParams;
   const navigation = useNavigation();
 
   const [scrollY, setScrollY] = useState(new Animated.Value(0));
 
-  const { getDetail, isLoading, value } = useGetDetailMovie({ page: '1' });
-  const { getImage, filePath, isLoadingImage } = useGetImage();
-  const { getProvider, providers, isLoadingProvider } = useProvider();
-  const { getCollection, collections, isLoadingCollection, reset } =
-    useCollection();
+  const itemDetail = useHandleTypeDetails({ type, id });
 
   useFocusEffect(
     useCallback(() => {
-      getImage(id);
-
-      getDetail(id);
-      // STREAM DE ONDE PODE SER ASSISTIDO
-      getProvider(id);
-
       setScrollY(new Animated.Value(0));
     }, [id])
   );
 
-  useFocusEffect(
-    useCallback(() => {
-      if (value?.belongs_to_collection?.id != null) {
-        getCollection(value?.belongs_to_collection?.id);
-        return;
-      }
-      reset();
-    }, [value])
-  );
-
-  if (isLoading || isLoadingImage || isLoadingProvider || isLoadingCollection) {
+  if (itemDetail?.loading) {
     return <Loading />;
   }
   return (
     <>
-      <HeaderAnimation image={filePath?.file_path} scrollY={scrollY} id={id} />
+      <HeaderAnimation
+        image={itemDetail?.filePath?.file_path}
+        scrollY={scrollY}
+        id={id}
+      />
 
       <ScrollView
         scrollEventThrottle={16}
@@ -77,36 +60,52 @@ export function Details(): JSX.Element {
       >
         <Container>
           <BasicInformation
-            title={value?.title}
-            runtime={value?.runtime}
-            voteAverage={value?.voteAverage}
-            releaseDate={value?.releaseDate}
-            genres={value?.genres}
-            overview={value?.overview}
-            provider={providers}
-            logoPath={value?.production_companies}
+            title={itemDetail?.value?.title ?? itemDetail?.valueTv?.title}
+            runtime={itemDetail?.value?.runtime}
+            voteAverage={
+              itemDetail?.value?.voteAverage ?? itemDetail?.valueTv?.voteAverage
+            }
+            releaseDate={
+              itemDetail?.value?.releaseDate ?? itemDetail?.valueTv?.releaseDate
+            }
+            genres={itemDetail?.value?.genres ?? itemDetail?.valueTv?.genres}
+            overview={
+              itemDetail?.value?.overview ?? itemDetail?.valueTv?.overview
+            }
+            provider={itemDetail?.providers}
+            logoPath={itemDetail?.value?.production_companies}
+            type={type}
           />
-          <ContentButton>
-            <ButtonPrimary
-              onPress={() => {
-                navigation.navigate('trailers', { movieId: id });
-              }}
-              hasIcon
-            >
-              Assista ao Trailer
-            </ButtonPrimary>
-          </ContentButton>
+          {type === 'movie' && (
+            <ContentButton>
+              <ButtonPrimary
+                onPress={() => {
+                  navigation.navigate('trailers', { movieId: id });
+                }}
+                hasIcon
+              >
+                Assista ao Trailer
+              </ButtonPrimary>
+            </ContentButton>
+          )}
 
-          {collections?.parts?.length != null &&
-            collections?.parts?.length > 0 && (
+          {itemDetail?.collections?.parts?.length != null &&
+            itemDetail?.collections?.parts?.length > 0 && (
               <CardsCollection
-                data={collections?.parts}
+                data={itemDetail?.collections?.parts}
                 idMovie={id}
                 title="Talvez você também precise assistir"
               />
             )}
 
-          <MoreInformation />
+          {Boolean(itemDetail?.valueTv?.seasons.length) && (
+            <Seasons
+              seasons={itemDetail?.valueTv?.seasons ?? []}
+              tvId={itemDetail?.valueTv?.id}
+            />
+          )}
+
+          <MoreInformation detailType={type} />
         </Container>
       </ScrollView>
     </>
