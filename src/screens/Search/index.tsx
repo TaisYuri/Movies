@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { Searchbar } from 'react-native-paper';
+import { Searchbar, SegmentedButtons } from 'react-native-paper';
 
 import {
   NativeSyntheticEvent,
@@ -29,12 +29,15 @@ import { Title } from 'src/components/Title';
 import { genresEnum } from 'src/datas/genres';
 import { TextWithoutImg } from 'src/components/Card/styles';
 import LottieView from 'lottie-react-native';
+import { typeDetailProps } from 'src/hooks/useHandleTypeDetails/types';
 
 // https://api.themoviedb.org/3/search/person?query=Jennifer%20Lopez&api_key=&include_adult=false&language=en-US&page=1
 // fetch('https://api.themoviedb.org/3/search/movie?include_adult=false&language=en-US&page=1', options)
 
 export function Search(): JSX.Element {
   const [searchText, setSearchText] = useState('');
+  const [type, setType] = useState<typeDetailProps>('movie');
+
   const [debouncedSearch] = useDebounce(searchText, 1000);
   const navigation = useNavigation();
   const animation = useRef(null);
@@ -49,9 +52,9 @@ export function Search(): JSX.Element {
 
   useEffect(() => {
     if (debouncedSearch.length > 3) {
-      handleSearch(debouncedSearch);
+      handleSearch(debouncedSearch, type);
     }
-  }, [debouncedSearch]);
+  }, [debouncedSearch, type]);
 
   const renderContent = useCallback(() => {
     if (isLoading) {
@@ -87,7 +90,10 @@ export function Search(): JSX.Element {
               <ContentCards
                 key={`${item?.id}${Math.random()}`}
                 onPress={() => {
-                  navigation.navigate('details', { id: item?.id });
+                  navigation.navigate('details', {
+                    id: item?.id,
+                    type,
+                  });
                 }}
               >
                 {item?.poster_path !== undefined &&
@@ -107,14 +113,15 @@ export function Search(): JSX.Element {
                   <InfoTitle>{item?.title}</InfoTitle>
                   <Info>{item?.release_date}</Info>
                   <ContentGenre>
-                    {item?.genre_ids?.map((genre: number) => (
-                      <InfoGenres key={genre}>
-                        {
-                          genresEnum.filter((item) => item?.id === genre)[0]
-                            .name
-                        }
-                      </InfoGenres>
-                    ))}
+                    {item.genre_ids.length > 0 &&
+                      item?.genre_ids?.map((genre: number) => (
+                        <InfoGenres key={genre}>
+                          {
+                            genresEnum.filter((item) => item?.id === genre)[0]
+                              .name
+                          }
+                        </InfoGenres>
+                      ))}
                   </ContentGenre>
                 </BoxText>
               </ContentCards>
@@ -125,11 +132,29 @@ export function Search(): JSX.Element {
       </Scroll>
     );
   }, [value, isLoading, searchText]);
-
   return (
     <>
       <Header title="Buscar" />
       <Container>
+        <SegmentedButtons
+          density="regular"
+          style={{ marginHorizontal: 3, marginBottom: 16 }}
+          value={type}
+          onValueChange={(item) => {
+            setType(item as typeDetailProps);
+          }}
+          buttons={[
+            {
+              value: 'movie',
+              label: 'Filmes',
+            },
+            {
+              value: 'tv',
+              label: 'Series',
+            },
+          ]}
+        />
+
         <Searchbar
           value={searchText}
           onChange={handleChange}

@@ -30,6 +30,7 @@ export function Card({
         <Poster
           source={{ uri: `https://image.tmdb.org/t/p/w500/${uri}` }}
           resizeMode="contain"
+          loadingIndicatorSource={require('../../assets/popcorn.png')}
         />
       ) : (
         <PosterWithoutImg>
