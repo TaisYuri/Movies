@@ -13,7 +13,7 @@ import { DataProps } from 'src/components/ListCards/types';
 
 export function ActionMenu(): JSX.Element {
   const route = useRoute();
-  const { title, films, newMovies } = route.params as RouteParams;
+  const { title, films, newMovies, type } = route.params as RouteParams;
 
   const navigation = useNavigation();
   const [data, setData] = useState<DataProps[]>([]);
@@ -42,7 +42,10 @@ export function ActionMenu(): JSX.Element {
                   title=""
                   uri={item.poster_path}
                   onPress={() => {
-                    navigation.navigate('details', { id: item.id });
+                    navigation.navigate('details', {
+                      id: item.id,
+                      type,
+                    });
                   }}
                   release={item.release_date}
                 />
@@ -69,7 +72,10 @@ export function ActionMenu(): JSX.Element {
                     vote={String(item.vote_average)}
                     uri={item.poster_path}
                     onPress={() => {
-                      navigation.navigate('details', { id: item.id });
+                      navigation.navigate('details', {
+                        id: item.id,
+                        type,
+                      });
                     }}
                   />
                 </BoxCard>

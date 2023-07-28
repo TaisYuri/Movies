@@ -41,6 +41,7 @@ export function ListCards({
             title,
             films: dataMovies,
             newMovies,
+            type,
           });
         }}
       />

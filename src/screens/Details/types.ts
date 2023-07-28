@@ -1,5 +1,8 @@
+import { typeDetailProps } from 'src/hooks/useHandleTypeDetails/types';
+
 export interface RouteParams {
   id: string;
+  type: typeDetailProps;
 }
 
 export interface IProvider {

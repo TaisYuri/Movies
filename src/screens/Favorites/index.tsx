@@ -23,7 +23,7 @@ import { Notification } from 'src/components/Notification';
 
 export function Favorites(): JSX.Element {
   const [isLoading, setIsLoading] = useState(false);
-  const [visible, setVisible] = React.useState(false);
+  const [visible, setVisible] = useState(false);
 
   const { favorites, getFavorite, removeFavorite, message } = useFavorite();
   const navigation = useNavigation();

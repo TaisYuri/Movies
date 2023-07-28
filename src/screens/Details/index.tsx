@@ -41,6 +41,7 @@ export function Details(): JSX.Element {
         image={itemDetail?.filePath?.file_path}
         scrollY={scrollY}
         id={id}
+        type={type}
       />
 
       <ScrollView

@@ -17,6 +17,7 @@ export function HeaderAnimation({
   image,
   scrollY,
   id,
+  type,
 }: IHeaderAnimation): JSX.Element {
   const navigation = useNavigation();
   const theme = useTheme();
@@ -59,11 +60,19 @@ export function HeaderAnimation({
             }),
             color: theme.colors.base,
             fontSize: 20,
+            marginRight: 8,
           }}
         >
           Detalhes
         </Animated.Text>
-        <ButtonFavorite onPress={handleFavorite} hasFavorite={hasFavorite} />
+        {type === 'movie' && (
+          <ButtonFavorite
+            onPress={() => {
+              void handleFavorite();
+            }}
+            hasFavorite={hasFavorite}
+          />
+        )}
       </Animated.View>
 
       <ImageBackground
