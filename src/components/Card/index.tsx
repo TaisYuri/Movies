@@ -8,10 +8,12 @@ import {
   PosterWithoutImg,
   TextWithoutImg,
   BoxFavorite,
+  ContainerPoster,
 } from './styles';
 import { type ICard } from './types';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useTheme } from 'styled-components/native';
+import { Shimmer } from '../Shimmer';
 
 export function Card({
   uri,
@@ -25,13 +27,15 @@ export function Card({
   const theme = useTheme();
 
   return (
-    <Container onPress={onPress}>
+    <Container onPress={onPress} activeOpacity={0.8}>
       {uri !== undefined && uri !== null ? (
-        <Poster
-          source={{ uri: `https://image.tmdb.org/t/p/w500/${uri}` }}
-          resizeMode="contain"
-          loadingIndicatorSource={require('../../assets/popcorn.png')}
-        />
+        <ContainerPoster>
+          <Shimmer size={'xl'} typeCard="movie" />
+          <Poster
+            source={{ uri: `https://image.tmdb.org/t/p/w500/${uri}` }}
+            resizeMode="contain"
+          />
+        </ContainerPoster>
       ) : (
         <PosterWithoutImg>
           <TextWithoutImg>{title}</TextWithoutImg>

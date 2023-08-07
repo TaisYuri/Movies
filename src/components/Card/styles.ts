@@ -3,13 +3,19 @@ import styled from 'styled-components/native';
 
 export const Container = styled(TouchableOpacity)`
   flex: 1;
-  /* opacity: 0.7; */
 `;
 
+export const ContainerPoster = styled.View`
+  width: 170px;
+  height: 220px;
+  border-radius: 12px;
+  background-color: #eee;
+`;
 export const Poster = styled.Image`
   width: 170px;
   height: 220px;
   border-radius: 12px;
+  position: absolute;
 `;
 export const PosterWithoutImg = styled.View`
   width: 170px;

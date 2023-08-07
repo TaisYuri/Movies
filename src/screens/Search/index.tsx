@@ -147,10 +147,12 @@ export function Search(): JSX.Element {
             {
               value: 'movie',
               label: 'Filmes',
+              uncheckedColor: '#fff',
             },
             {
               value: 'tv',
               label: 'Series',
+              uncheckedColor: '#fff',
             },
           ]}
         />

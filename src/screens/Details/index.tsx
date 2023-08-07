@@ -70,9 +70,7 @@ export function Details(): JSX.Element {
               itemDetail?.value?.releaseDate ?? itemDetail?.valueTv?.releaseDate
             }
             genres={itemDetail?.value?.genres ?? itemDetail?.valueTv?.genres}
-            overview={
-              itemDetail?.value?.overview ?? itemDetail?.valueTv?.overview
-            }
+            overview={itemDetail?.valueTv && itemDetail?.valueTv?.overview}
             provider={itemDetail?.providers}
             logoPath={itemDetail?.value?.production_companies}
             type={type}

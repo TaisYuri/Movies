@@ -8,11 +8,10 @@ export const Scroll = styled.ScrollView`
 export const ContainerBox = styled.View`
   flex-direction: row;
   flex-wrap: wrap;
-  padding-left: 10px;
-  padding-right: 10px;
   padding-bottom: 90px;
+  justify-content: center;
 `;
 
 export const BoxCard = styled.View`
-  margin: 8px;
+  margin: 4px;
 `;

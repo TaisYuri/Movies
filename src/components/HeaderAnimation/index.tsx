@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import {
   Animated,
@@ -12,6 +12,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { useTheme } from 'styled-components/native';
 import { ButtonFavorite } from '../Buttons/ButtonFavorite';
 import { useFavorite } from 'src/hooks/useFavorite';
+import AnimatedLottieView from 'lottie-react-native';
 
 export function HeaderAnimation({
   image,
@@ -27,6 +28,7 @@ export function HeaderAnimation({
     Animated.createAnimatedComponent(LinearGradient);
 
   const { handleFavorite, hasFavorite } = useFavorite(id);
+  const animation = useRef(null);
 
   return (
     <>
@@ -75,31 +77,63 @@ export function HeaderAnimation({
         )}
       </Animated.View>
 
-      <ImageBackground
-        source={{
-          uri: `https://image.tmdb.org/t/p/w500/${image}`,
-        }}
-        // resizeMode="stretch"
-      >
+      {(image ?? '').length > 0 ? (
+        <ImageBackground
+          source={{
+            uri: `https://image.tmdb.org/t/p/w500/${image}`,
+          }}
+          // resizeMode="stretch"
+        >
+          <AnimatedGradientHelper
+            colors={[
+              'transparent',
+              'transparent',
+              theme.colors.grays.grayscale_100,
+              theme.colors.grays.grayscale_200,
+              theme.colors.grays.grayscale_300,
+            ]}
+            style={{
+              width: '100%',
+              height: scrollY.interpolate({
+                inputRange: inputRangeToAnimated,
+                outputRange: [240, 200, 160, 120, 80, 60],
+
+                extrapolate: 'clamp',
+              }),
+            }}
+          ></AnimatedGradientHelper>
+        </ImageBackground>
+      ) : (
         <AnimatedGradientHelper
           colors={[
-            'transparent',
-            'transparent',
-            theme.colors.grays.grayscale_100,
-            theme.colors.grays.grayscale_200,
-            theme.colors.grays.grayscale_300,
+            '#e6e7e9',
+            '#b5b8be',
+            '#848993',
+            '#535a68',
+            '#3a4252',
+            '#222b3d',
           ]}
           style={{
             width: '100%',
             height: scrollY.interpolate({
               inputRange: inputRangeToAnimated,
-              outputRange: [240, 200, 160, 120, 80, 60],
+              outputRange: [200, 180, 160, 120, 80, 60],
 
               extrapolate: 'clamp',
             }),
           }}
-        ></AnimatedGradientHelper>
-      </ImageBackground>
+        >
+          <AnimatedLottieView
+            autoPlay
+            ref={animation}
+            style={{
+              width: 120,
+              height: 120,
+            }}
+            source={require('../../assets/movie-header.json')}
+          />
+        </AnimatedGradientHelper>
+      )}
     </>
   );
 }
