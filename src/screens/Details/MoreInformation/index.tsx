@@ -19,6 +19,7 @@ import { usePersonForMovie } from 'src/hooks/usePersonForMovie';
 import { PersonProps } from 'src/hooks/usePersonForMovie/types';
 import { Title } from 'src/components/Title';
 import { typeDetailProps } from 'src/hooks/useHandleTypeDetails/types';
+import { useRecommendationStore } from 'src/states/recomendationDefault';
 
 export function MoreInformation(props: {
   detailType: typeDetailProps;
@@ -28,6 +29,8 @@ export function MoreInformation(props: {
 
   const { getMovies, value, isLoading } = useGetMovies({ page: '1' });
   const { getPersons, PersonsOfMovies, isLoadingPerson } = usePersonForMovie();
+
+  const { recommendationStore } = useRecommendationStore();
 
   useFocusEffect(
     useCallback(() => {
@@ -84,11 +87,20 @@ export function MoreInformation(props: {
         )}
       </BoxDirector>
 
-      {value.length > 0 && (
+      {value.length > 0 ? (
         <BoxSimiliar>
           <ListCards
             title={'Recomendações'}
             dataMovies={value}
+            textLink={''}
+            type={props.detailType}
+          />
+        </BoxSimiliar>
+      ) : (
+        <BoxSimiliar>
+          <ListCards
+            title={'Recomendações'}
+            dataMovies={recommendationStore}
             textLink={''}
             type={props.detailType}
           />

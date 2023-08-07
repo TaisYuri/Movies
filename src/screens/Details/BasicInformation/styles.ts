@@ -93,10 +93,11 @@ export const ImageProvider = styled.Image`
   margin-right: 10px;
   border-radius: 8px;
 `;
-export const ImageCompany = styled.Image`
-  width: 70px;
-  height: 70px;
-  margin-top: 3px;
+export const ImageCompany = styled.View`
+  width: 100px;
+  height: 60px;
+  background-color: #3a4252;
+  border-radius: 8px;
 `;
 
 export const Label = styled.Text`

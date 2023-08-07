@@ -9,6 +9,7 @@ import { useGetTv } from 'src/hooks/useGetTv';
 import { RefreshControl, View } from 'react-native';
 import { useGetImage } from 'src/hooks/useGetImage';
 import { useFavorite } from 'src/hooks/useFavorite';
+import { useRecommendationStore } from 'src/states/recomendationDefault';
 
 export function Home(): JSX.Element {
   const [refreshing, setRefreshing] = useState(false);
@@ -21,6 +22,7 @@ export function Home(): JSX.Element {
   const topRatedTv = useGetTv();
   const { getImage, filePath, isLoadingImage } = useGetImage();
   const { getFavorite } = useFavorite();
+  const { setData } = useRecommendationStore();
 
   function getConnectionApi(): void {
     popular.getMovies('/popular', 'movie');
@@ -47,6 +49,9 @@ export function Home(): JSX.Element {
 
   useEffect(() => {
     getImageByPopular();
+    setData({
+      recommendationStore: popular.value,
+    });
   }, [popular.value]);
 
   useEffect(() => {

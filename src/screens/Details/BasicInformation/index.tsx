@@ -13,6 +13,8 @@ import {
   TextMedium,
   Title,
   ContentTitles,
+  ImageCompany,
+  NotFound,
 } from './styles';
 import { IBasicInformation } from './types';
 import { Tag } from 'src/components/Tag';
@@ -72,10 +74,10 @@ export function BasicInformation({
           </View>
         ))}
       </BoxCard>
-      {logoPath?.length != null && logoPath?.length > 0 && (
-        <>
-          <SubTitleProvider>Produtora</SubTitleProvider>
 
+      <SubTitleProvider>Produtora</SubTitleProvider>
+      {logoPath?.length != null && logoPath?.length > 0 ? (
+        <ImageCompany>
           <Image
             key={logoPath}
             source={{
@@ -84,7 +86,9 @@ export function BasicInformation({
             style={{ width: 100, height: 60 }}
             resizeMode="contain"
           />
-        </>
+        </ImageCompany>
+      ) : (
+        <NotFound>Informação não disponivel</NotFound>
       )}
 
       {provider?.length != null && provider?.length > 0 && (
@@ -104,7 +108,11 @@ export function BasicInformation({
       )}
 
       <SubTitleProvider>Sinopse</SubTitleProvider>
-      <TextMedium numberOfLines={10}>{overview}</TextMedium>
+      {overview?.length != null && overview?.length > 0 ? (
+        <TextMedium numberOfLines={10}>{overview}</TextMedium>
+      ) : (
+        <NotFound>Informação não disponivel</NotFound>
+      )}
     </>
   );
 }
