@@ -6,7 +6,6 @@ Utilizando EAS Build para hospedagem, o aplicativo pode ser explorado através d
 
 https://github.com/TaisYuri/Movies/assets/76975737/67bb97cf-1ed3-4ed3-8a01-2015e5bc0fef 
 
-
 ## Usage
 1. necessário a instalação do aplicativo EXPO em seu celular.
 2. scaneie o QrCode de acordo com seu sistema operacional.
@@ -40,7 +39,7 @@ yarn
 ## Screens with details
 
 ## `Details`
-![Movie](https://github.com/TaisYuri/Movies/blob/master/src/assets/videos_gif/detail-movie.gif)  ------ ![Tv](https://github.com/TaisYuri/Movies/blob/master/src/assets/videos_gif/detail-tv.gif) 
+![Movie](https://github.com/TaisYuri/Movies/assets/76975737/59f4a00c-27cf-4847-85d9-7773ae1045ea) ------ ![Tv](https://github.com/TaisYuri/Movies/blob/master/src/assets/videos_gif/detail-tv.gif) 
 
 ## `Favorites`
 https://github.com/TaisYuri/Movies/assets/76975737/5b47117e-ab14-44a4-bf16-9d5b06e4970a
