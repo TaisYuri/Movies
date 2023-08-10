@@ -1,0 +1,53 @@
+# Movies
+
+Aplicativo desenvolvido em React native com Typescript, coonsumindo a API [The Movie DB](https://www.themoviedb.org)
+
+Utilizando EAS Build para hospedagem, o aplicativo pode ser explorado através do Expo (Expo Application Services). 
+
+https://github.com/TaisYuri/Movies/assets/76975737/67bb97cf-1ed3-4ed3-8a01-2015e5bc0fef 
+
+## Usage
+1. necessário a instalação do aplicativo EXPO em seu celular.
+2. scaneie o QrCode de acordo com seu sistema operacional.
+![imagem_2023-08-09_233550670](https://github.com/TaisYuri/Movies/assets/76975737/935f7f3f-15e1-4b8f-81e8-c0d23136637a)
+
+
+## Installation
+To run in your local system, you have to configure secrets keys first. 
+```
+ACCESS_TOKEN
+API_KEY
+```
+For more information: https://docs.expo.dev/build-reference/variables/
+
+```
+git clone git@github.com:TaisYuri/Movies.git
+cd Movies
+yarn
+```
+
+## Libs
+1. Material Design by [react native paper](https://callstack.github.io/react-native-paper/) 
+2. CSS for styling by [styled components](https://styled-components.com)
+3. State management global by [zustand](https://github.com/pmndrs/zustand)
+4. Lotties and svg
+5. Axios
+6. Google fonts
+7. React Navigation
+8. and more.
+
+## Screens with details
+
+## `Details`
+![Movie](https://github.com/TaisYuri/Movies/assets/76975737/59f4a00c-27cf-4847-85d9-7773ae1045ea) ------ ![Tv](https://github.com/TaisYuri/Movies/blob/master/src/assets/videos_gif/detail-tv.gif) 
+
+## `Favorites`
+https://github.com/TaisYuri/Movies/assets/76975737/5b47117e-ab14-44a4-bf16-9d5b06e4970a
+
+## `Search`
+https://github.com/TaisYuri/Movies/assets/76975737/608fbdea-9535-4ce8-8e68-ef3a46eba218
+
+## Contribution
+Layout criado por mim e design no Figma por [Jessica Torres](https://github.com/jessicagtorres)
+
+Link do [Figma](https://www.figma.com/file/IQqQxieh4kLdAMwoDqEINZ/Protótipo?type=design&node-id=0-1&mode=design&t=MCWEHch7lXi25hMb-0)
