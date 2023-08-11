@@ -39,13 +39,13 @@ yarn
 ## Screens with details
 
 ## `Details`
-![Movie](https://github.com/TaisYuri/Movies/assets/76975737/59f4a00c-27cf-4847-85d9-7773ae1045ea) ------ ![Tv](https://github.com/TaisYuri/Movies/blob/master/src/assets/videos_gif/detail-serie.gif) 
+![Movie](https://github.com/TaisYuri/Movies/blob/master/src/assets/videos_gif/detailMovie.gif) ------ ![Tv](https://github.com/TaisYuri/Movies/blob/master/src/assets/videos_gif/detailSerie.gif) 
 
 ## `Favorites`
-https://github.com/TaisYuri/Movies/assets/76975737/5b47117e-ab14-44a4-bf16-9d5b06e4970a
+![favorites](https://github.com/TaisYuri/Movies/blob/master/src/assets/videos_gif/favorite.gif)
 
 ## `Search`
-https://github.com/TaisYuri/Movies/assets/76975737/608fbdea-9535-4ce8-8e68-ef3a46eba218
+![search](https://github.com/TaisYuri/Movies/blob/master/src/assets/videos_gif/search.gif)
 
 ## Contribution
 Layout criado por mim e design no Figma por [Jessica Torres](https://github.com/jessicagtorres)
