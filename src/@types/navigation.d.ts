@@ -1,3 +1,4 @@
+import { typeDetailProps } from 'src/hooks/useHandleTypeDetails/types';
 import { RouteParams } from '../screens/PlusMovies/types';
 
 export declare global {
@@ -6,7 +7,7 @@ export declare global {
       home: undefined;
       favorites: undefined;
       actionMenu: RouteParams;
-      details: { id: string };
+      details: { id: string; type: typeDetailProps };
       trailers: { movieId: string };
     }
   }

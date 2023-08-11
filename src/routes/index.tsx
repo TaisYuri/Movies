@@ -41,6 +41,22 @@ function StackNav(): JSX.Element {
     </Stack.Navigator>
   );
 }
+function StacksSearch(): JSX.Element {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        name="search"
+        component={Search}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="details"
+        component={Details}
+        options={{ headerShown: false }}
+      />
+    </Stack.Navigator>
+  );
+}
 function StacksProfile(): JSX.Element {
   return (
     <Stack.Navigator>
@@ -87,7 +103,7 @@ export function Routes(): JSX.Element {
 
       <Bottom.Screen
         name="Search"
-        component={Search}
+        component={StacksSearch}
         options={{
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons
