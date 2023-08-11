@@ -1,15 +1,15 @@
 # Movies
 
-Aplicativo desenvolvido em React native com Typescript, coonsumindo a API [The Movie DB](https://www.themoviedb.org)
+App developed in React Native with Typescript, consuming the API The MovieDB [The Movie DB](https://www.themoviedb.org)
 
-Utilizando EAS Build para hospedagem, o aplicativo pode ser explorado através do Expo (Expo Application Services). 
+Using EAS Build for hosting, the app can be explored through Expo (Expo Application Services). 
 
 https://github.com/TaisYuri/Movies/assets/76975737/67bb97cf-1ed3-4ed3-8a01-2015e5bc0fef 
 
 ## Usage
-1. necessário a instalação do aplicativo EXPO em seu celular.
-2. scaneie o QrCode de acordo com seu sistema operacional.
-![imagem_2023-08-09_233550670](https://github.com/TaisYuri/Movies/assets/76975737/935f7f3f-15e1-4b8f-81e8-c0d23136637a)
+1. Necessary install Expo app in your phone.
+2. Scan the QRCode according to your operating system (iOS or Android).
+![imagem_2023-08-10_213904363](https://github.com/TaisYuri/Movies/assets/76975737/f8b27942-72c1-48a1-9cdd-84eda3f8a121)
 
 
 ## Installation
@@ -48,6 +48,6 @@ yarn
 ![search](https://github.com/TaisYuri/Movies/blob/master/src/assets/videos_gif/search.gif)
 
 ## Contribution
-Layout criado por mim e design no Figma por [Jessica Torres](https://github.com/jessicagtorres)
+Layout made by me and design on Figma by [Jessica Torres](https://github.com/jessicagtorres)
 
-Link do [Figma](https://www.figma.com/file/IQqQxieh4kLdAMwoDqEINZ/Protótipo?type=design&node-id=0-1&mode=design&t=MCWEHch7lXi25hMb-0)
+Figma link [Figma](https://www.figma.com/file/IQqQxieh4kLdAMwoDqEINZ/Protótipo?type=design&node-id=0-1&mode=design&t=MCWEHch7lXi25hMb-0)
