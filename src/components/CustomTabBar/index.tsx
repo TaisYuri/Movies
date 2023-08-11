@@ -49,7 +49,7 @@ export function CustomTabBar({
             }
           };
 
-          const onLongPress = () => {
+          const onLongPress = (): void => {
             navigation.emit({
               type: 'tabLongPress',
               target: route.key,
