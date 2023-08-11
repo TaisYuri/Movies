@@ -19,19 +19,19 @@ export function Profile(): JSX.Element {
   const navigation = useNavigation();
   const theme = useTheme();
 
-  const handleButton = () => {
+  const handleButton = (): void => {
     setData(!themeLight);
     setIsDarkTheme(!isDarkTheme);
   };
 
   return (
     <>
-      <Header title="Profile" />
+      <Header title="Conta" />
       <Container>
         <ContentSwitch>
-          <Feather name="moon" size={24} color={theme.colors.base} />
-          <Switch onValueChange={handleButton} value={isDarkTheme} />
           <Feather name="sun" size={24} color={theme.colors.base} />
+          <Switch onValueChange={handleButton} value={isDarkTheme} />
+          <Feather name="moon" size={24} color={theme.colors.base} />
         </ContentSwitch>
         <NavMenu>
           <Diviser />

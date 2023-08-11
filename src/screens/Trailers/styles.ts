@@ -8,7 +8,9 @@ export const Container = styled.View`
 `;
 
 export const Content = styled.View`
-  margin-top: 50px;
+  margin-top: 70px;
+  margin-left: 8px;
+  margin-right: 8px;
 `;
 export const BoxVideo = styled.View`
   margin: 0px 16px;
@@ -29,6 +31,11 @@ export const ContentInfos = styled.View`
   align-items: center;
 `;
 
+export const Title = styled.Text`
+  color: ${({ theme }) => theme.colors.base};
+  font-size: 18px;
+  margin-top: 8px;
+`;
 export const SubTitle = styled.Text`
   color: ${({ theme }) => theme.colors.base};
   font-size: 14px;

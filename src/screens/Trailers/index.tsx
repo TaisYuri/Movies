@@ -12,6 +12,7 @@ import {
   ViewNotFind,
   TitleNotFind,
   SubtitleNotFind,
+  Title,
 } from './styles';
 import { ITrailer } from './types';
 import { useRoute } from '@react-navigation/native';
@@ -22,7 +23,6 @@ import { Header } from 'src/components/Header';
 import { useGetTrailers } from 'src/hooks/useGetTrailers';
 import { Loading } from 'src/components/Loading';
 import { useTheme } from 'styled-components/native';
-import { Title } from 'src/components/Title';
 
 export function Trailers(): JSX.Element {
   const routeNavigation = useRoute();
@@ -32,8 +32,8 @@ export function Trailers(): JSX.Element {
   const [videoReady, setVideoReady] = useState(false);
 
   const { width, height } = useWindowDimensions();
-  const VIDEO_WIDTH = width - 32;
-  const VIDEO_HEIGHT2 = height / 4 - 8;
+  const VIDEO_WIDTH = width - 48;
+  const VIDEO_HEIGHT2 = height / 4 - 16;
 
   const { getTrailers, isLoading, value } = useGetTrailers();
 
@@ -57,7 +57,7 @@ export function Trailers(): JSX.Element {
     <Container>
       <Header title="Trailers" />
       <Content>
-        {value?.slice(0, 3)?.map((item) => {
+        {value?.slice(0, 2)?.map((item) => {
           return (
             <View key={item.key}>
               <BoxVideo>
