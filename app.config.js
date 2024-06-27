@@ -27,12 +27,13 @@ export default {
     ios: {
       bundleIdentifier: 'com.taisyuri.movies',
       buildNumber: '1.0.0',
-      jsEngine: 'jsc',
+      jsEngine: 'hermes',
     },
     android: {
       package: 'com.taisyuri.movies',
       versionCode: 1,
-      jsEngine: 'jsc',
+      jsEngine: 'hermes',
+      hermesEnabled: true,
       api_key: process.env.API_KEY,
       access_token: process.env.ACCESS_TOKEN,
     },
