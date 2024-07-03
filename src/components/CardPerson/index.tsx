@@ -26,7 +26,7 @@ export function CardPerson({
           <Poster
             size={size}
             source={{ uri: `https://image.tmdb.org/t/p/w500/${profilePath}` }}
-            resizeMode="contain"
+            resizeMode="cover"
           />
         </ContainerPoster>
       ) : (

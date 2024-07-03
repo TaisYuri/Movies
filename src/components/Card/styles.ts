@@ -6,19 +6,19 @@ export const Container = styled(TouchableOpacity)`
 `;
 
 export const ContainerPoster = styled.View`
-  width: 170px;
+  width: 150px;
   height: 220px;
   border-radius: 12px;
   background-color: #eee;
 `;
 export const Poster = styled.Image`
-  width: 170px;
+  width: 150px;
   height: 220px;
   border-radius: 12px;
   position: absolute;
 `;
 export const PosterWithoutImg = styled.View`
-  width: 170px;
+  width: 150px;
   height: 220px;
   border-radius: 12px;
   background-color: ${({ theme }) => theme.colors.primary};

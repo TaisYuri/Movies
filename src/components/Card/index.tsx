@@ -33,7 +33,7 @@ export function Card({
           <Shimmer size={'xl'} typeCard="movie" />
           <Poster
             source={{ uri: `https://image.tmdb.org/t/p/w500/${uri}` }}
-            resizeMode="contain"
+            resizeMode="stretch"
           />
         </ContainerPoster>
       ) : (

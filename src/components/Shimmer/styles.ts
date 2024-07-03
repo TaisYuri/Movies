@@ -16,7 +16,7 @@ export const ContentShimmerPerson = styled.View<IShimmer>`
   overflow: hidden;
 `;
 export const ContentShimmerMovie = styled.View<IShimmer>`
-  width: ${(props) => (props.size === 'xl' ? '170' : '80')}px;
+  width: ${(props) => (props.size === 'xl' ? '150' : '80')}px;
   height: ${(props) => (props.size === 'xl' ? '220' : '80')}px;
   border-radius: 12px;
   background-color: #c2c2c2;
